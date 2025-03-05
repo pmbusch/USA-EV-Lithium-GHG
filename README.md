@@ -6,12 +6,11 @@ If you identify any error in the source code or have any further suggestions ple
 
 # Organization
 
-* **Data**: Data inputs used in the analysis. 
+* **Inputs**: Data inputs used in the analysis. 
 * **Figures**: PNG version of the figures of the article main body. 
 * **Scripts**: All code to process the data, run models and create figures. Each script starts with a description of the file purpose. Through the file there are several explanatory  comments.  
 * **Parameters**: Intermediate Results needed to run Optimization or re-create figures.
 * **Results**: Aggregated results stored to recreate tables and figures.
-
 
 
 # License
