@@ -1,0 +1,16 @@
+EIA_Fuel,ecoinvent_fuel
+Distributed Generation,"photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted"
+Nuclear,"nuclear, pressure water reactor"
+Pumped Storage/Other,"hydro, pumped storage"
+Petroleum,oil
+Coal,lignite
+Natural Gas Combined Cycle,"natural gas, combined cycle power plant"
+Natural Gas Conventional,"natural gas, conventional power plant"
+Wind,"wind, >3MW turbine, onshore"
+Offshore Wind,"wind, 1-3MW turbine, offshore"
+Solar Photovoltaic,"photovoltaic, 570kWp open ground installation, multi-Si"
+Hydropower,"hydro, reservoir, non-alpine region"
+Solar Thermal,"solar thermal parabolic trough, 50 MW"
+Geothermal,deep geothermal
+Wood and Other Biomass,"wood, future"
+Biogenic Municipal Waste,"electricity, from municipal waste incineration to generic market for electricity, medium voltage"
