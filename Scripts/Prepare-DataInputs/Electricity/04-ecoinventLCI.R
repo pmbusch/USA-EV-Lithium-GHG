@@ -57,7 +57,7 @@ unique(ecoinvent$Region)
 
 # GWP values AR6 ------
 gwp <- read_excel(paste0(url_file,"/LCI_ecoinvent.xlsx"),
-                  sheet="GWP100_AR6",range="A22:G329")
+                  sheet="GWP100_AR6",range="A22:G325")
 
 # Functional Unit
 ecoinvent %>% filter(Type=="Outputs") %>%
@@ -66,7 +66,7 @@ ecoinvent %>% filter(Type=="Outputs") %>%
 # Remove heat as output
 ecoinvent <- ecoinvent %>% filter(str_detect(Name,"electricity"))
 
-# Add GWP and estimate emissions
+# Add GWP and estimate emissions - both Inputs and Outputs
 df_gwp <- ecoinvent %>% rename(Flow=Flows) %>% 
   left_join(gwp,by="Flow")
 names(df_gwp)
@@ -87,7 +87,9 @@ write.csv(df_gwp,"Parameters/ecoinvent_GHG_electricity.csv",row.names = F)
 # df_gwp <- read.csv("Parameters/ecoinvent_GHG_electricity.csv")
 data_fig <- df_gwp %>% 
   mutate(Name=str_remove(Name,"electricity production, ") %>% 
-           str_remove("electricity, high voltage, ")) %>% 
+           str_remove("electricity, high voltage, ") %>% 
+           str_remove(" to generic market for electricity, medium voltage") %>% 
+           str_remove("electricity, from ")) %>% 
   filter(!str_detect(Name,"import|voltage"))
 
 order_name <- data_fig %>% group_by(Name) %>% 
@@ -192,7 +194,9 @@ write.csv(df_others,
 # df_others <- read.csv("Parameters/ecoinvent_OtherImpacts_electricity.csv")
 data_fig <- df_others %>% 
   mutate(Name=str_remove(Name,"electricity production, ") %>% 
-           str_remove("electricity, high voltage, ")) %>% 
+           str_remove("electricity, high voltage, ") %>% 
+           str_remove(" to generic market for electricity, medium voltage") %>% 
+           str_remove("electricity, from ")) %>% 
   filter(!str_detect(Name,"import|voltage")) %>% 
   mutate(impact=paste0(impact," ",unit))
 
