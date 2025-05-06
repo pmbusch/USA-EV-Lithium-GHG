@@ -172,18 +172,49 @@ tigcounties <- subset(tigcounties,!is.na(tigcounties$kg_co2e))
 # https://stackoverflow.com/questions/13757771/relocating-alaska-and-hawaii-on-thematic-map-of-the-usa-with-ggplot2
 geo_shifted <- shift_geometry(tigcounties,position = "below",preserve_area = FALSE)
 
-ggplot(geo_shifted) +
+map <- ggplot(geo_shifted) +
   geom_sf(aes(fill = kg_co2e), color = "black",linewidth=0.05) +
   facet_wrap(~period)+
   scale_fill_gradientn(colors = c("tan", "darkred"))+
   # coord_sf(xlim = c(-125, -66), ylim = c(24, 50)) +  # Continental US bounds
   labs(fill=expression("Grid Intensity [kg CO"["2"]*"e per MWh]"))+
   theme_void()+
-  theme(legend.position = "bottom")+
-  guides(fill = guide_colorbar(barwidth = 15))  
+  theme(legend.position = "none",
+        plot.margin = margin(0, 0, 0, 0))+
+  guides(fill = guide_colorbar(barwidth = 50))  
+map
+
+# histogram to show legend
+hist <- ggplot(geo_shifted,aes(kg_co2e,fill=after_stat(x)))+
+  geom_histogram(col="white",binwidth = 50,boundary=0)+
+  facet_wrap(~period,ncol=2,scales="free_x")+
+  scale_x_continuous(limits = c(0,1.01e3))+
+  scale_fill_gradientn(colors = c("tan", "darkred"))+
+  coord_cartesian(expand = F)+
+  labs(x=expression("Grid Intensity [kg CO"["2"]*"e per MWh]"),y="")+
+  theme_bw(10)+
+  theme(panel.grid = element_blank(),
+        legend.position = "none",
+        # strip.text = element_text(face = "bold"),
+        strip.text = element_blank(),
+        panel.border = element_blank(),
+        axis.line.x = element_line(color = "black"),
+        strip.background = element_blank(),
+        plot.margin = margin(0, 0, 0, 0),
+        panel.spacing = unit(3, "cm"),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+hist
+
+library(cowplot)
+# combine them
+ggdraw() +
+  draw_plot(hist, 0, 0.1, 0.9, 0.2)+ 
+  draw_plot(map, 0, 0.05, 1, 0.95)
 
 ggsave("Figures/Electricity_CO2_map.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=8.7*2.2,height=12)
+
 
 # Figure of MIX by time -----
 
