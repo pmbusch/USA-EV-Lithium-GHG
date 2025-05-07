@@ -189,6 +189,7 @@ consumption <- consumption %>%
   mutate(total_vmt=vmt*fleet)
 sum(consumption$fleet)/1e9 # 3.24
 
+write.csv(consumption,"Results/total_VMT.csv",row.names = F)
 
 # get total gallons of gasoline or kWh consumed
 

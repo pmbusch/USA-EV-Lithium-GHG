@@ -138,7 +138,7 @@ ggplot(electricity_state,aes(period,kg_co2e,group=State,col=state_color))+
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),
     legend.position="none")
 
-ggsave("Figures/Electricity_CO2.png", ggplot2::last_plot(),units="cm",
+ggsave("Figures/Electricity/Electricity_CO2.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=8.7*2.2,height=12)
 
 ## map figure ------
@@ -212,7 +212,7 @@ ggdraw() +
   draw_plot(hist, 0, 0.1, 0.9, 0.2)+ 
   draw_plot(map, 0, 0.05, 1, 0.95)
 
-ggsave("Figures/Electricity_CO2_map.png", ggplot2::last_plot(),units="cm",
+ggsave("Figures/Electricity/Electricity_CO2_map.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=8.7*2.2,height=12)
 
 
@@ -258,7 +258,7 @@ mix %>%
         legend.key.width= unit(0.25, 'cm'),
         legend.background = element_rect(fill = "transparent", color = NA))
 
-ggsave("Figures/Mix.png", ggplot2::last_plot(),units="cm",
+ggsave("Figures/Electricity/Mix.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=18.5,height=9.7)
 
 

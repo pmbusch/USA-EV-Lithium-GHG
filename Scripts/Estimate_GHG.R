@@ -136,7 +136,36 @@ write.csv(df,"Results/tonsGHG.csv",row.names = F)
 
 # Common sense checks
 
-# PENDING
+# total emissions by year
+df %>% 
+  filter(Year %in% c(2030,2040,2050)) %>% 
+  group_by(vehicle_type,Year) %>% 
+  reframe(mtons=sum(tonsCO2e)/1e6) %>% 
+  pivot_wider(names_from = Year, values_from = mtons)
+
+# For reference, US entire transport sector emissions in 2022: 1800 Mtons CO2e
+# source: https://cfpub.epa.gov/ghgdata/inventoryexplorer/#transportation/entiresector/allgas/category/current
+
+# by vmt
+vmt <- read.csv("Results/total_VMT.csv")
+vmt <- vmt %>% group_by(Year) %>% reframe(vmt=sum(total_vmt)/1e6) %>% ungroup()
+
+vmt[2,2]/1e6 # trillion
+vmt[22,2]/1e6 # trillion
+
+# 2023, 3.19 trillion miles in USA
+# https://afdc.energy.gov/data/10315
+
+vmt_total <- sum(vmt$vmt)*1e6 # total miles
+
+# GHG intensity (gr CO2 per mile)
+df %>% 
+  group_by(vehicle_type) %>% 
+  reframe(CI=sum(tonsCO2e)*1e6) %>% ungroup() %>% # to grams 
+  mutate(CI=CI/vmt_total,
+         CI_km=CI/1.609)
+# 156 for EV, 310 for ICE , same ballpark as https://www.nature.com/articles/s41598-024-51697-1
+
 
 
 # Exploratory figures -----
@@ -144,42 +173,61 @@ write.csv(df,"Results/tonsGHG.csv",row.names = F)
 # by lithium
 total_type <- df %>% 
   group_by(vehicle_type) %>% 
-  reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup()  
+  reframe(tonsCO2e=sum(tonsCO2e)/1e6) %>% ungroup() %>% 
+  mutate(lab_total=paste0(round(tonsCO2e,0)," Mtons"))
 
-# US Lithium Demand
-lithium_demand <- read.csv("Parameters/MineralDemand_FewScenarios.csv")
-lithium_demand <- lithium_demand %>% 
-  filter(Mineral=="Lithium") %>%
-  filter(Year<2051) %>% 
-  filter(scen_all=="Ambitious-Baseline-Baseline-Baseline-Baseline") %>% 
-  filter(Region=="United States",Vehicle %in% c("Car","Additional LIB"),
-         Powertrain=="BEV")
-lithium_demand <- lithium_demand %>% 
-  group_by(Year) %>% reframe(tons_mineral=sum(tons_mineral)) %>% ungroup()
+# load lithium
+lithium_demand <- read.csv("Results/LiDemand.csv")
 
 # reduction in ton CO2e per ton of lithium 
-(total_type[2,2]-total_type[1,2])/sum(lithium_demand$tons_mineral)
+(li_red <- (total_type[2,2]-total_type[1,2])/(sum(lithium_demand$Lithium_tons)/1e6))
 
-# 1.7 tons CO2e avoided per kg of lithium
+# 2.1 tons CO2e avoided per kg of lithium
+# why allocate everything to lithium???? 
 
+# based on value by content
+(li_value <- read.csv("Results/LiValue.csv"))
+li_red*li_value[4,4] # 73 kg CO2e per kg Lithium extracted
+
+
+# million tons
 total_df <- df %>% 
   group_by(vehicle_type,Stage) %>% 
-  reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup()  
+  reframe(tonsCO2e=sum(tonsCO2e)/1e6) %>% ungroup()
 
-
-ggplot(total_df,aes(vehicle_type,tonsCO2e,fill=Stage))+
-  geom_col(position = position_stack())+
-  labs(x="",y="")+
+ggplot(total_df,aes(vehicle_type,tonsCO2e))+
+  geom_col(aes(fill=Stage),position = position_stack(),
+           col="black",linewidth=0.1)+
+  geom_text(data=total_type,aes(label=lab_total),size=8*5/14 * 0.8,
+            nudge_y = 1000)+
+  scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE))+
+  scale_fill_viridis_d(direction = -1,option = "E")+
+  labs(x="",y="",title = "Million tons CO2e emissions, 2022-2050")+
   theme_bw(8)+
   theme(panel.grid = element_blank())
 
+ggsave("Figures/GHG_fleet.png", ggplot2::last_plot(),units="cm",dpi=600,width=8.7,height=8.7)
 
 
+# over time
 df %>% 
-  group_by(Year,vehicle_type) %>% 
-  reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>% 
-  ggplot(aes(Year,tonsCO2e,col=vehicle_type))+
-  geom_line()
+  # group_by(Year,vehicle_type) %>% 
+  # reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>% 
+  mutate(tonsCO2e=tonsCO2e/1e6) %>% 
+  ggplot(aes(Year,tonsCO2e,fill=Stage))+
+  geom_area()+
+  facet_wrap(~vehicle_type)+
+  coord_cartesian(expand = F)+
+  scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE))+
+  scale_fill_viridis_d(direction = -1,option = "E")+
+  scale_x_continuous(breaks = c(2022, 2030, 2040, 2050))+
+  labs(x="",y="",title = "Million tons CO2e emissions")+
+  theme_bw(8)+
+  theme(panel.grid = element_blank(),
+        panel.spacing = unit(1, "cm"))
+
+ggsave("Figures/GHG_fleet_time.png", ggplot2::last_plot(),units="cm",
+       dpi=600,width=8.7*2,height=8.7)
 
 
 # EoF

@@ -105,7 +105,7 @@ ggplot(data_fig,aes(Name,kg_co2e))+
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),
         legend.position = c(0.7,0.3))
 
-ggsave("Figures/ecoinvent.png", 
+ggsave("Figures/Electricity/ecoinvent.png", 
        ggplot2::last_plot(),units="cm",dpi=600,width=8.7*2,height=8.7)
         
 # Other Impact Categories - Traci 2.1 ----------
@@ -214,7 +214,7 @@ ggplot(data_fig,aes(Name,value))+
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),
         legend.position = c(0.7,0.2))
 
-ggsave("Figures/ecoinventOtherImpacts.png", 
+ggsave("Figures/Electricity/ecoinventOtherImpacts.png", 
        ggplot2::last_plot(),units="cm",dpi=600,width=8.7*3,height=8.7*2)
 
 # EoF
