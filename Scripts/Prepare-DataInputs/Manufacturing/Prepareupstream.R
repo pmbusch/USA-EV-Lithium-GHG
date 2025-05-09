@@ -179,25 +179,85 @@ write_csv(Gas_upstream, "Inputs/Gas_upstream.csv")
 
 
 # Vehicle Production(Exclude EV Battery)---------
-Vehi_Prod<- read_excel(sprintf(url_file,"GREET2024_Data.xlsx"), 
-                       sheet = "Vehi_Prod", col_names = FALSE)
 
-Prod_ICE <- data.frame(
-  vehicle_type = "ICE",
-  Emissions = as.character(Vehi_Prod[11:23, ][[1]]),
-  g_per_vehlife = as.numeric(Vehi_Prod[11:23, ][[6]])
-)
-Prod_BEV <- data.frame(
-  vehicle_type = "EV",
-  Emissions = as.character(Vehi_Prod[43:55, 1][[1]]),
-  g_per_vehlife = as.numeric(Vehi_Prod[43:55, 6][[1]]) - as.numeric(Vehi_Prod[43:55, 4][[1]])
-)
+Vehi_Prod <- read_excel(sprintf(url_file, "GREET2024_Data.xlsx"), 
+                        sheet = "Vehi_Prod", col_names = FALSE)
+
 GWP_factors <- c(CO2 = 1, CH4 = 29.8, N2O = 273)
-Prod_Veh <- bind_rows(Prod_ICE, Prod_BEV) %>%
+
+# ICE vehicle data
+get_ICE <- function(rows, category) {
+  data.frame(
+    vehicle_type = "ICE",
+    vehicle_class = category,
+    Emissions = as.character(Vehi_Prod[rows, 1][[1]]),
+    g_per_vehlife = as.numeric(Vehi_Prod[rows, 6][[1]])
+  )
+}
+
+# BEV vehicle data (exclude battery-related emissions)
+get_BEV <- function(rows, category) {
+  data.frame(
+    vehicle_type = "EV",
+    vehicle_class = category,
+    Emissions = as.character(Vehi_Prod[rows, 1][[1]]),
+    g_per_vehlife = as.numeric(Vehi_Prod[rows, 6][[1]]) - as.numeric(Vehi_Prod[rows, 4][[1]])
+  )
+}
+
+Prod_CAR_ICE <- get_ICE(11:23, "CAR")
+Prod_CAR_BEV <- get_BEV(43:55, "CAR")
+
+Prod_SUV_ICE <- get_ICE(75:87, "SUV")
+Prod_SUV_BEV <- get_BEV(107:119, "SUV")
+
+Prod_PUT_ICE <- get_ICE(140:152, "PUT")
+Prod_PUT_BEV <- get_BEV(172:184, "PUT")
+
+Prod_Veh <- bind_rows(
+  Prod_CAR_ICE, Prod_CAR_BEV,
+  Prod_SUV_ICE, Prod_SUV_BEV,
+  Prod_PUT_ICE, Prod_PUT_BEV
+) %>%
   mutate(
-    GWP_factor = GWP_factors[Emissions],
-    GWP_component = g_per_vehlife * GWP_factor
+    GWP_factor = GWP_factors[Emissions],  
+    GWP_component = g_per_vehlife * GWP_factor  
   )
 write_csv(Prod_Veh, "Inputs/Prod_Veh.csv")
+
+
+# LIB Recycling ---------
+
+LIB_Rec <- read_excel(sprintf(url_file, "GREET2024_Data.xlsx"), 
+                      sheet = "LIB_Recycling", col_names = FALSE)
+
+
+GWP_factors <- c(CO2 = 1, CH4 = 29.8, N2O = 273)
+
+chemistries <- as.character(unlist(LIB_Rec[2, 2:8]))
+emission_names <- as.character(unlist(LIB_Rec[10:20, 1]))
+emission_values <- LIB_Rec[10:20, 2:8] %>% 
+  mutate_all(as.numeric) 
+
+emission_matrix <- as.matrix(emission_values)
+rownames(emission_matrix) <- emission_names
+colnames(emission_matrix) <- chemistries
+
+# GHG rows 
+GHG_rows <- intersect(names(GWP_factors), rownames(emission_matrix))
+GHG_data <- emission_matrix[GHG_rows, , drop = FALSE]
+
+# Apply GWP multipliers
+for (gas in GHG_rows) {
+  GHG_data[gas, ] <- GHG_data[gas, ] * GWP_factors[gas]
+}
+
+LIBRec_GWP <- as.data.frame(t(GHG_data))
+LIBRec_GWP$Total_GWP_g_per_ton <- rowSums(LIBRec_GWP)
+LIBRec_GWP <- tibble::rownames_to_column(LIBRec_GWP, var = "Chemistry")
+
+write_csv(LIBRec_GWP, "Inputs/LIBRec_GWP.csv")
+
+
 
 
