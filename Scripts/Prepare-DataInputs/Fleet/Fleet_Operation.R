@@ -122,7 +122,25 @@ vmt[,c(2,4)] <- NULL
 names(vmt) <- c("age","Car","Light Truck")
 vmt <- vmt %>% 
   pivot_longer(c(-age), names_to = "vehSize", values_to = "vmt")
-vmt %>% group_by(vehSize) %>% reframe(vmt=sum(vmt)/1e3)
+(tot <- vmt %>% group_by(vehSize) %>% reframe(vmt=sum(vmt)) %>% 
+    mutate(labe=paste0("",round(vmt/1e3,0)," thousand miles")))
+
+ggplot(vmt,aes(age,vmt,fill=vehSize))+
+  geom_col(position = "dodge",col="black",linewidth=0.1)+
+  geom_text(data=tot,x=16,y=14e3,aes(label=labe),
+            size=9*5/14 * 0.8)+
+  facet_wrap(~vehSize)+
+  coord_cartesian(expand=F)+
+  labs(x="Vehicle Age",y="",fill="",title="Annual miles traveled",col="")+
+  scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE))+
+  theme_bw(8)+
+  theme(panel.grid = element_blank(),
+        legend.position = "none")
+
+ggsave("Figures/Fleet/vmt.png", 
+       ggplot2::last_plot(),units="cm",dpi=600,width=8.7*1.5,height=8.7)
+
+
 
 # Fleet ----
 fleet <- read.csv("Parameters/USA_fleet.csv") %>% 
@@ -171,6 +189,7 @@ consumption <- consumption %>%
   mutate(total_vmt=vmt*fleet)
 sum(consumption$fleet)/1e9 # 3.24
 
+write.csv(consumption,"Results/total_VMT.csv",row.names = F)
 
 # get total gallons of gasoline or kWh consumed
 
@@ -201,7 +220,7 @@ cons <- consumption_ev %>%
   group_by(Year,State) %>% 
   reframe(total_kwh=sum(total_kwh))
 
-write.csv(cons,"EV_kwh_consumption.csv",row.names = F)
+write.csv(cons,"Parameters/EV_kwh_consumption.csv",row.names = F)
 
 # Same but as the whole fleet was gasoline
 fe_ice <- fe %>% filter(vehType=="Gasoline")
@@ -219,7 +238,7 @@ cons <- consumption_ice %>%
   group_by(Year,State) %>% 
   reframe(total_gallons=sum(total_gallons))
 
-write.csv(cons,"ICE_gasGallons_consumption.csv",row.names = F)
+write.csv(cons,"Parameters/ICE_gasGallons_consumption.csv",row.names = F)
 
 
 # EoF

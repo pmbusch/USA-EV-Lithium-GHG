@@ -10,7 +10,6 @@
 # Load Data
 source("Scripts/00-Libraries.R", encoding = "UTF-8")
 
-
 ## Reuse statistics from Survival Model -----
 reuse <- read.csv("Inputs/region_outflows_LIB.csv",
                   stringsAsFactors = FALSE)
@@ -32,7 +31,7 @@ reuse <- reuse %>%
 
 # sales are direct
 sales <- reuse %>% dplyr::select(Year,Sales)
-write.csv(fleet,"Parameters/salesEV.csv",row.names = F)
+write.csv(sales,"Parameters/salesEV.csv",row.names = F)
 
   
 # Fleet at 2050 ------------
