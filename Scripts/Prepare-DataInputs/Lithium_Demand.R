@@ -36,12 +36,42 @@ bat <- bat %>%
 li_veh <- sum(bat$kg_veh) # in kg
 
 # Lithium demand, in tons
-sales <- sales %>% mutate(Lithium_tons=Sales*li_veh/1e3) %>% 
+cathode_scrap <- 0.04 # manufacturing scrap
+sales <- sales %>% mutate(Lithium_tons=Sales*li_veh/1e3/(1-cathode_scrap)) %>% 
   mutate(Sales=NULL)
 
 sum(sales$Lithium_tons)/1e6 # 3 M tons
 
+
+# Account for Recycling flows
+us_recycling <- 0.05
+
+LIB_failure <- read.csv("Parameters/LIB_failure.csv")
+LIB_available <- read.csv("Parameters/LIB_available.csv")
+LIB_available$LIB <- LIB_available$LIB*0.5 # Other half goes to SSPS
+
+Li_recycled <- rbind(LIB_failure,LIB_available) %>% 
+  group_by(Year) %>% 
+  reframe(LIB=sum(LIB)) %>% ungroup() %>% 
+  mutate(Li_recycled_tons=LIB*li_veh*us_recycling/1e3,
+         LIB=NULL)
+
+# add scrap to recycling
+Li_recycled$Li_recycled_tons <- Li_recycled$Li_recycled_tons+
+  sales$Lithium_tons*cathode_scrap*us_recycling
+
+# delay one year
+Li_recycled <- Li_recycled %>% mutate(Year=Year+1) %>% 
+  filter(Year<2051) %>% 
+  rbind(tibble(Year=2022,Li_recycled_tons=0)) %>% arrange(Year)
+
+# reduce primary Lithium extraction
+sales$Lithium_tons <- sales$Lithium_tons-Li_recycled$Li_recycled_tons
+
 write.csv(sales,"Results/LiDemand.csv",row.names = F)
+write.csv(Li_recycled,"Results/LiRecycled",row.names = F)
+
+
 
 # Share of value in the battery, by Mineral price
 
@@ -63,5 +93,8 @@ value <- bat %>% group_by(Mineral) %>%
 value
 
 write.csv(value,"Results/LiValue.csv",row.names = F)
+
+
+
 
 # EoF

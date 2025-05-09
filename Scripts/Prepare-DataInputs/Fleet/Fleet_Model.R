@@ -70,7 +70,28 @@ range(addLIB$age)
 range(addLIB$modelYear)
 write.csv(addLIB,"Parameters/LIB_replacement.csv",row.names = F)
 
-# Recyling may need to come from full model results, to account for SSPS
+# LIBS that failed and can be used to recycle
+LIB_recyc <- reuse %>%
+  mutate(age = map(LIB_recycling_vector, seq_along),
+         LIB = map(LIB_recycling_vector, as.numeric)) %>%
+  unnest_longer(c(LIB_recycling_vector, age, LIB)) %>%
+  mutate(age=age-1) %>% 
+  mutate(modelYear=Year-age) %>% 
+  dplyr::select(Year,age,modelYear,LIB) %>% 
+  filter(LIB>0)
+write.csv(LIB_recyc,"Parameters/LIB_failure.csv",row.names = F)
+
+# LIBS in good condition available to recycle or SSPS
+LIB_available <- reuse %>%
+  mutate(age = map(LIB_Available_vector, seq_along),
+         LIB = map(LIB_Available_vector, as.numeric)) %>%
+  unnest_longer(c(LIB_Available_vector, age, LIB)) %>%
+  mutate(age=age-1) %>% 
+  mutate(modelYear=Year-age) %>% 
+  dplyr::select(Year,age,modelYear,LIB) %>% 
+  filter(LIB>0)
+write.csv(LIB_available,"Parameters/LIB_available.csv",row.names = F)
+
 
 
 # Figures ------

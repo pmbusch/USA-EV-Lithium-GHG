@@ -84,6 +84,7 @@ ggplot(share_eia_size,aes(period,share,fill=vehSize))+
 ggsave("Figures/Fleet/EIA_types.png", ggplot2::last_plot(),
        units="cm",dpi=600,width=8.7*2,height=8.7)
 
+write.csv(share_eia_size,"Parameters/EIA_carTrucks_share.csv",row.names = F)
 
 ## Join to data to get FE by year of model
 unique(fe$full.name)
@@ -141,7 +142,6 @@ ggsave("Figures/Fleet/vmt.png",
        ggplot2::last_plot(),units="cm",dpi=600,width=8.7*1.5,height=8.7)
 
 
-
 # Fleet ----
 fleet <- read.csv("Parameters/USA_fleet.csv") %>% 
   mutate(modelYear=Year-age)
@@ -160,7 +160,6 @@ consumption <- fleet %>%
   left_join(ev_state_share,by=c("modelYear"="period")) %>% 
   mutate(fleet=fleet*ev_share)
 sum(consumption$fleet)/1e9 # 3.24
-
 
 # add VMT, but first divide fleet into cars-light trucks at each modelyear based on national EIA projections
 dict_reg <- read.csv("Inputs/Join_TransportEIA_State.csv")
@@ -182,6 +181,44 @@ consumption <- consumption %>%
   mutate(fleet=fleet*share,share=NULL)
 sum(consumption$fleet)/1e9 # 3.24
 
+
+# BEGIN PARENTHESIS
+
+# save fleet with vehicle type
+fleet_type <- consumption %>% 
+  group_by(Year,age,modelYear,vehSize) %>% 
+  reframe(fleet=sum(fleet)) %>% ungroup()
+sum(fleet_type$fleet)/1e9
+write.csv(fleet_type,"Parameters/USA_fleet_type.csv",row.names = F)
+
+# do the same for sales
+sales <- read.csv("Parameters/salesEV.csv")
+sum(sales$Sales)/1e6 # 312
+# first by state, then by vehicle type
+sales <- sales %>% 
+  left_join(ev_state_share,by=c("Year"="period")) %>% 
+  mutate(Sales=Sales*ev_share,ev_share=NULL) %>% 
+  left_join(join_size,by=c("State","Year"="period")) %>% 
+  mutate(Sales=Sales*share,share=NULL) %>% 
+  group_by(Year,vehSize) %>% 
+  reframe(Sales=sum(Sales)) %>% ungroup()
+sum(sales$Sales)/1e6 # 312
+write.csv(sales,"Parameters/salesEV_type.csv",row.names = F)
+
+# LIB replacement
+addLIB <- read.csv("Parameters/LIB_replacement.csv")
+sum(addLIB$LIB)/1e6 # 63
+addLIB <- addLIB %>% 
+  left_join(ev_state_share,by=c("modelYear"="period")) %>% 
+  mutate(LIB=LIB*ev_share,ev_share=NULL) %>% 
+  left_join(join_size,by=c("State","modelYear"="period")) %>% 
+  mutate(LIB=LIB*share,share=NULL) %>% 
+  group_by(Year,age,modelYear,vehSize) %>% 
+  reframe(LIB=sum(LIB)) %>% ungroup()
+sum(addLIB$LIB)/1e6
+write.csv(addLIB,"Parameters/LIB_replacement_type.csv",row.names = F)
+
+# END PARENTHESIS
 # add VMT
 head(vmt)
 consumption <- consumption %>% 
@@ -217,7 +254,7 @@ sum(consumption_ev$total_kwh)/sum(consumption_ev$fleet) # 4266
 # aggregate at state level
 head(consumption_ev)
 cons <- consumption_ev %>% 
-  group_by(Year,State) %>% 
+  group_by(Year,State,vehSize) %>% 
   reframe(total_kwh=sum(total_kwh))
 
 write.csv(cons,"Parameters/EV_kwh_consumption.csv",row.names = F)
@@ -235,10 +272,9 @@ sum(consumption_ice$total_vmt)/sum(consumption_ice$fleet)
 # aggregate at state level
 head(consumption_ice)
 cons <- consumption_ice %>% 
-  group_by(Year,State) %>% 
+  group_by(Year,State,vehSize) %>% 
   reframe(total_gallons=sum(total_gallons))
 
 write.csv(cons,"Parameters/ICE_gasGallons_consumption.csv",row.names = F)
-
 
 # EoF
