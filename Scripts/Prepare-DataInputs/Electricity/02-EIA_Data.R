@@ -160,7 +160,7 @@ p3+facet_wrap(~region,scales="free_y")+
         legend.key.width= unit(0.25, 'cm'),
         legend.background = element_rect(fill = "transparent", color = NA))
 
-ggsave("Figures/EIA_Mix.png", ggplot2::last_plot(),units="cm",
+ggsave("Figures/Electricity/EIA_Mix.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=18.5,height=9.7)
 
 

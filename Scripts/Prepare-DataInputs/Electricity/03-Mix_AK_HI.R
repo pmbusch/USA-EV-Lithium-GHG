@@ -142,7 +142,7 @@ ggplot(egrid_shares,aes(period,share,fill=fuel))+
   theme_bw(8)+
   theme(panel.grid = element_blank())
 
-ggsave("Figures/AK_HI_Mix.png", 
+ggsave("Figures/Electricity/AK_HI_Mix.png", 
        ggplot2::last_plot(),units="cm",dpi=600,width=8.7*2,height=8.7)
 
 

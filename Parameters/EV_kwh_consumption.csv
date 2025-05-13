@@ -1,0 +1,2959 @@
+"Year","State","vehSize","total_kwh"
+2022,"Alabama","Car",12594488.2385375
+2022,"Alabama","Light Truck",27282380.2939928
+2022,"Alaska","Car",3364602.37886424
+2022,"Alaska","Light Truck",5596028.91902546
+2022,"Arizona","Car",83859107.511129
+2022,"Arizona","Light Truck",226546072.704541
+2022,"Arkansas","Car",7754493.17415428
+2022,"Arkansas","Light Truck",15317499.8108532
+2022,"California","Car",1461614468.18561
+2022,"California","Light Truck",2429306671.57079
+2022,"Colorado","Car",75489818.1328178
+2022,"Colorado","Light Truck",203916910.410588
+2022,"Connecticut","Car",23737540.7851494
+2022,"Connecticut","Light Truck",79756565.4580272
+2022,"Delaware","Car",8753667.79955453
+2022,"Delaware","Light Truck",15894833.7573958
+2022,"District of Columbia","Car",9460475.06934701
+2022,"District of Columbia","Light Truck",17173884.4960513
+2022,"Florida","Car",271058822.198106
+2022,"Florida","Light Truck",492034884.049923
+2022,"Georgia","Car",89134443.4312332
+2022,"Georgia","Light Truck",161404363.2366
+2022,"Hawaii","Car",31708573.6338439
+2022,"Hawaii","Light Truck",52689142.926915
+2022,"Idaho","Car",7472369.60716907
+2022,"Idaho","Light Truck",20183775.1704211
+2022,"Illinois","Car",70336306.0950886
+2022,"Illinois","Light Truck",239409659.125808
+2022,"Indiana","Car",19053368.0217568
+2022,"Indiana","Light Truck",64872448.2840138
+2022,"Iowa","Car",6459763.86523075
+2022,"Iowa","Light Truck",23339316.3652778
+2022,"Kansas","Car",7806860.89935837
+2022,"Kansas","Light Truck",28191953.6938026
+2022,"Kentucky","Car",11001240.6195853
+2022,"Kentucky","Light Truck",23832379.1221587
+2022,"Louisiana","Car",8971485.59924722
+2022,"Louisiana","Light Truck",17717752.9968761
+2022,"Maine","Car",5493193.52660275
+2022,"Maine","Light Truck",18470627.6829225
+2022,"Maryland","Car",73912864.380626
+2022,"Maryland","Light Truck",134176696.025108
+2022,"Massachusetts","Car",54165152.3744267
+2022,"Massachusetts","Light Truck",182012090.081413
+2022,"Michigan","Car",35565969.8319205
+2022,"Michigan","Light Truck",121138977.82053
+2022,"Minnesota","Car",25449212.8926224
+2022,"Minnesota","Light Truck",91959856.5462313
+2022,"Mississippi","Car",3504755.19114839
+2022,"Mississippi","Light Truck",7593730.94628156
+2022,"Missouri","Car",18224894.8562108
+2022,"Missouri","Light Truck",65829010.4656079
+2022,"Montana","Car",4075153.28323671
+2022,"Montana","Light Truck",11009327.4656245
+2022,"Nebraska","Car",4765282.94625237
+2022,"Nebraska","Light Truck",17214683.8330159
+2022,"Nevada","Car",41106270.6792539
+2022,"Nevada","Light Truck",111068334.777441
+2022,"New Hampshire","Car",7649577.8880065
+2022,"New Hampshire","Light Truck",25719956.7509667
+2022,"New Jersey","Car",102578085.013135
+2022,"New Jersey","Light Truck",309001065.570203
+2022,"New Mexico","Car",9015478.83398315
+2022,"New Mexico","Light Truck",24355076.4474366
+2022,"New York","Car",100248125.204505
+2022,"New York","Light Truck",301922081.097482
+2022,"North Carolina","Car",73282598.2844625
+2022,"North Carolina","Light Truck",133045584.800772
+2022,"North Dakota","Car",653542.309735717
+2022,"North Dakota","Light Truck",2363158.84769666
+2022,"Ohio","Car",37010103.4102987
+2022,"Ohio","Light Truck",126030995.962418
+2022,"Oklahoma","Car",25228110.4377893
+2022,"Oklahoma","Light Truck",49770566.6864824
+2022,"Oregon","Car",76156687.5094571
+2022,"Oregon","Light Truck",126612079.285616
+2022,"Pennsylvania","Car",55495616.8848736
+2022,"Pennsylvania","Light Truck",167153976.25325
+2022,"Rhode Island","Car",4678957.49314956
+2022,"Rhode Island","Light Truck",15731669.8449151
+2022,"South Carolina","Car",21759567.8942271
+2022,"South Carolina","Light Truck",39502867.9392752
+2022,"South Dakota","Car",1236720.3233317
+2022,"South Dakota","Light Truck",4469109.97466818
+2022,"Tennessee","Car",30784142.5718796
+2022,"Tennessee","Light Truck",66659798.3128171
+2022,"Texas","Car",224934866.688891
+2022,"Texas","Light Truck",444205253.174754
+2022,"Utah","Car",34965951.9496621
+2022,"Utah","Light Truck",94432888.0911821
+2022,"Vermont","Car",5889752.34366002
+2022,"Vermont","Light Truck",19798317.5508299
+2022,"Virginia","Car",91223713.4928569
+2022,"Virginia","Light Truck",165596998.303079
+2022,"Washington","Car",170731680.496432
+2022,"Washington","Light Truck",283846505.720418
+2022,"West Virginia","Car",3062041.66780834
+2022,"West Virginia","Light Truck",5562823.99991142
+2022,"Wisconsin","Car",15945146.9503067
+2022,"Wisconsin","Light Truck",54236407.657859
+2022,"Wyoming","Car",998542.8851233
+2022,"Wyoming","Light Truck",2693829.61329858
+2023,"Alabama","Car",18138409.3001704
+2023,"Alabama","Light Truck",40348991.8007695
+2023,"Alaska","Car",4380797.3347337
+2023,"Alaska","Light Truck",7477966.25448309
+2023,"Arizona","Car",111598091.027295
+2023,"Arizona","Light Truck",301392692.074312
+2023,"Arkansas","Car",10391708.7203067
+2023,"Arkansas","Light Truck",21212664.9575854
+2023,"California","Car",1979304316.3741
+2023,"California","Light Truck",3388360734.81924
+2023,"Colorado","Car",111094073.461373
+2023,"Colorado","Light Truck",299946625.334042
+2023,"Connecticut","Car",33308137.9814838
+2023,"Connecticut","Light Truck",112338169.956459
+2023,"Delaware","Car",12957319.2259816
+2023,"Delaware","Light Truck",24622720.1150216
+2023,"District of Columbia","Car",12467866.9146372
+2023,"District of Columbia","Light Truck",23418459.505738
+2023,"Florida","Car",392404326.404787
+2023,"Florida","Light Truck",744089947.327867
+2023,"Georgia","Car",134388529.869114
+2023,"Georgia","Light Truck",255367849.022188
+2023,"Hawaii","Car",40005380.6851961
+2023,"Hawaii","Light Truck",68045573.4472833
+2023,"Idaho","Car",10516965.2532043
+2023,"Idaho","Light Truck",28405071.221921
+2023,"Illinois","Car",104240901.907706
+2023,"Illinois","Light Truck",349926760.351414
+2023,"Indiana","Car",27739618.403841
+2023,"Indiana","Light Truck",93171474.7691924
+2023,"Iowa","Car",9249424.01501212
+2023,"Iowa","Light Truck",32885241.8782585
+2023,"Kansas","Car",11506682.6403315
+2023,"Kansas","Light Truck",40850036.0152997
+2023,"Kentucky","Car",16173422.6834639
+2023,"Kentucky","Light Truck",36014718.3139208
+2023,"Louisiana","Car",11997100.657724
+2023,"Louisiana","Light Truck",24476191.7236626
+2023,"Maine","Car",7899012.71915533
+2023,"Maine","Light Truck",26668578.7206847
+2023,"Maryland","Car",110361579.647905
+2023,"Maryland","Light Truck",209803862.39429
+2023,"Massachusetts","Car",78642062.1161675
+2023,"Massachusetts","Light Truck",265490793.230054
+2023,"Michigan","Car",53460283.5582473
+2023,"Michigan","Light Truck",179568293.839628
+2023,"Minnesota","Car",38285860.6482391
+2023,"Minnesota","Light Truck",135865137.168663
+2023,"Mississippi","Car",5052588.04360771
+2023,"Mississippi","Light Truck",11243471.7675094
+2023,"Missouri","Car",27248708.0274988
+2023,"Missouri","Light Truck",96722358.0887858
+2023,"Montana","Car",5592843.42062271
+2023,"Montana","Light Truck",15107262.4752362
+2023,"Nebraska","Car",7068362.35837154
+2023,"Nebraska","Light Truck",25096228.1136355
+2023,"Nevada","Car",58118453.0156204
+2023,"Nevada","Light Truck",157010184.324677
+2023,"New Hampshire","Car",10533056.0377792
+2023,"New Hampshire","Light Truck",35541997.0982035
+2023,"New Jersey","Car",155438114.37775
+2023,"New Jersey","Light Truck",467377972.946781
+2023,"New Mexico","Car",12768124.569088
+2023,"New Mexico","Light Truck",34486556.3053074
+2023,"New York","Car",151733677.148322
+2023,"New York","Light Truck",456055958.558481
+2023,"North Carolina","Car",107709481.687935
+2023,"North Carolina","Light Truck",204502055.853543
+2023,"North Dakota","Car",1058044.60245091
+2023,"North Dakota","Light Truck",3742264.01410408
+2023,"Ohio","Car",53859678.0798531
+2023,"Ohio","Light Truck",180919876.953941
+2023,"Oklahoma","Car",33788160.2848704
+2023,"Oklahoma","Light Truck",68884776.4006236
+2023,"Oregon","Car",101569205.668997
+2023,"Oregon","Light Truck",173660697.719789
+2023,"Pennsylvania","Car",80549084.0476337
+2023,"Pennsylvania","Light Truck",242175598.456966
+2023,"Rhode Island","Car",6787359.7387414
+2023,"Rhode Island","Light Truck",22919293.7530604
+2023,"South Carolina","Car",32127034.0123465
+2023,"South Carolina","Light Truck",61033945.0166558
+2023,"South Dakota","Car",1733244.42827209
+2023,"South Dakota","Light Truck",6166894.46381185
+2023,"Tennessee","Car",45262519.1925892
+2023,"Tennessee","Light Truck",100778709.79999
+2023,"Texas","Car",333679447.19575
+2023,"Texas","Light Truck",686697509.679204
+2023,"Utah","Car",49003230.608522
+2023,"Utah","Light Truck",132334275.859861
+2023,"Vermont","Car",8388748.94940755
+2023,"Vermont","Light Truck",28296226.7690223
+2023,"Virginia","Car",130662000.821639
+2023,"Virginia","Light Truck",247474968.941962
+2023,"Washington","Car",241807546.428837
+2023,"Washington","Light Truck",415469155.424289
+2023,"West Virginia","Car",4314446.14473211
+2023,"West Virginia","Light Truck",8164730.60441319
+2023,"Wisconsin","Car",25569497.645714
+2023,"Wisconsin","Light Truck",85658482.875698
+2023,"Wyoming","Car",1346570.08679837
+2023,"Wyoming","Light Truck",3636630.33502529
+2024,"Alabama","Car",29696907.0665955
+2024,"Alabama","Light Truck",69341255.3457545
+2024,"Alaska","Car",6521368.21894102
+2024,"Alaska","Light Truck",11516259.4411847
+2024,"Arizona","Car",160258538.477717
+2024,"Arizona","Light Truck",431462531.511869
+2024,"Arkansas","Car",16304362.3752674
+2024,"Arkansas","Light Truck",35513835.3890463
+2024,"California","Car",2820280537.47286
+2024,"California","Light Truck",4973581363.07673
+2024,"Colorado","Car",171024948.627273
+2024,"Colorado","Light Truck",460534927.383626
+2024,"Connecticut","Car",50713349.3149199
+2024,"Connecticut","Light Truck",169424986.115127
+2024,"Delaware","Car",19908544.4182202
+2024,"Delaware","Light Truck",40375589.7480228
+2024,"District of Columbia","Car",17432359.2668512
+2024,"District of Columbia","Light Truck",34702994.7009788
+2024,"Florida","Car",588481159.561334
+2024,"Florida","Light Truck",1188825154.09523
+2024,"Georgia","Car",209158313.934834
+2024,"Georgia","Light Truck",424848342.673638
+2024,"Hawaii","Car",54182590.8472529
+2024,"Hawaii","Light Truck",94796534.0356605
+2024,"Idaho","Car",16517210.1023481
+2024,"Idaho","Light Truck",44479089.0478199
+2024,"Illinois","Car",165852293.503696
+2024,"Illinois","Light Truck",543000341.737871
+2024,"Indiana","Car",45472669.5416242
+2024,"Indiana","Light Truck",148776979.668021
+2024,"Iowa","Car",15419238.5426881
+2024,"Iowa","Light Truck",53238979.8718722
+2024,"Kansas","Car",19009591.6955326
+2024,"Kansas","Light Truck",65586340.0149936
+2024,"Kentucky","Car",26801796.8603349
+2024,"Kentucky","Light Truck",62673083.9068423
+2024,"Louisiana","Car",19453487.0954815
+2024,"Louisiana","Light Truck",42495718.846633
+2024,"Maine","Car",12517608.3436253
+2024,"Maine","Light Truck",41828671.0897478
+2024,"Maryland","Car",168795023.870321
+2024,"Maryland","Light Truck",342173218.276414
+2024,"Massachusetts","Car",121917275.014632
+2024,"Massachusetts","Light Truck",407359354.557344
+2024,"Michigan","Car",87757331.0770673
+2024,"Michigan","Light Truck",287192263.806417
+2024,"Minnesota","Car",62010851.400891
+2024,"Minnesota","Light Truck",214052861.563119
+2024,"Mississippi","Car",9217344.49935172
+2024,"Mississippi","Light Truck",21681394.1072439
+2024,"Missouri","Car",45035102.3248827
+2024,"Missouri","Light Truck",155381263.911867
+2024,"Montana","Car",8676839.90664742
+2024,"Montana","Light Truck",23379448.4140824
+2024,"Nebraska","Car",11812908.6455262
+2024,"Nebraska","Light Truck",40744021.0164538
+2024,"Nevada","Car",87023652.6629285
+2024,"Nevada","Light Truck",234456290.505529
+2024,"New Hampshire","Car",15941989.8821978
+2024,"New Hampshire","Light Truck",53273888.9440962
+2024,"New Jersey","Car",245716155.917203
+2024,"New Jersey","Light Truck",729089538.819501
+2024,"New Mexico","Car",19979209.5524234
+2024,"New Mexico","Light Truck",53813178.1961177
+2024,"New York","Car",245589266.74028
+2024,"New York","Light Truck",728275404.059819
+2024,"North Carolina","Car",166233769.059761
+2024,"North Carolina","Light Truck",337143930.204793
+2024,"North Dakota","Car",2112816.00103829
+2024,"North Dakota","Light Truck",7235284.37578978
+2024,"Ohio","Car",87452246.1695457
+2024,"Ohio","Light Truck",286217649.747994
+2024,"Oklahoma","Car",49232718.9428169
+2024,"Oklahoma","Light Truck",106323345.907178
+2024,"Oregon","Car",144614781.84514
+2024,"Oregon","Light Truck",254813884.595123
+2024,"Pennsylvania","Car",128220354.218489
+2024,"Pennsylvania","Light Truck",380341425.673153
+2024,"Rhode Island","Car",10767695.294739
+2024,"Rhode Island","Light Truck",35982112.8403963
+2024,"South Carolina","Car",51143623.6186981
+2024,"South Carolina","Light Truck",104125034.052326
+2024,"South Dakota","Car",3010798.38540585
+2024,"South Dakota","Light Truck",10385524.2462633
+2024,"Tennessee","Car",71579475.8053738
+2024,"Tennessee","Light Truck",166811195.476871
+2024,"Texas","Car",515735607.562448
+2024,"Texas","Light Truck",1126853400.69005
+2024,"Utah","Car",73337750.6811624
+2024,"Utah","Light Truck",197483388.844206
+2024,"Vermont","Car",12777086.7465614
+2024,"Vermont","Light Truck",42700503.0288735
+2024,"Virginia","Car",195326729.280339
+2024,"Virginia","Light Truck",394077356.351847
+2024,"Washington","Car",358758074.623403
+2024,"Washington","Light Truck",635830484.497886
+2024,"West Virginia","Car",7357205.66915753
+2024,"West Virginia","Light Truck",15052394.3614039
+2024,"Wisconsin","Car",44258756.3848113
+2024,"Wisconsin","Light Truck",144322871.494595
+2024,"Wyoming","Car",2246751.10863594
+2024,"Wyoming","Light Truck",6048666.56675456
+2025,"Alabama","Car",48149060.0233502
+2025,"Alabama","Light Truck",119465650.977258
+2025,"Alaska","Car",9916363.14557747
+2025,"Alaska","Light Truck",18378219.3719499
+2025,"Arizona","Car",227213313.922022
+2025,"Arizona","Light Truck",616452534.528317
+2025,"Arkansas","Car",26182613.3650879
+2025,"Arkansas","Light Truck",61569996.2079318
+2025,"California","Car",3884145924.07338
+2025,"California","Light Truck",7130179939.15609
+2025,"Colorado","Car",250473238.905925
+2025,"Colorado","Light Truck",680093615.614927
+2025,"Connecticut","Car",75305172.5949342
+2025,"Connecticut","Light Truck",251406421.898668
+2025,"Delaware","Car",29184979.8963918
+2025,"Delaware","Light Truck",63416197.8227321
+2025,"District of Columbia","Car",24010954.956895
+2025,"District of Columbia","Light Truck",51073755.5371708
+2025,"Florida","Car",843987858.932863
+2025,"Florida","Light Truck",1823802606.84332
+2025,"Georgia","Car",308854401.342182
+2025,"Georgia","Light Truck",672655048.675054
+2025,"Hawaii","Car",72987127.8527886
+2025,"Hawaii","Light Truck",132880866.564894
+2025,"Idaho","Car",25692110.5223485
+2025,"Idaho","Light Truck",69847483.1180093
+2025,"Illinois","Car",253424325.283113
+2025,"Illinois","Light Truck",820319500.718591
+2025,"Indiana","Car",73297480.460088
+2025,"Indiana","Light Truck",236876495.127208
+2025,"Iowa","Car",25703732.3982247
+2025,"Iowa","Light Truck",87320369.348361
+2025,"Kansas","Car",30766352.2823196
+2025,"Kansas","Light Truck",104548301.609804
+2025,"Kentucky","Car",43613248.5120464
+2025,"Kentucky","Light Truck",108333895.830263
+2025,"Louisiana","Car",32558011.7773272
+2025,"Louisiana","Light Truck",77026927.9670808
+2025,"Maine","Car",19379156.9920143
+2025,"Maine","Light Truck",64705956.8516474
+2025,"Maryland","Car",244387685.432261
+2025,"Maryland","Light Truck",530061964.260626
+2025,"Massachusetts","Car",181488738.855529
+2025,"Massachusetts","Light Truck",605967741.157939
+2025,"Michigan","Car",138951021.98651
+2025,"Michigan","Light Truck",449333476.648793
+2025,"Minnesota","Car",96407489.032853
+2025,"Minnesota","Light Truck",327959686.363653
+2025,"Mississippi","Car",16853623.4559291
+2025,"Mississippi","Light Truck",42398531.2126484
+2025,"Missouri","Car",72297733.7861866
+2025,"Missouri","Light Truck",245754567.551032
+2025,"Montana","Car",13502039.1644633
+2025,"Montana","Light Truck",36734574.2753059
+2025,"Nebraska","Car",19339491.8479156
+2025,"Nebraska","Light Truck",65689799.3213981
+2025,"Nevada","Car",125674892.511675
+2025,"Nevada","Light Truck",341376921.898525
+2025,"New Hampshire","Car",23801565.208709
+2025,"New Hampshire","Light Truck",79485840.6329107
+2025,"New Jersey","Car",366661939.396897
+2025,"New Jersey","Light Truck",1084861278.0607
+2025,"New Mexico","Car",30786588.7503546
+2025,"New Mexico","Light Truck",83693593.4757479
+2025,"New York","Car",379734744.974795
+2025,"New York","Light Truck",1122673668.75901
+2025,"North Carolina","Car",246390809.957561
+2025,"North Carolina","Light Truck",536190866.407709
+2025,"North Dakota","Car",4053332.54909873
+2025,"North Dakota","Light Truck",13668185.6109285
+2025,"Ohio","Car",139187429.611438
+2025,"Ohio","Light Truck",449933906.078393
+2025,"Oklahoma","Car",71405872.6262369
+2025,"Oklahoma","Light Truck",164998517.118436
+2025,"Oregon","Car",201504039.302314
+2025,"Oregon","Light Truck",370057960.164472
+2025,"Pennsylvania","Car",198940904.570968
+2025,"Pennsylvania","Light Truck",588404953.047296
+2025,"Rhode Island","Car",16597446.2101814
+2025,"Rhode Island","Light Truck",55426735.8118935
+2025,"South Carolina","Car",78958393.5132729
+2025,"South Carolina","Light Truck",173118405.691367
+2025,"South Dakota","Car",5339420.96559788
+2025,"South Dakota","Light Truck",18107340.2081308
+2025,"Tennessee","Car",109537932.076074
+2025,"Tennessee","Light Truck",270017931.256382
+2025,"Texas","Car",761024268.932566
+2025,"Texas","Light Truck",1774613580.85532
+2025,"Utah","Car",106527687.553308
+2025,"Utah","Light Truck",289246374.242768
+2025,"Vermont","Car",18771087.1096314
+2025,"Vermont","Light Truck",62658545.6277856
+2025,"Virginia","Car",280802387.730769
+2025,"Virginia","Light Truck",606609621.015689
+2025,"Washington","Car",509198829.709331
+2025,"Washington","Light Truck",940419925.692081
+2025,"West Virginia","Car",12678547.1606457
+2025,"West Virginia","Light Truck",28230151.0128069
+2025,"Wisconsin","Car",72499004.5386572
+2025,"Wisconsin","Light Truck",233800048.344779
+2025,"Wyoming","Car",3879436.63097077
+2025,"Wyoming","Light Truck",10565025.9151511
+2026,"Alabama","Car",80134982.5077821
+2026,"Alabama","Light Truck",208143836.513967
+2026,"Alaska","Car",15722110.1662087
+2026,"Alaska","Light Truck",30422112.1059215
+2026,"Arizona","Car",328596202.883289
+2026,"Arizona","Light Truck",896361848.874528
+2026,"Arkansas","Car",43759046.3210182
+2026,"Arkansas","Light Truck",109371372.739629
+2026,"California","Car",5369597441.54212
+2026,"California","Light Truck",10217522641.8818
+2026,"Colorado","Car",366298949.201528
+2026,"Colorado","Light Truck",1000395986.10617
+2026,"Connecticut","Car",113492499.535976
+2026,"Connecticut","Light Truck",377030503.961224
+2026,"Delaware","Car",43030296.6650487
+2026,"Delaware","Light Truck",98906715.9668954
+2026,"District of Columbia","Car",33769229.0360512
+2026,"District of Columbia","Light Truck",76135356.5116506
+2026,"Florida","Car",1216534227.77336
+2026,"Florida","Light Truck",2779407410.32749
+2026,"Georgia","Car",457543956.980668
+2026,"Georgia","Light Truck",1053995992.74199
+2026,"Hawaii","Car",100603379.200833
+2026,"Hawaii","Light Truck",190319025.480864
+2026,"Idaho","Car",40940920.6235841
+2026,"Idaho","Light Truck",112013972.908014
+2026,"Illinois","Car",390363361.069241
+2026,"Illinois","Light Truck",1244002350.36341
+2026,"Indiana","Car",120669929.958233
+2026,"Indiana","Light Truck",383604445.332238
+2026,"Iowa","Car",43768344.2492568
+2026,"Iowa","Light Truck",146880810.760508
+2026,"Kansas","Car",50481102.0803409
+2026,"Kansas","Light Truck",169531969.299969
+2026,"Kentucky","Car",72564588.2470343
+2026,"Kentucky","Light Truck",188607695.318618
+2026,"Louisiana","Car",56616727.312087
+2026,"Louisiana","Light Truck",142446697.36438
+2026,"Maine","Car",30526060.4266185
+2026,"Maine","Light Truck",101408088.305213
+2026,"Maryland","Car",353783881.230013
+2026,"Maryland","Light Truck",810653484.547631
+2026,"Massachusetts","Car",271685393.403085
+2026,"Massachusetts","Light Truck",902746036.988473
+2026,"Michigan","Car",222607266.863788
+2026,"Michigan","Light Truck",708383352.109995
+2026,"Minnesota","Car",150395484.442389
+2026,"Minnesota","Light Truck",505837885.57991
+2026,"Mississippi","Car",31289447.9701765
+2026,"Mississippi","Light Truck",82387086.3597718
+2026,"Missouri","Car",117207232.525191
+2026,"Missouri","Light Truck",393770568.135287
+2026,"Montana","Car",21667570.2717382
+2026,"Montana","Light Truck",59302437.3143229
+2026,"Nebraska","Car",32082946.2842118
+2026,"Nebraska","Light Truck",107703669.710286
+2026,"Nevada","Car",182537995.715928
+2026,"Nevada","Light Truck",498458670.934949
+2026,"New Hampshire","Car",36324910.6505621
+2026,"New Hampshire","Light Truck",120674463.721626
+2026,"New Jersey","Car",544933188.663418
+2026,"New Jersey","Light Truck",1599972914.83288
+2026,"New Mexico","Car",48457214.8897721
+2026,"New Mexico","Light Truck",132554137.361307
+2026,"New York","Car",590515461.561535
+2026,"New York","Light Truck",1732269251.71028
+2026,"North Carolina","Car",368983230.981708
+2026,"North Carolina","Light Truck",850340682.623673
+2026,"North Dakota","Car",7689379.84316327
+2026,"North Dakota","Light Truck",25681717.0251173
+2026,"Ohio","Car",225965692.549309
+2026,"Ohio","Light Truck",718689704.452495
+2026,"Oklahoma","Car",106701306.571634
+2026,"Oklahoma","Light Truck",261134318.760697
+2026,"Oregon","Car",284716774.975268
+2026,"Oregon","Light Truck",542960456.438599
+2026,"Pennsylvania","Car",313830187.304378
+2026,"Pennsylvania","Light Truck",920520554.860245
+2026,"Rhode Island","Car",25951628.7403871
+2026,"Rhode Island","Light Truck",86222082.4255778
+2026,"South Carolina","Car",123971528.945461
+2026,"South Carolina","Light Truck",288342507.811988
+2026,"South Dakota","Car",9678110.75797096
+2026,"South Dakota","Light Truck",32420068.4294684
+2026,"Tennessee","Car",170413363.622259
+2026,"Tennessee","Light Truck",438942421.3654
+2026,"Texas","Car",1129863411.16643
+2026,"Texas","Light Truck",2780350553.85332
+2026,"Utah","Car",156346021.512794
+2026,"Utah","Light Truck",426900512.434851
+2026,"Vermont","Car",27776128.6602969
+2026,"Vermont","Light Truck",92291132.6900916
+2026,"Virginia","Car",407219534.427123
+2026,"Virginia","Light Truck",930788354.060392
+2026,"Washington","Car",723077655.695827
+2026,"Washington","Light Truck",1384878132.94053
+2026,"West Virginia","Car",22431472.2267062
+2026,"West Virginia","Light Truck",53148339.2399502
+2026,"Wisconsin","Car",119128601.555859
+2026,"Wisconsin","Light Truck",378340339.170157
+2026,"Wyoming","Car",6933797.62925157
+2026,"Wyoming","Light Truck",19012702.8147601
+2027,"Alabama","Car",127847827.766959
+2027,"Alabama","Light Truck",342611350.971736
+2027,"Alaska","Car",24291660.8135863
+2027,"Alaska","Light Truck",48523662.1409039
+2027,"Arizona","Car",462631224.463726
+2027,"Arizona","Light Truck",1266946506.60508
+2027,"Arkansas","Car",70526779.5290136
+2027,"Arkansas","Light Truck",183793319.813212
+2027,"California","Car",7179875351.25026
+2027,"California","Light Truck",14051139615.069
+2027,"Colorado","Car",513738130.793644
+2027,"Colorado","Light Truck",1408129859.1779
+2027,"Connecticut","Car",165114087.964823
+2027,"Connecticut","Light Truck",545705278.410067
+2027,"Delaware","Car",61199715.6553636
+2027,"Delaware","Light Truck",146598929.368222
+2027,"District of Columbia","Car",46471305.3566908
+2027,"District of Columbia","Light Truck",109537315.367267
+2027,"Florida","Car",1693883434.4337
+2027,"Florida","Light Truck",4033334846.77337
+2027,"Georgia","Car",652526985.196061
+2027,"Georgia","Light Truck",1566010520.08248
+2027,"Hawaii","Car",136096847.141194
+2027,"Hawaii","Light Truck",265491674.883598
+2027,"Idaho","Car",62920340.4075534
+2027,"Idaho","Light Truck",172854079.418787
+2027,"Illinois","Car",576666930.50425
+2027,"Illinois","Light Truck",1812316438.74313
+2027,"Indiana","Car",190190161.701481
+2027,"Indiana","Light Truck",595943242.726863
+2027,"Iowa","Car",71244701.2333234
+2027,"Iowa","Light Truck",235997982.440235
+2027,"Kansas","Car",79387050.3284658
+2027,"Kansas","Light Truck",263245504.5537
+2027,"Kentucky","Car",115540916.815462
+2027,"Kentucky","Light Truck",309724693.941268
+2027,"Louisiana","Car",94063488.7588675
+2027,"Louisiana","Light Truck",246525057.497926
+2027,"Maine","Car",46245181.9799003
+2027,"Maine","Light Truck",152808170.363866
+2027,"Maryland","Car",492910174.320942
+2027,"Maryland","Light Truck",1176109204.17807
+2027,"Massachusetts","Car",390643064.840758
+2027,"Massachusetts","Light Truck",1291447989.04144
+2027,"Michigan","Car",341184170.681088
+2027,"Michigan","Light Truck",1070416148.89536
+2027,"Minnesota","Car",225086965.130171
+2027,"Minnesota","Light Truck",747747786.278768
+2027,"Mississippi","Car",54177063.7487846
+2027,"Mississippi","Light Truck",146846181.36795
+2027,"Missouri","Car",182083608.605662
+2027,"Missouri","Light Truck",604064492.175646
+2027,"Montana","Car",33611910.3719977
+2027,"Montana","Light Truck",92363503.0670377
+2027,"Nebraska","Car",50917031.611937
+2027,"Nebraska","Light Truck",168773976.923698
+2027,"Nevada","Car",255598052.562488
+2027,"Nevada","Light Truck",700474345.662546
+2027,"New Hampshire","Car",53669080.1237042
+2027,"New Hampshire","Light Truck",177358227.067261
+2027,"New Jersey","Car",773242358.716221
+2027,"New Jersey","Light Truck",2253724477.64256
+2027,"New Mexico","Car",73577277.0677112
+2027,"New Mexico","Light Truck",202077299.073574
+2027,"New York","Car",878501719.198919
+2027,"New York","Light Truck",2557639883.38308
+2027,"North Carolina","Car",533678515.124781
+2027,"North Carolina","Light Truck",1282476775.06793
+2027,"North Dakota","Car",13485896.4619498
+2027,"North Dakota","Light Truck",44503544.4090026
+2027,"Ohio","Car",351738524.843129
+2027,"Ohio","Light Truck",1102736196.5413
+2027,"Oklahoma","Car",155913457.624253
+2027,"Oklahoma","Light Truck",398237188.846857
+2027,"Oregon","Car",391402484.849024
+2027,"Oregon","Light Truck",768734123.60275
+2027,"Pennsylvania","Car",475638088.147608
+2027,"Pennsylvania","Light Truck",1384376407.40482
+2027,"Rhode Island","Car",38998000.8877423
+2027,"Rhode Island","Light Truck",128879754.122814
+2027,"South Carolina","Car",187575936.931703
+2027,"South Carolina","Light Truck",455050870.255522
+2027,"South Dakota","Car",16564809.2651243
+2027,"South Dakota","Light Truck",54771049.0718739
+2027,"Tennessee","Car",255673209.985942
+2027,"Tennessee","Light Truck",679395942.670567
+2027,"Texas","Car",1618429269.03812
+2027,"Texas","Light Truck",4141508344.10236
+2027,"Utah","Car",221689902.799418
+2027,"Utah","Light Truck",607622870.128282
+2027,"Vermont","Car",39554549.3457902
+2027,"Vermont","Light Truck",130756069.706734
+2027,"Virginia","Car",571545187.907665
+2027,"Virginia","Light Truck",1362404006.20577
+2027,"Washington","Car",989340217.209351
+2027,"Washington","Light Truck",1948304946.46219
+2027,"West Virginia","Car",37573506.8812183
+2027,"West Virginia","Light Truck",92772373.1859151
+2027,"Wisconsin","Car",185849757.885895
+2027,"Wisconsin","Light Truck",582171940.606899
+2027,"Wyoming","Car",11746956.8968046
+2027,"Wyoming","Light Truck",32345259.0450004
+2028,"Alabama","Car",193292965.63324
+2028,"Alabama","Light Truck",531108245.405779
+2028,"Alaska","Car",35923564.3928357
+2028,"Alaska","Light Truck",73761905.2175367
+2028,"Arizona","Car",627536949.970975
+2028,"Arizona","Light Truck",1727119007.93292
+2028,"Arkansas","Car",107886943.637305
+2028,"Arkansas","Light Truck",290125230.073813
+2028,"California","Car",9221308158.82784
+2028,"California","Light Truck",18492975487.8426
+2028,"Colorado","Car",688207258.182739
+2028,"Colorado","Light Truck",1895085401.65728
+2028,"Connecticut","Car",229791351.776429
+2028,"Connecticut","Light Truck",758620554.528991
+2028,"Delaware","Car",83468668.2214158
+2028,"Delaware","Light Truck",206711373.113141
+2028,"District of Columbia","Car",61900893.9668653
+2028,"District of Columbia","Light Truck",151281295.234871
+2028,"Florida","Car",2264864435.87052
+2028,"Florida","Light Truck",5576003289.32166
+2028,"Georgia","Car",891335188.114947
+2028,"Georgia","Light Truck",2210853354.98403
+2028,"Hawaii","Car",178509748.656825
+2028,"Hawaii","Light Truck",357821421.896851
+2028,"Idaho","Car",92225644.5912854
+2028,"Idaho","Light Truck",254746498.797996
+2028,"Illinois","Car",811906519.058581
+2028,"Illinois","Light Truck",2528633761.46711
+2028,"Indiana","Car",284169376.433327
+2028,"Indiana","Light Truck",882647736.227235
+2028,"Iowa","Car",109503092.881282
+2028,"Iowa","Light Truck",359590766.508994
+2028,"Kansas","Car",118451180.402275
+2028,"Kansas","Light Truck",389357465.982454
+2028,"Kentucky","Car",174265960.144149
+2028,"Kentucky","Light Truck",478869473.386583
+2028,"Louisiana","Car",147175095.230596
+2028,"Louisiana","Light Truck",397650834.147645
+2028,"Maine","Car",66735599.8590701
+2028,"Maine","Light Truck",220321848.163578
+2028,"Maryland","Car",658051548.806852
+2028,"Maryland","Light Truck",1622237839.43341
+2028,"Massachusetts","Car",536094675.292805
+2028,"Massachusetts","Light Truck",1770091345.41923
+2028,"Michigan","Car",496746359.180156
+2028,"Michigan","Light Truck",1544670297.61607
+2028,"Minnesota","Car",320943325.162766
+2028,"Minnesota","Light Truck",1056827512.97908
+2028,"Mississippi","Car",87027953.6837876
+2028,"Mississippi","Light Truck",241411098.180196
+2028,"Missouri","Car",268657800.376041
+2028,"Missouri","Light Truck",883477199.8028
+2028,"Montana","Car",49734952.8394898
+2028,"Montana","Light Truck",137419354.059741
+2028,"Nebraska","Car",76540851.0491334
+2028,"Nebraska","Light Truck",251514053.475003
+2028,"Nevada","Car",342906864.911954
+2028,"Nevada","Light Truck",944077595.722291
+2028,"New Hampshire","Car",75904329.1117371
+2028,"New Hampshire","Light Truck",250573398.325771
+2028,"New Jersey","Car",1044120047.53114
+2028,"New Jersey","Light Truck",3032916104.80488
+2028,"New Mexico","Car",106673471.866763
+2028,"New Mexico","Light Truck",294554199.590642
+2028,"New York","Car",1243414270.77673
+2028,"New York","Light Truck",3608951346.91159
+2028,"North Carolina","Car",740152428.910393
+2028,"North Carolina","Light Truck",1839599985.43673
+2028,"North Dakota","Car",21850630.1393207
+2028,"North Dakota","Light Truck",71563420.4817899
+2028,"Ohio","Car",519971877.863767
+2028,"Ohio","Light Truck",1615824277.84559
+2028,"Oklahoma","Car",219827668.385073
+2028,"Oklahoma","Light Truck",580487018.012771
+2028,"Oregon","Car",518649302.853058
+2028,"Oregon","Light Truck",1045402120.21649
+2028,"Pennsylvania","Car",686482083.558484
+2028,"Pennsylvania","Light Truck",1991982474.57374
+2028,"Rhode Island","Car",55836106.0194091
+2028,"Rhode Island","Light Truck",184349131.277881
+2028,"South Carolina","Car",271027145.502989
+2028,"South Carolina","Light Truck",679974898.758137
+2028,"South Dakota","Car",26469688.9909426
+2028,"South Dakota","Light Truck",86794226.5085184
+2028,"Tennessee","Car",366657293.510975
+2028,"Tennessee","Light Truck",999253376.265457
+2028,"Texas","Car",2223772932.018
+2028,"Texas","Light Truck",5867858154.99265
+2028,"Utah","Car",301470783.688045
+2028,"Utah","Light Truck",830300074.243507
+2028,"Vermont","Car",53832002.2024378
+2028,"Vermont","Light Truck",177736500.412089
+2028,"Virginia","Car",771003172.372946
+2028,"Virginia","Light Truck",1901168155.13129
+2028,"Washington","Car",1297121491.93637
+2028,"Washington","Light Truck",2617370062.36744
+2028,"West Virginia","Car",58971527.4814397
+2028,"West Virginia","Light Truck",150361832.609155
+2028,"Wisconsin","Car",274128511.271774
+2028,"Wisconsin","Light Truck",851463460.759043
+2028,"Wyoming","Car",18630158.4916432
+2028,"Wyoming","Light Truck",51595165.9027627
+2029,"Alabama","Car",281667203.826389
+2029,"Alabama","Light Truck",786082173.365849
+2029,"Alaska","Car",51489150.8672643
+2029,"Alaska","Light Truck",107710839.608963
+2029,"Arizona","Car",829064448.601821
+2029,"Arizona","Light Truck",2286244000.60522
+2029,"Arkansas","Car",158902725.549967
+2029,"Arkansas","Light Truck",436302569.259828
+2029,"California","Car",11500855685.1897
+2029,"California","Light Truck",23479978133.5973
+2029,"Colorado","Car",892994150.083701
+2029,"Colorado","Light Truck",2462907351.59487
+2029,"Connecticut","Car",310269583.518748
+2029,"Connecticut","Light Truck",1021598156.31264
+2029,"Delaware","Car",110697021.211849
+2029,"Delaware","Light Truck",280658249.102073
+2029,"District of Columbia","Car",80598224.4470281
+2029,"District of Columbia","Light Truck",202167796.106002
+2029,"Florida","Car",2946107915.21919
+2029,"Florida","Light Truck",7427706936.84216
+2029,"Georgia","Car",1183150762.18807
+2029,"Georgia","Light Truck",3003614508.0945
+2029,"Hawaii","Car",228990511.255116
+2029,"Hawaii","Light Truck",468276258.688696
+2029,"Idaho","Car",130806983.269895
+2029,"Idaho","Light Truck",361945391.96
+2029,"Illinois","Car",1106075319.37898
+2029,"Illinois","Light Truck",3413338702.32709
+2029,"Indiana","Car",409154046.668715
+2029,"Indiana","Light Truck",1259325985.19835
+2029,"Iowa","Car",161553390.015997
+2029,"Iowa","Light Truck",525720887.483862
+2029,"Kansas","Car",170301244.856861
+2029,"Kansas","Light Truck",554726933.320013
+2029,"Kentucky","Car",253325272.291371
+2029,"Kentucky","Light Truck",706962858.479047
+2029,"Louisiana","Car",220594923.540056
+2029,"Louisiana","Light Truck",607976980.001119
+2029,"Maine","Car",93188702.3206435
+2029,"Maine","Light Truck",306851382.169174
+2029,"Maryland","Car",853522139.928808
+2029,"Maryland","Light Truck",2153570813.15947
+2029,"Massachusetts","Car",712770219.685318
+2029,"Massachusetts","Light Truck",2347117761.20641
+2029,"Michigan","Car",698311630.304711
+2029,"Michigan","Light Truck",2151665187.09635
+2029,"Minnesota","Car",442441258.238687
+2029,"Minnesota","Light Truck",1443725717.32005
+2029,"Mississippi","Car",132961863.678923
+2029,"Mississippi","Light Truck",373885584.436176
+2029,"Missouri","Car",382327494.378762
+2029,"Missouri","Light Truck",1245899676.96206
+2029,"Montana","Car",71183845.7151673
+2029,"Montana","Light Truck",197023227.337894
+2029,"Nebraska","Car",110744545.701736
+2029,"Nebraska","Light Truck",360626197.538653
+2029,"Nevada","Car",446467148.528242
+2029,"Nevada","Light Truck",1231257274.92539
+2029,"New Hampshire","Car",104177398.260801
+2029,"New Hampshire","Light Truck",343011327.617736
+2029,"New Jersey","Car",1362777761.95444
+2029,"New Jersey","Light Truck",3940521739.34953
+2029,"New Mexico","Car",149798928.026889
+2029,"New Mexico","Light Truck",414353520.093129
+2029,"New York","Car",1702255169.61066
+2029,"New York","Light Truck",4918328653.75432
+2029,"North Carolina","Car",998151131.613718
+2029,"North Carolina","Light Truck",2539987156.98974
+2029,"North Dakota","Car",33552693.8079898
+2029,"North Dakota","Light Truck",108955525.876652
+2029,"Ohio","Car",741694795.654879
+2029,"Ohio","Light Truck",2283821122.3453
+2029,"Oklahoma","Car",302056276.305459
+2029,"Oklahoma","Light Truck",816484354.399438
+2029,"Oregon","Car",669821577.834624
+2029,"Oregon","Light Truck",1375807683.4642
+2029,"Pennsylvania","Car",958517327.633271
+2029,"Pennsylvania","Light Truck",2768798498.31689
+2029,"Rhode Island","Car",77379893.1253372
+2029,"Rhode Island","Light Truck",254806885.49793
+2029,"South Carolina","Car",379658440.013418
+2029,"South Carolina","Light Truck",974563427.60287
+2029,"South Dakota","Car",40290909.2302664
+2029,"South Dakota","Light Truck",130944569.41167
+2029,"Tennessee","Car",510090506.822951
+2029,"Tennessee","Light Truck",1413266237.34746
+2029,"Texas","Car",2969509795.98427
+2029,"Texas","Light Truck",8008323373.9964
+2029,"Utah","Car",398229648.292839
+2029,"Utah","Light Truck",1098741223.94992
+2029,"Vermont","Car",71020991.7653575
+2029,"Vermont","Light Truck",233850546.567275
+2029,"Virginia","Car",1012540834.60859
+2029,"Virginia","Light Truck",2557621828.58909
+2029,"Washington","Car",1650672443.94541
+2029,"Washington","Light Truck",3389908724.16469
+2029,"West Virginia","Car",88542012.555186
+2029,"West Virginia","Light Truck",230457765.236641
+2029,"Wisconsin","Car",389383783.091128
+2029,"Wisconsin","Light Truck",1198712253.60262
+2029,"Wyoming","Car",28216911.2827838
+2029,"Wyoming","Light Truck",78256998.3067203
+2030,"Alabama","Car",396555334.125627
+2030,"Alabama","Light Truck",1116685254.23293
+2030,"Alaska","Car",71521599.6496313
+2030,"Alaska","Light Truck",151577586.551789
+2030,"Arizona","Car",1067740656.40005
+2030,"Arizona","Light Truck",2943713956.7888
+2030,"Arkansas","Car",225924203.005127
+2030,"Arkansas","Light Truck",628191292.610844
+2030,"California","Car",13948333649.9479
+2030,"California","Light Truck",28851802704.8473
+2030,"Colorado","Car",1125538838.22268
+2030,"Colorado","Light Truck",3102868403.51246
+2030,"Connecticut","Car",407068714.015248
+2030,"Connecticut","Light Truck",1336419330.82021
+2030,"Delaware","Car",143063983.98431
+2030,"Delaware","Light Truck",368628927.218695
+2030,"District of Columbia","Car",102620258.35244
+2030,"District of Columbia","Light Truck",262151355.579857
+2030,"Florida","Car",3736026094.14361
+2030,"Florida","Light Truck",9576352530.29267
+2030,"Georgia","Car",1529861505.5588
+2030,"Georgia","Light Truck",3946180589.44341
+2030,"Hawaii","Car",287196897.569114
+2030,"Hawaii","Light Truck",596112924.923197
+2030,"Idaho","Car",179807821.722484
+2030,"Idaho","Light Truck",497221936.106729
+2030,"Illinois","Car",1462550255.86471
+2030,"Illinois","Light Truck",4470999094.47017
+2030,"Indiana","Car",569376577.247436
+2030,"Indiana","Light Truck",1736081269.68699
+2030,"Iowa","Car",229590085.354575
+2030,"Iowa","Light Truck",740085700.988049
+2030,"Kansas","Car",236676827.988171
+2030,"Kansas","Light Truck",763656400.304594
+2030,"Kentucky","Car",355847814.745484
+2030,"Kentucky","Light Truck",1001976200.98314
+2030,"Louisiana","Car",317993231.506526
+2030,"Louisiana","Light Truck",886811412.087377
+2030,"Maine","Car",126128185.973303
+2030,"Maine","Light Truck",414130776.346609
+2030,"Maryland","Car",1078306470.9317
+2030,"Maryland","Light Truck",2764943999.71418
+2030,"Massachusetts","Car",920239307.29427
+2030,"Massachusetts","Light Truck",3021351780.55841
+2030,"Michigan","Car",950836215.122903
+2030,"Michigan","Light Truck",2902279319.94709
+2030,"Minnesota","Car",591629910.361695
+2030,"Minnesota","Light Truck",1912395816.35591
+2030,"Mississippi","Car",194361176.591194
+2030,"Mississippi","Light Truck",550543353.229103
+2030,"Missouri","Car",526469038.957606
+2030,"Missouri","Light Truck",1699414906.85132
+2030,"Montana","Car",98670996.6785999
+2030,"Montana","Light Truck",272914706.594249
+2030,"Nebraska","Car",154744134.381994
+2030,"Nebraska","Light Truck",499160944.08961
+2030,"Nevada","Car",565394918.289479
+2030,"Nevada","Light Truck",1558541759.30994
+2030,"New Hampshire","Car",138892419.297683
+2030,"New Hampshire","Light Truck",455991315.645329
+2030,"New Jersey","Car",1725057149.57653
+2030,"New Jersey","Light Truck",4962511899.13668
+2030,"New Mexico","Car",204076914.493226
+2030,"New Mexico","Light Truck",564160908.924621
+2030,"New York","Car",2260634063.16719
+2030,"New York","Light Truck",6498248371.76015
+2030,"North Carolina","Car",1311352600.19595
+2030,"North Carolina","Light Truck",3390964993.10424
+2030,"North Dakota","Car",49197310.9599822
+2030,"North Dakota","Light Truck",158313350.414527
+2030,"Ohio","Car",1023704004.59876
+2030,"Ohio","Light Truck",3122649564.19121
+2030,"Oklahoma","Car",404762371.422219
+2030,"Oklahoma","Light Truck",1110860658.00109
+2030,"Oregon","Car",843828086.64377
+2030,"Oregon","Light Truck",1757443616.10529
+2030,"Pennsylvania","Car",1297595877.43493
+2030,"Pennsylvania","Light Truck",3728966924.44328
+2030,"Rhode Island","Car",103987428.660263
+2030,"Rhode Island","Light Truck",341437989.591936
+2030,"South Carolina","Car",516543325.1614
+2030,"South Carolina","Light Truck",1346185202.27491
+2030,"South Dakota","Car",58730512.3661876
+2030,"South Dakota","Light Truck",189099100.434351
+2030,"Tennessee","Car",689673340.345618
+2030,"Tennessee","Light Truck",1930113683.23965
+2030,"Texas","Car",3864123527.66184
+2030,"Texas","Light Truck",10572594351.2806
+2030,"Utah","Car",511958632.935841
+2030,"Utah","Light Truck",1411986175.20177
+2030,"Vermont","Car",91021055.967182
+2030,"Vermont","Light Truck",298822038.846365
+2030,"Virginia","Car",1296894333.38402
+2030,"Virginia","Light Truck",3330934703.06447
+2030,"Washington","Car",2043043379.48389
+2030,"Washington","Light Truck",4250178776.97049
+2030,"West Virginia","Car",127697034.708452
+2030,"West Virginia","Light Truck",336671128.310302
+2030,"Wisconsin","Car",534772390.768011
+2030,"Wisconsin","Light Truck",1631130445.08912
+2030,"Wyoming","Car",40973410.507072
+2030,"Wyoming","Light Truck",113518776.811556
+2031,"Alabama","Car",529534156.553098
+2031,"Alabama","Light Truck",1500636473.12276
+2031,"Alaska","Car",94561228.8023511
+2031,"Alaska","Light Truck",202294155.890594
+2031,"Arizona","Car",1320458430.21908
+2031,"Arizona","Light Truck",3639379733.50708
+2031,"Arkansas","Car",304251023.728293
+2031,"Arkansas","Light Truck",853337311.736658
+2031,"California","Car",16272075406.4397
+2031,"California","Light Truck",33979295784.4054
+2031,"Colorado","Car",1360862340.90189
+2031,"Colorado","Light Truck",3749423879.0131
+2031,"Connecticut","Car",511294252.260369
+2031,"Connecticut","Light Truck",1675626156.41431
+2031,"Delaware","Car",177533789.239908
+2031,"Delaware","Light Truck",462813578.086603
+2031,"District of Columbia","Car",125832577.938349
+2031,"District of Columbia","Light Truck",325732645.344188
+2031,"Florida","Car",4555425689.05512
+2031,"Florida","Light Truck",11817198467.0573
+2031,"Georgia","Car",1898936322.05612
+2031,"Georgia","Light Truck",4954819612.96098
+2031,"Hawaii","Car",347268806.242893
+2031,"Hawaii","Light Truck",728754622.060705
+2031,"Idaho","Car",235368055.501897
+2031,"Idaho","Light Truck",650579727.655392
+2031,"Illinois","Car",1848719514.13555
+2031,"Illinois","Light Truck",5610313113.35057
+2031,"Indiana","Car",752460128.144797
+2031,"Indiana","Light Truck",2278165356.01099
+2031,"Iowa","Car",308696987.425303
+2031,"Iowa","Light Truck",987966003.041994
+2031,"Kansas","Car",312444416.188927
+2031,"Kansas","Light Truck",1000798350.31706
+2031,"Kentucky","Car",474260646.724582
+2031,"Kentucky","Light Truck",1343852335.42695
+2031,"Louisiana","Car",432758236.38091
+2031,"Louisiana","Light Truck",1216662390.53174
+2031,"Maine","Car",162815467.218626
+2031,"Maine","Light Truck",533733096.687822
+2031,"Maryland","Car",1309418112.53109
+2031,"Maryland","Light Truck",3396883415.73843
+2031,"Massachusetts","Car",1138192131.42884
+2031,"Massachusetts","Light Truck",3729855849.00079
+2031,"Michigan","Car",1233388089.62809
+2031,"Michigan","Light Truck",3737799691.37
+2031,"Minnesota","Car",755404590.238149
+2031,"Minnesota","Light Truck",2423662922.96592
+2031,"Mississippi","Car",267119629.466391
+2031,"Mississippi","Light Truck",760608191.172129
+2031,"Missouri","Car",689599949.207502
+2031,"Missouri","Light Truck",2209725327.69578
+2031,"Montana","Car",130089934.695521
+2031,"Montana","Light Truck",359661406.298763
+2031,"Nebraska","Car",205190394.407671
+2031,"Nebraska","Light Truck",657099675.038078
+2031,"Nevada","Car",687255307.420237
+2031,"Nevada","Light Truck",1893512390.92536
+2031,"New Hampshire","Car",177037321.207061
+2031,"New Hampshire","Light Truck",580254636.914842
+2031,"New Jersey","Car",2092242818.27228
+2031,"New Jersey","Light Truck",5994361204.33181
+2031,"New Mexico","Car",265112398.301926
+2031,"New Mexico","Light Truck",732575315.456152
+2031,"New York","Car",2868855257.54296
+2031,"New York","Light Truck",8214545457.9315
+2031,"North Carolina","Car",1652013158.0581
+2031,"North Carolina","Light Truck",4321502458.14226
+2031,"North Dakota","Car",67740393.3689049
+2031,"North Dakota","Light Truck",216498534.858619
+2031,"Ohio","Car",1343662959.71747
+2031,"Ohio","Light Truck",4069544023.79022
+2031,"Oklahoma","Car",519498741.189871
+2031,"Oklahoma","Light Truck",1441023295.2223
+2031,"Oregon","Car",1023185232.49541
+2031,"Oregon","Light Truck",2152855926.94723
+2031,"Pennsylvania","Car",1675546265.20834
+2031,"Pennsylvania","Light Truck",4796746094.68118
+2031,"Rhode Island","Car",133393848.096995
+2031,"Rhode Island","Light Truck",437269446.537026
+2031,"South Carolina","Car",670796584.521061
+2031,"South Carolina","Light Truck",1767218793.6612
+2031,"South Dakota","Car",80546687.4039067
+2031,"South Dakota","Light Truck",257535957.940132
+2031,"Tennessee","Car",890635941.216732
+2031,"Tennessee","Light Truck",2510349947.77521
+2031,"Texas","Car",4825440358.53895
+2031,"Texas","Light Truck",13338037809.0371
+2031,"Utah","Car",631461052.551309
+2031,"Utah","Light Truck",1740841676.95186
+2031,"Vermont","Car",111824214.175079
+2031,"Vermont","Light Truck",366409122.063721
+2031,"Virginia","Car",1596645300.08495
+2031,"Virginia","Light Truck",4150564711.33532
+2031,"Washington","Car",2431206450.23111
+2031,"Washington","Light Truck",5105417578.5983
+2031,"West Virginia","Car",173770907.325878
+2031,"West Virginia","Light Truck",462346216.534647
+2031,"Wisconsin","Car",698509187.018138
+2031,"Wisconsin","Light Truck",2115590486.1975
+2031,"Wyoming","Car",56035692.1914124
+2031,"Wyoming","Light Truck",155157036.342763
+2032,"Alabama","Car",685660635.052298
+2032,"Alabama","Light Truck",1950521427.12736
+2032,"Alaska","Car",121475486.401528
+2032,"Alaska","Light Truck",261452152.557399
+2032,"Arizona","Car",1593914879.82125
+2032,"Arizona","Light Truck",4386708979.06613
+2032,"Arkansas","Car",396947532.70973
+2032,"Arkansas","Light Truck",1119428440.12348
+2032,"California","Car",18497059402.0098
+2032,"California","Light Truck",38876571156.3212
+2032,"Colorado","Car",1603578876.12971
+2032,"Colorado","Light Truck",4410841145.4135
+2032,"Connecticut","Car",626105116.941059
+2032,"Connecticut","Light Truck",2046644808.53583
+2032,"Delaware","Car",215036487.84564
+2032,"Delaware","Light Truck",565208635.631728
+2032,"District of Columbia","Car",150833125.074251
+2032,"District of Columbia","Light Truck",394166957.115684
+2032,"Florida","Car",5423424899.10522
+2032,"Florida","Light Truck",14188995019.4175
+2032,"Georgia","Car",2300375971.06907
+2032,"Georgia","Light Truck",6050923691.23029
+2032,"Hawaii","Car",410612190.339397
+2032,"Hawaii","Light Truck",868342280.185424
+2032,"Idaho","Car",299495387.963621
+2032,"Idaho","Light Truck",826475341.870935
+2032,"Illinois","Car",2275300392.91105
+2032,"Illinois","Light Truck",6857502943.75889
+2032,"Indiana","Car",964907623.44795
+2032,"Indiana","Light Truck",2902062702.15901
+2032,"Iowa","Car",401879946.558837
+2032,"Iowa","Light Truck",1277461807.22117
+2032,"Kansas","Car",400286382.498647
+2032,"Kansas","Light Truck",1273329953.59407
+2032,"Kentucky","Car",613033662.400786
+2032,"Kentucky","Light Truck",1743706518.17309
+2032,"Louisiana","Car",569501116.180697
+2032,"Louisiana","Light Truck",1609168154.78304
+2032,"Maine","Car",204534976.888831
+2032,"Maine","Light Truck",668844809.195883
+2032,"Maryland","Car",1551958261.32696
+2032,"Maryland","Light Truck",4059476854.16588
+2032,"Massachusetts","Car",1372444879.3554
+2032,"Massachusetts","Light Truck",4485601761.58033
+2032,"Michigan","Car",1555139904.04309
+2032,"Michigan","Light Truck",4681194999.50441
+2032,"Minnesota","Car",938628633.816944
+2032,"Minnesota","Light Truck",2990312121.62953
+2032,"Mississippi","Car",354222976.123407
+2032,"Mississippi","Light Truck",1011624344.8827
+2032,"Missouri","Car",877292126.316201
+2032,"Missouri","Light Truck",2791671811.13893
+2032,"Montana","Car",166610233.348811
+2032,"Montana","Light Truck",459869242.702998
+2032,"Nebraska","Car",263900146.791594
+2032,"Nebraska","Light Truck",839313458.38564
+2032,"Nevada","Car",814666430.740815
+2032,"Nevada","Light Truck",2240972336.22261
+2032,"New Hampshire","Car",219876718.098698
+2032,"New Hampshire","Light Truck",718867256.911653
+2032,"New Jersey","Car",2471004955.23472
+2032,"New Jersey","Light Truck",7049767766.38652
+2032,"New Mexico","Car",335040555.915866
+2032,"New Mexico","Light Truck",924303381.511327
+2032,"New York","Car",3544584997.47201
+2032,"New York","Light Truck",10108458251.6851
+2032,"North Carolina","Car",2030314297.36832
+2032,"North Carolina","Light Truck",5354176466.76052
+2032,"North Dakota","Car",89935872.118349
+2032,"North Dakota","Light Truck",285560856.421525
+2032,"Ohio","Car",1712612219.45153
+2032,"Ohio","Light Truck",5152423449.49733
+2032,"Oklahoma","Car",650085427.590474
+2032,"Oklahoma","Light Truck",1816198156.64582
+2032,"Oregon","Car",1212008062.69272
+2032,"Oregon","Light Truck",2568264036.66949
+2032,"Pennsylvania","Car",2104598734.78935
+2032,"Pennsylvania","Light Truck",6001111786.64493
+2032,"Rhode Island","Car",166596786.189649
+2032,"Rhode Island","Light Truck",544749357.608476
+2032,"South Carolina","Car",847751988.921744
+2032,"South Carolina","Light Truck",2249987799.96934
+2032,"South Dakota","Car",106621150.578097
+2032,"South Dakota","Light Truck",338645182.536738
+2032,"Tennessee","Car",1119728846.25042
+2032,"Tennessee","Light Truck",3170321527.39234
+2032,"Texas","Car",5880325790.07038
+2032,"Texas","Light Truck",16366962381.4878
+2032,"Utah","Car",759762619.760884
+2032,"Utah","Light Truck",2091312143.70364
+2032,"Vermont","Car",133955918.186551
+2032,"Vermont","Light Truck",437757454.475607
+2032,"Virginia","Car",1919474020.58884
+2032,"Virginia","Light Truck",5032624145.77659
+2032,"Washington","Car",2821691351.58045
+2032,"Washington","Light Truck",5963673240.61494
+2032,"West Virginia","Car",228611582.674657
+2032,"West Virginia","Light Truck",611900401.283961
+2032,"Wisconsin","Car",886068227.953776
+2032,"Wisconsin","Light Truck",2665901726.43018
+2032,"Wyoming","Car",74030204.0255382
+2032,"Wyoming","Light Truck",204606714.074885
+2033,"Alabama","Car",872589922.912405
+2033,"Alabama","Light Truck",2490110215.69729
+2033,"Alaska","Car",153506355.868496
+2033,"Alaska","Light Truck",332238401.465029
+2033,"Arizona","Car",1897288653.74148
+2033,"Arizona","Light Truck",5215236920.00219
+2033,"Arkansas","Car",508690965.592918
+2033,"Arkansas","Light Truck",1440877624.70315
+2033,"California","Car",20646769044.4566
+2033,"California","Light Truck",43634116790.911
+2033,"Colorado","Car",1859597510.58523
+2033,"Colorado","Light Truck",5107406374.24812
+2033,"Connecticut","Car",755518945.009226
+2033,"Connecticut","Light Truck",2465372155.22405
+2033,"Delaware","Car",256917393.771166
+2033,"Delaware","Light Truck",679952383.461722
+2033,"District of Columbia","Car",178481973.812893
+2033,"District of Columbia","Light Truck",470114852.894309
+2033,"Florida","Car",6367078467.20584
+2033,"Florida","Light Truck",16776395894.5521
+2033,"Georgia","Car",2748598881.23224
+2033,"Georgia","Light Truck",7278775818.24807
+2033,"Hawaii","Car",479070649.788804
+2033,"Hawaii","Light Truck",1020019032.66567
+2033,"Idaho","Car",375071342.248915
+2033,"Idaho","Light Truck",1033727069.67724
+2033,"Illinois","Car",2757811975.66469
+2033,"Illinois","Light Truck",8265863652.10796
+2033,"Indiana","Car",1216327457.32529
+2033,"Indiana","Light Truck",3639490540.9846
+2033,"Iowa","Car",513659218.678041
+2033,"Iowa","Light Truck",1623841584.72583
+2033,"Kansas","Car",504220232.940728
+2033,"Kansas","Light Truck",1594940768.54616
+2033,"Kentucky","Car",778928776.010448
+2033,"Kentucky","Light Truck",2222544301.87556
+2033,"Louisiana","Car",735274033.888819
+2033,"Louisiana","Light Truck",2086017966.66213
+2033,"Maine","Car",252980061.98608
+2033,"Maine","Light Truck",825965512.744433
+2033,"Maryland","Car",1813076254.17593
+2033,"Maryland","Light Truck",4775272879.93876
+2033,"Massachusetts","Car",1630125060.13087
+2033,"Massachusetts","Light Truck",5317695601.96383
+2033,"Michigan","Car",1929552605.61149
+2033,"Michigan","Light Truck",5777480676.30488
+2033,"Minnesota","Car",1148505550.28034
+2033,"Minnesota","Light Truck",3637483361.75474
+2033,"Mississippi","Car",460218661.58907
+2033,"Mississippi","Light Truck",1317635622.54621
+2033,"Missouri","Car",1097871974.03019
+2033,"Missouri","Light Truck",3473758898.43865
+2033,"Montana","Car",209916432.88597
+2033,"Montana","Light Truck",578674927.258725
+2033,"Nebraska","Car",333597249.92422
+2033,"Nebraska","Light Truck",1055063271.09721
+2033,"Nevada","Car",951059137.168081
+2033,"Nevada","Light Truck",2612459767.34534
+2033,"New Hampshire","Car",269056998.510073
+2033,"New Hampshire","Light Truck",878222454.248363
+2033,"New Jersey","Car",2870223997.90592
+2033,"New Jersey","Light Truck",8161321121.36757
+2033,"New Mexico","Car",416912966.258363
+2033,"New Mexico","Light Truck",1148721079.84073
+2033,"New York","Car",4313076048.02306
+2033,"New York","Light Truck",12263424676.4904
+2033,"North Carolina","Car",2461180081.24148
+2033,"North Carolina","Light Truck",6534409413.22848
+2033,"North Dakota","Car",116921375.675928
+2033,"North Dakota","Light Truck",369312264.461278
+2033,"Ohio","Car",2146832331.43387
+2033,"Ohio","Light Truck",6425247389.71041
+2033,"Oklahoma","Car",802276879.64773
+2033,"Oklahoma","Light Truck",2254316395.93757
+2033,"Oregon","Car",1415669141.00994
+2033,"Oregon","Light Truck",3018733490.27093
+2033,"Pennsylvania","Car",2602442797.86142
+2033,"Pennsylvania","Light Truck",7399552245.41661
+2033,"Rhode Island","Car",204901834.962589
+2033,"Rhode Island","Light Truck",668920174.932833
+2033,"South Carolina","Car",1055358845.14142
+2033,"South Carolina","Light Truck",2818368081.38261
+2033,"South Dakota","Car",138284045.152388
+2033,"South Dakota","Light Truck",436888162.29802
+2033,"Tennessee","Car",1387053640.71398
+2033,"Tennessee","Light Truck",3941704749.1501
+2033,"Texas","Car",7068515307.08716
+2033,"Texas","Light Truck",19785155709.248
+2033,"Utah","Car",900969607.275943
+2033,"Utah","Light Truck",2476713210.17036
+2033,"Vermont","Car",158048642.60013
+2033,"Vermont","Light Truck",515487681.346257
+2033,"Virginia","Car",2276411832.53844
+2033,"Virginia","Light Truck",6011258384.6583
+2033,"Washington","Car",3222260270.50127
+2033,"Washington","Light Truck",6848736477.70842
+2033,"West Virginia","Car",295013404.821526
+2033,"West Virginia","Light Truck",793634424.334586
+2033,"Wisconsin","Car",1105496351.78199
+2033,"Wisconsin","Light Truck",3308849150.355
+2033,"Wyoming","Car",95870966.441487
+2033,"Wyoming","Light Truck",264617015.176584
+2034,"Alabama","Car",1090243884.79343
+2034,"Alabama","Light Truck",3119711964.44618
+2034,"Alaska","Car",190606302.955796
+2034,"Alaska","Light Truck",414657663.787398
+2034,"Arizona","Car",2225949262.07468
+2034,"Arizona","Light Truck",6111613833.10001
+2034,"Arkansas","Car",639617509.937724
+2034,"Arkansas","Light Truck",1818269645.93264
+2034,"California","Car",22621821902.9718
+2034,"California","Light Truck",48027307894.8391
+2034,"Colorado","Car",2122211400.91767
+2034,"Colorado","Light Truck",5820070272.46934
+2034,"Connecticut","Car",898119114.038822
+2034,"Connecticut","Light Truck",2926503896.08295
+2034,"Delaware","Car",302602591.301376
+2034,"Delaware","Light Truck",805465177.586318
+2034,"District of Columbia","Car",208339788.458237
+2034,"District of Columbia","Light Truck",552362762.067565
+2034,"Florida","Car",7368108435.49585
+2034,"Florida","Light Truck",19528644512.8435
+2034,"Georgia","Car",3237277302.14351
+2034,"Georgia","Light Truck",8621072158.22359
+2034,"Hawaii","Car",551184541.448615
+2034,"Hawaii","Light Truck",1180633248.2939
+2034,"Idaho","Car",461884750.34395
+2034,"Idaho","Light Truck",1271640214.08804
+2034,"Illinois","Car",3290149120.05153
+2034,"Illinois","Light Truck",9819216450.2868
+2034,"Indiana","Car",1505859450.63904
+2034,"Indiana","Light Truck",4488945169.88747
+2034,"Iowa","Car",643999032.001764
+2034,"Iowa","Light Truck",2027170277.59813
+2034,"Kansas","Car",623928174.369714
+2034,"Kansas","Light Truck",1964806807.36976
+2034,"Kentucky","Car",971827082.237744
+2034,"Kentucky","Light Truck",2780493621.91378
+2034,"Louisiana","Car",930459834.086145
+2034,"Louisiana","Light Truck",2648616849.58128
+2034,"Maine","Car",307914180.066786
+2034,"Maine","Light Truck",1004095010.15374
+2034,"Maryland","Car",2087188127.93393
+2034,"Maryland","Light Truck",5528693714.89293
+2034,"Massachusetts","Car",1907108025.87473
+2034,"Massachusetts","Light Truck",6211240569.27622
+2034,"Michigan","Car",2354076341.9746
+2034,"Michigan","Light Truck",7020637604.49739
+2034,"Minnesota","Car",1383008044.46045
+2034,"Minnesota","Light Truck",4359217765.34825
+2034,"Mississippi","Car",585395093.676408
+2034,"Mississippi","Light Truck",1679804844.40133
+2034,"Missouri","Car",1350362224.21983
+2034,"Missouri","Light Truck",4253291919.37926
+2034,"Montana","Car",259939325.354314
+2034,"Montana","Light Truck",715821333.797026
+2034,"Nebraska","Car",414115507.046185
+2034,"Nebraska","Light Truck",1303942442.62675
+2034,"Nevada","Car",1093298568.21895
+2034,"Nevada","Light Truck",2999022304.73482
+2034,"New Hampshire","Car",324224484.33853
+2034,"New Hampshire","Light Truck",1056919873.13223
+2034,"New Jersey","Car",3279363435.2099
+2034,"New Jersey","Light Truck",9298691276.48967
+2034,"New Mexico","Car",510392573.075782
+2034,"New Mexico","Light Truck",1404774224.77048
+2034,"New York","Car",5166483584.30106
+2034,"New York","Light Truck",14657040989.0106
+2034,"North Carolina","Car",2940437677.94569
+2034,"North Carolina","Light Truck",7850869452.37434
+2034,"North Dakota","Car",148760625.262611
+2034,"North Dakota","Light Truck",467993906.548818
+2034,"Ohio","Car",2644357867.23337
+2034,"Ohio","Light Truck",7884003951.29276
+2034,"Oklahoma","Car",975251968.694013
+2034,"Oklahoma","Light Truck",2753173702.40342
+2034,"Oregon","Car",1629788677.95494
+2034,"Oregon","Light Truck",3494765324.65825
+2034,"Pennsylvania","Car",3166016144.55273
+2034,"Pennsylvania","Light Truck",8983345375.71679
+2034,"Rhode Island","Car",248071336.312219
+2034,"Rhode Island","Light Truck",808820917.235992
+2034,"South Carolina","Car",1292833789.38753
+2034,"South Carolina","Light Truck",3470397356.28162
+2034,"South Dakota","Car",175601249.387564
+2034,"South Dakota","Light Truck",552518682.525071
+2034,"Tennessee","Car",1691128520.38138
+2034,"Tennessee","Light Truck",4820887962.12031
+2034,"Texas","Car",8375348284.38465
+2034,"Texas","Light Truck",23551204691.076
+2034,"Utah","Car",1052684240.98511
+2034,"Utah","Light Truck",2890156536.62922
+2034,"Vermont","Car",183664539.71172
+2034,"Vermont","Light Truck",598032624.241277
+2034,"Virginia","Car",2661830891.76484
+2034,"Virginia","Light Truck",7070870710.00104
+2034,"Washington","Car",3619990313.62356
+2034,"Washington","Light Truck",7731857409.27226
+2034,"West Virginia","Car",373130896.852652
+2034,"West Virginia","Light Truck",1008072126.13614
+2034,"Wisconsin","Car",1355528132.99864
+2034,"Wisconsin","Light Truck",4041591773.84146
+2034,"Wyoming","Car",121622893.00686
+2034,"Wyoming","Light Truck",335338825.982821
+2035,"Alabama","Car",1339116170.54341
+2035,"Alabama","Light Truck",3843458223.45318
+2035,"Alaska","Car",232878038.338386
+2035,"Alaska","Light Truck",509185363.040464
+2035,"Arizona","Car",2576508840.89718
+2035,"Arizona","Light Truck",7071120217.93411
+2035,"Arkansas","Car",790176976.730672
+2035,"Arkansas","Light Truck",2254422770.16346
+2035,"California","Car",24347771568.7771
+2035,"California","Light Truck",51898603762.3574
+2035,"Colorado","Car",2386114673.18031
+2035,"Colorado","Light Truck",6538076940.17322
+2035,"Connecticut","Car",1052634214.14141
+2035,"Connecticut","Light Truck",3429144202.57899
+2035,"Delaware","Car",351668090.20384
+2035,"Delaware","Light Truck",941292188.280234
+2035,"District of Columbia","Car",240083647.235927
+2035,"District of Columbia","Light Truck",640485483.944067
+2035,"Florida","Car",8412429223.51009
+2035,"Florida","Light Truck",22422583806.931
+2035,"Georgia","Car",3761877037.72376
+2035,"Georgia","Light Truck",10072868886.0336
+2035,"Hawaii","Car",626063094.974275
+2035,"Hawaii","Light Truck",1348596431.34642
+2035,"Idaho","Car",559894771.528431
+2035,"Idaho","Light Truck",1541242206.31916
+2035,"Illinois","Car",3868284546.46619
+2035,"Illinois","Light Truck",11514289529.7176
+2035,"Indiana","Car",1833384430.01447
+2035,"Indiana","Light Truck",5454640219.75945
+2035,"Iowa","Car",793047294.250445
+2035,"Iowa","Light Truck",2490194968.36832
+2035,"Kansas","Car",759304434.830684
+2035,"Kansas","Light Truck",2384724778.42942
+2035,"Kentucky","Car",1192124036.86246
+2035,"Kentucky","Light Truck",3421093195.08765
+2035,"Louisiana","Car",1155884077.28968
+2035,"Louisiana","Light Truck",3301601479.50201
+2035,"Maine","Car",369110336.695491
+2035,"Maine","Light Truck",1203722728.25153
+2035,"Maryland","Car",2369940872.48057
+2035,"Maryland","Light Truck",6311998765.62783
+2035,"Massachusetts","Car",2199729390.69638
+2035,"Massachusetts","Light Truck",7160658871.92999
+2035,"Michigan","Car",2827434220.40172
+2035,"Michigan","Light Truck",8413647946.83292
+2035,"Minnesota","Car",1640735388.74764
+2035,"Minnesota","Light Truck",5155450796.12832
+2035,"Mississippi","Car",730317247.80403
+2035,"Mississippi","Light Truck",2101317292.11404
+2035,"Missouri","Car",1634277303.04162
+2035,"Missouri","Light Truck",5133272339.89613
+2035,"Montana","Car",316699901.346008
+2035,"Montana","Light Truck",872023039.835946
+2035,"Nebraska","Car",505423396.888137
+2035,"Nebraska","Light Truck",1587277803.1111
+2035,"Nevada","Car",1238931985.42615
+2035,"Nevada","Light Truck",3395987804.7586
+2035,"New Hampshire","Car",385052883.228871
+2035,"New Hampshire","Light Truck",1255142164.08763
+2035,"New Jersey","Car",3689663244.16509
+2035,"New Jersey","Light Truck",10445093555.1422
+2035,"New Mexico","Car",615341748.837216
+2035,"New Mexico","Light Truck",1693320376.40496
+2035,"New York","Car",6098630070.05862
+2035,"New York","Light Truck",17287959923.7653
+2035,"North Carolina","Car",3465213766.54083
+2035,"North Carolina","Light Truck",9303119949.17172
+2035,"North Dakota","Car",185550307.682016
+2035,"North Dakota","Light Truck",582456890.384033
+2035,"Ohio","Car",3204576595.78547
+2035,"Ohio","Light Truck",9534748919.09939
+2035,"Oklahoma","Car",1168757682.65741
+2035,"Oklahoma","Light Truck",3314081064.18777
+2035,"Oregon","Car",1851591393.42096
+2035,"Oregon","Light Truck",3991388366.68493
+2035,"Pennsylvania","Car",3793053568.34822
+2035,"Pennsylvania","Light Truck",10756683142.1069
+2035,"Rhode Island","Car",295882482.339556
+2035,"Rhode Island","Light Truck",964694535.143643
+2035,"South Carolina","Car",1559840311.23226
+2035,"South Carolina","Light Truck",4208860113.45838
+2035,"South Dakota","Car",218679907.940623
+2035,"South Dakota","Light Truck",686517764.935745
+2035,"Tennessee","Car",2031495359.288
+2035,"Tennessee","Light Truck",5810331030.98631
+2035,"Texas","Car",9791739265.90496
+2035,"Texas","Light Truck",27654238218.5106
+2035,"Utah","Car",1213110947.0753
+2035,"Utah","Light Truck",3328836575.41319
+2035,"Vermont","Car",210415945.946491
+2035,"Vermont","Light Truck",684722865.163173
+2035,"Virginia","Car",3071500683.5
+2035,"Virginia","Light Truck",8205819567.87181
+2035,"Washington","Car",4005651709.2374
+2035,"Washington","Light Truck",8594485509.75936
+2035,"West Virginia","Car",463204161.03515
+2035,"West Virginia","Light Truck",1257096046.23845
+2035,"Wisconsin","Car",1635622561.45692
+2035,"Wisconsin","Light Truck",4866481128.58181
+2035,"Wyoming","Car",151383404.497023
+2035,"Wyoming","Light Truck",417369771.04918
+2036,"Alabama","Car",1573696711.03589
+2036,"Alabama","Light Truck",4521187132.34665
+2036,"Alaska","Car",272359110.921156
+2036,"Alaska","Light Truck",598068158.466365
+2036,"Arizona","Car",2903362337.24707
+2036,"Arizona","Light Truck",7958649920.94231
+2036,"Arkansas","Car",932248147.253509
+2036,"Arkansas","Light Truck",2663085997.26876
+2036,"California","Car",25880333600.2233
+2036,"California","Light Truck",55376466915.7369
+2036,"Colorado","Car",2629925448.68344
+2036,"Colorado","Light Truck",7195404421.93243
+2036,"Connecticut","Car",1196867414.72439
+2036,"Connecticut","Light Truck",3896142806.77672
+2036,"Delaware","Car",397299835.652484
+2036,"Delaware","Light Truck",1067474786.98253
+2036,"District of Columbia","Car",269536943.213165
+2036,"District of Columbia","Light Truck",722190384.173888
+2036,"Florida","Car",9378628718.8076
+2036,"Florida","Light Truck",25098076932.047
+2036,"Georgia","Car",4250038980.984
+2036,"Georgia","Light Truck",11421964389.4849
+2036,"Hawaii","Car",694881780.873898
+2036,"Hawaii","Light Truck",1504261538.38854
+2036,"Idaho","Car",652104300.822645
+2036,"Idaho","Light Truck",1793079975.53414
+2036,"Illinois","Car",4408402506.22886
+2036,"Illinois","Light Truck",13089181716.1465
+2036,"Indiana","Car",2141203041.45443
+2036,"Indiana","Light Truck",6357946935.88682
+2036,"Iowa","Car",933422278.118324
+2036,"Iowa","Light Truck",2923888141.75412
+2036,"Kansas","Car",886607484.464021
+2036,"Kansas","Light Truck",2777355263.22284
+2036,"Kentucky","Car",1399740633.98425
+2036,"Kentucky","Light Truck",4020866937.35521
+2036,"Louisiana","Car",1368753146.88584
+2036,"Louisiana","Light Truck",3913853071.42453
+2036,"Maine","Car",426476800.613908
+2036,"Maine","Light Truck",1390048560.35104
+2036,"Maryland","Car",2631109140.4746
+2036,"Maryland","Light Truck",7034953811.11912
+2036,"Massachusetts","Car",2471815060.89594
+2036,"Massachusetts","Light Truck",8038986095.15706
+2036,"Michigan","Car",3271362416.19144
+2036,"Michigan","Light Truck",9713530446.82224
+2036,"Minnesota","Car",1882110114.25689
+2036,"Minnesota","Light Truck",5896488819.2995
+2036,"Mississippi","Car",867177016.317502
+2036,"Mississippi","Light Truck",2496785886.5673
+2036,"Missouri","Car",1901043763.4789
+2036,"Missouri","Light Truck",5955306433.72206
+2036,"Montana","Car",370136527.918743
+2036,"Montana","Light Truck",1018041020.95023
+2036,"Nebraska","Car",591319315.493641
+2036,"Nebraska","Light Truck",1852317807.05325
+2036,"Nevada","Car",1373824424.00332
+2036,"Nevada","Light Truck",3760500198.58978
+2036,"New Hampshire","Car",441980273.704568
+2036,"New Hampshire","Light Truck",1439829689.38854
+2036,"New Jersey","Car",4067768336.44166
+2036,"New Jersey","Light Truck",11495725855.2785
+2036,"New Mexico","Car",714000658.565759
+2036,"New Mexico","Light Truck",1962617415.66114
+2036,"New York","Car",6969563151.12347
+2036,"New York","Light Truck",19736172847.1309
+2036,"North Carolina","Car",3954846256.56561
+2036,"North Carolina","Light Truck",10656384050.3565
+2036,"North Dakota","Car",220250918.772243
+2036,"North Dakota","Light Truck",689849445.020283
+2036,"Ohio","Car",3730742499.58138
+2036,"Ohio","Light Truck",11077704246.1303
+2036,"Oklahoma","Car",1350541169.63546
+2036,"Oklahoma","Light Truck",3837344583.42069
+2036,"Oregon","Car",2055409578.28948
+2036,"Oregon","Light Truck",4451525207.45454
+2036,"Pennsylvania","Car",4380497791.36217
+2036,"Pennsylvania","Light Truck",12411782545.7448
+2036,"Rhode Island","Car",340664068.933867
+2036,"Rhode Island","Light Truck",1110049188.41862
+2036,"South Carolina","Car",1810052382.88113
+2036,"South Carolina","Light Truck",4899818697.10854
+2036,"South Dakota","Car",259306134.843991
+2036,"South Dakota","Light Truck",812218793.896105
+2036,"Tennessee","Car",2351292161.63341
+2036,"Tennessee","Light Truck",6733843878.60966
+2036,"Texas","Car",11116046169.4484
+2036,"Texas","Light Truck",31463395917.2126
+2036,"Utah","Car",1362520651.45307
+2036,"Utah","Light Truck",3734081451.44854
+2036,"Vermont","Car",235238526.318384
+2036,"Vermont","Light Truck",764742684.163791
+2036,"Virginia","Car",3451761364.76423
+2036,"Virginia","Light Truck",9258323101.92468
+2036,"Washington","Car",4355799234.76587
+2036,"Washington","Light Truck",9384932462.76177
+2036,"West Virginia","Car",547951436.040771
+2036,"West Virginia","Light Truck",1490986459.70031
+2036,"Wisconsin","Car",1898542049.48576
+2036,"Wisconsin","Light Truck",5636995775.992
+2036,"Wyoming","Car",179480058.028061
+2036,"Wyoming","Light Truck",494285108.737687
+2037,"Alabama","Car",1802527517.38494
+2037,"Alabama","Light Truck",5185843960.64697
+2037,"Alaska","Car",310830882.928422
+2037,"Alaska","Light Truck",685321001.303567
+2037,"Arizona","Car",3219650323.26594
+2037,"Arizona","Light Truck",8820774967.88759
+2037,"Arkansas","Car",1071038659.24575
+2037,"Arkansas","Light Truck",3063953398.52037
+2037,"California","Car",27308319790.3533
+2037,"California","Light Truck",58668184150.6612
+2037,"Colorado","Car",2863838161.02673
+2037,"Colorado","Light Truck",7828627260.16231
+2037,"Connecticut","Car",1336527429.10987
+2037,"Connecticut","Light Truck",4351041993.61195
+2037,"Delaware","Car",441376288.982146
+2037,"Delaware","Light Truck",1190367464.29218
+2037,"District of Columbia","Car",297946716.3015
+2037,"District of Columbia","Light Truck",801677478.301268
+2037,"Florida","Car",10307633945.7743
+2037,"Florida","Light Truck",27694089945.3483
+2037,"Georgia","Car",4721700685.08151
+2037,"Georgia","Light Truck",12736048235.5931
+2037,"Hawaii","Car",761075523.379747
+2037,"Hawaii","Light Truck",1655448219.53179
+2037,"Idaho","Car",742031253.438237
+2037,"Idaho","Light Truck",2039502257.79603
+2037,"Illinois","Car",4931996289.20524
+2037,"Illinois","Light Truck",14623239076.028
+2037,"Indiana","Car",2441208550.95399
+2037,"Indiana","Light Truck",7242434028.00567
+2037,"Iowa","Car",1070543828.32861
+2037,"Iowa","Light Truck",3348841154.91654
+2037,"Kansas","Car",1010791636.4282
+2037,"Kansas","Light Truck",3161559984.54328
+2037,"Kentucky","Car",1602235676.31581
+2037,"Kentucky","Light Truck",4608987904.23926
+2037,"Louisiana","Car",1576845727.31889
+2037,"Louisiana","Light Truck",4514757409.60474
+2037,"Maine","Car",482236712.886882
+2037,"Maine","Light Truck",1572190600.8991
+2037,"Maryland","Car",2881800855.07107
+2037,"Maryland","Light Truck",7735423913.22363
+2037,"Massachusetts","Car",2734326361.80416
+2037,"Massachusetts","Light Truck",8891666350.21503
+2037,"Michigan","Car",3703200785.02168
+2037,"Michigan","Light Truck",10983976005.8575
+2037,"Minnesota","Car",2116702024.19721
+2037,"Minnesota","Light Truck",6618973193.04288
+2037,"Mississippi","Car",1000908203.34703
+2037,"Mississippi","Light Truck",2885193593.5529
+2037,"Missouri","Car",2161080294.09954
+2037,"Missouri","Light Truck",6759103811.35859
+2037,"Montana","Car",422277605.366528
+2037,"Montana","Light Truck",1160990136.71736
+2037,"Nebraska","Car",675138634.826335
+2037,"Nebraska","Light Truck",2111754556.49917
+2037,"Nevada","Car",1503553460.96919
+2037,"Nevada","Light Truck",4112483058.86
+2037,"New Hampshire","Car",497230089.398605
+2037,"New Hampshire","Light Truck",1620121366.55649
+2037,"New Jersey","Car",4429720018.25604
+2037,"New Jersey","Light Truck",12508293131.7335
+2037,"New Mexico","Car",810139863.132909
+2037,"New Mexico","Light Truck",2225924286.11292
+2037,"New York","Car",7813909499.38377
+2037,"New York","Light Truck",22124262677.0694
+2037,"North Carolina","Car",4429213345.21771
+2037,"North Carolina","Light Truck",11977601430.2045
+2037,"North Dakota","Car",254194358.807809
+2037,"North Dakota","Light Truck",795220642.783582
+2037,"Ohio","Car",4243263987.6589
+2037,"Ohio","Light Truck",12587698466.9677
+2037,"Oklahoma","Car",1527385881.92423
+2037,"Oklahoma","Light Truck",4348824712.86644
+2037,"Oregon","Car",2251264924.17556
+2037,"Oregon","Light Truck",4898075344.37831
+2037,"Pennsylvania","Car",4951382954.29458
+2037,"Pennsylvania","Light Truck",14029904756.5948
+2037,"Rhode Island","Car",384154976.501456
+2037,"Rhode Island","Light Truck",1252028631.35647
+2037,"South Carolina","Car",2053393076.4931
+2037,"South Carolina","Light Truck",5576551427.68118
+2037,"South Dakota","Car",299036234.416387
+2037,"South Dakota","Light Truck",935524588.808391
+2037,"Tennessee","Car",2662341603.44706
+2037,"Tennessee","Light Truck",7637251216.51658
+2037,"Texas","Car",12399167766.5731
+2037,"Texas","Light Truck",35173326669.3205
+2037,"Utah","Car",1506926581.08882
+2037,"Utah","Light Truck",4127255600.04454
+2037,"Vermont","Car",259152936.450692
+2037,"Vermont","Light Truck",842321418.01919
+2037,"Virginia","Car",3818467032.52668
+2037,"Virginia","Light Truck",10282040149.6257
+2037,"Washington","Car",4688645946.5199
+2037,"Washington","Light Truck",10145194835.0896
+2037,"West Virginia","Car",630661986.094837
+2037,"West Virginia","Light Truck",1720730587.97916
+2037,"Wisconsin","Car",2154479294.8249
+2037,"Wisconsin","Light Truck",6390562230.45316
+2037,"Wyoming","Car",206961199.809286
+2037,"Wyoming","Light Truck",569752645.805421
+2038,"Alabama","Car",2023864028.58914
+2038,"Alabama","Light Truck",5832493821.17672
+2038,"Alaska","Car",348024207.532036
+2038,"Alaska","Light Truck",770251352.464844
+2038,"Arizona","Car",3522623002.75965
+2038,"Arizona","Light Truck",9650549977.07125
+2038,"Arkansas","Car",1205454237.59001
+2038,"Arkansas","Light Truck",3454179063.34859
+2038,"California","Car",28615581111.9521
+2038,"California","Light Truck",61734409701.628
+2038,"Colorado","Car",3085437667.02621
+2038,"Colorado","Light Truck",8431795323.98103
+2038,"Connecticut","Car",1470492542.30651
+2038,"Connecticut","Light Truck",4790143617.10511
+2038,"Delaware","Car",483522283.547849
+2038,"Delaware","Light Truck",1308947341.2078
+2038,"District of Columbia","Car",325061967.932232
+2038,"District of Columbia","Light Truck",878265945.751659
+2038,"Florida","Car",11191149676.7082
+2038,"Florida","Light Truck",30188017724.3323
+2038,"Georgia","Car",5172631281.65026
+2038,"Georgia","Light Truck",14003826119.0355
+2038,"Hawaii","Car",824064859.234567
+2038,"Hawaii","Light Truck",1800724180.84364
+2038,"Idaho","Car",828960962.969638
+2038,"Idaho","Light Truck",2278659984.53763
+2038,"Illinois","Car",5434499808.13328
+2038,"Illinois","Light Truck",16104211172.2686
+2038,"Indiana","Car",2731006477.02662
+2038,"Indiana","Light Truck",8101528517.07301
+2038,"Iowa","Car",1203313772.4291
+2038,"Iowa","Light Truck",3761996592.92583
+2038,"Kansas","Car",1130837975.86816
+2038,"Kansas","Light Truck",3534518921.21854
+2038,"Kentucky","Car",1798059681.33204
+2038,"Kentucky","Light Truck",5181076065.26178
+2038,"Louisiana","Car",1778521493.58235
+2038,"Louisiana","Light Truck",5100056577.18578
+2038,"Maine","Car",535958569.807963
+2038,"Maine","Light Truck",1748705655.59691
+2038,"Maryland","Car",3119693113.5711
+2038,"Maryland","Light Truck",8407119453.83917
+2038,"Massachusetts","Car",2985054501.03844
+2038,"Massachusetts","Light Truck",9711517821.92629
+2038,"Michigan","Car",4119374046.16077
+2038,"Michigan","Light Truck",12215249710.6633
+2038,"Minnesota","Car",2342470851.15009
+2038,"Minnesota","Light Truck",7317343455.90018
+2038,"Mississippi","Car",1130515367.19973
+2038,"Mississippi","Light Truck",3263716901.12905
+2038,"Missouri","Car",2412220688.69466
+2038,"Missouri","Light Truck",7538684608.23732
+2038,"Montana","Car",472716066.657886
+2038,"Montana","Light Truck",1299814656.9417
+2038,"Nebraska","Car",756196363.979291
+2038,"Nebraska","Light Truck",2363688612.40351
+2038,"Nevada","Car",1626861380.26625
+2038,"Nevada","Light Truck",4448818017.13508
+2038,"New Hampshire","Car",550374925.808573
+2038,"New Hampshire","Light Truck",1794593152.84579
+2038,"New Jersey","Car",4771872688.14409
+2038,"New Jersey","Light Truck",13473516248.2715
+2038,"New Mexico","Car",902993310.575369
+2038,"New Mexico","Light Truck",2481263879.8824
+2038,"New York","Car",8624480776.20625
+2038,"New York","Light Truck",24433144807.6107
+2038,"North Carolina","Car",4884388421.4923
+2038,"North Carolina","Light Truck",13256078929.9478
+2038,"North Dakota","Car",287109358.544132
+2038,"North Dakota","Light Truck",897807696.745168
+2038,"Ohio","Car",4737994770.50896
+2038,"Ohio","Light Truck",14053374534.5533
+2038,"Oklahoma","Car",1697941613.78155
+2038,"Oklahoma","Light Truck",4844925686.03494
+2038,"Oregon","Car",2437492447.66685
+2038,"Oregon","Light Truck",5326880914.98338
+2038,"Pennsylvania","Car",5501084400.02299
+2038,"Pennsylvania","Light Truck",15598649307.8231
+2038,"Rhode Island","Car",426016489.790152
+2038,"Rhode Island","Light Truck",1389503375.44544
+2038,"South Carolina","Car",2287967024.50701
+2038,"South Carolina","Light Truck",6233861877.99494
+2038,"South Dakota","Car",337558438.881991
+2038,"South Dakota","Light Truck",1055562421.59961
+2038,"Tennessee","Car",2962141615.24461
+2038,"Tennessee","Light Truck",8513535403.5542
+2038,"Texas","Car",13629435248.2689
+2038,"Texas","Light Truck",38754121143.4247
+2038,"Utah","Car",1645024527.91468
+2038,"Utah","Light Truck",4505081407.72088
+2038,"Vermont","Car",281944773.207274
+2038,"Vermont","Light Truck",916767477.678096
+2038,"Virginia","Car",4168479187.30981
+2038,"Virginia","Light Truck",11268366776.8043
+2038,"Washington","Car",5000914589.3292
+2038,"Washington","Light Truck",10867302483.1958
+2038,"West Virginia","Car",710724344.418967
+2038,"West Virginia","Light Truck",1944643691.92735
+2038,"Wisconsin","Car",2401322888.05394
+2038,"Wisconsin","Light Truck",7121409221.59345
+2038,"Wyoming","Car",233623259.406302
+2038,"Wyoming","Light Truck",643239203.39393
+2039,"Alabama","Car",2236353748.6151
+2039,"Alabama","Light Truck",6454395151.58058
+2039,"Alaska","Car",383615328.938169
+2039,"Alaska","Light Truck",852093582.86989
+2039,"Arizona","Car",3809906219.66983
+2039,"Arizona","Light Truck",10439533906.4361
+2039,"Arkansas","Car",1334724195.87758
+2039,"Arkansas","Light Truck",3829662123.76527
+2039,"California","Car",29782875320.8618
+2039,"California","Light Truck",64546475446.2813
+2039,"Colorado","Car",3292788706.22916
+2039,"Colorado","Light Truck",8998786260.9024
+2039,"Connecticut","Car",1597671749.80111
+2039,"Connecticut","Light Truck",5209091337.75429
+2039,"Delaware","Car",523389439.958588
+2039,"Delaware","Light Truck",1422031153.38073
+2039,"District of Columbia","Car",350672803.592722
+2039,"District of Columbia","Light Truck",951219601.730571
+2039,"Florida","Car",12021421738.4768
+2039,"Florida","Light Truck",32554720061.8508
+2039,"Georgia","Car",5599009803.65114
+2039,"Georgia","Light Truck",15212510597.5951
+2039,"Hawaii","Car",883225095.895406
+2039,"Hawaii","Light Truck",1938814219.39465
+2039,"Idaho","Car",912278924.182823
+2039,"Idaho","Light Truck",2508125601.07052
+2039,"Illinois","Car",5911713047.64828
+2039,"Illinois","Light Truck",17517471445.1523
+2039,"Indiana","Car",3008384268.4044
+2039,"Indiana","Light Truck",8926813085.77179
+2039,"Iowa","Car",1330734120.8131
+2039,"Iowa","Light Truck",4159312195.11806
+2039,"Kansas","Car",1245817448.43037
+2039,"Kansas","Light Truck",3892561625.25419
+2039,"Kentucky","Car",1986016511.71074
+2039,"Kentucky","Light Truck",5731172297.49996
+2039,"Louisiana","Car",1972630744.40033
+2039,"Louisiana","Light Truck",5663600804.56927
+2039,"Maine","Car",587231225.453573
+2039,"Maine","Light Truck",1917853452.19219
+2039,"Maryland","Car",3342668176.57222
+2039,"Maryland","Light Truck",9043275742.31014
+2039,"Massachusetts","Car",3221769784.54167
+2039,"Massachusetts","Light Truck",10490134600.3485
+2039,"Michigan","Car",4516590366.43056
+2039,"Michigan","Light Truck",13395220689.8275
+2039,"Minnesota","Car",2557576840.51023
+2039,"Minnesota","Light Truck",7984749670.01106
+2039,"Mississippi","Car",1255224248.17841
+2039,"Mississippi","Light Truck",3628418636.47262
+2039,"Missouri","Car",2652502876.66802
+2039,"Missouri","Light Truck",8286388847.25893
+2039,"Montana","Car",521104205.47342
+2039,"Montana","Light Truck",1433120312.6649
+2039,"Nebraska","Car",833870945.206706
+2039,"Nebraska","Light Truck",2605648332.23309
+2039,"Nevada","Car",1742715372.6267
+2039,"Nevada","Light Truck",4766113638.25941
+2039,"New Hampshire","Car",601002062.203913
+2039,"New Hampshire","Light Truck",1961531632.88476
+2039,"New Jersey","Car",5090833373.20723
+2039,"New Jersey","Light Truck",14381565662.8975
+2039,"New Mexico","Car",991900607.828704
+2039,"New Mexico","Light Truck",2726051081.35913
+2039,"New York","Car",9394630031.50796
+2039,"New York","Light Truck",26639868399.9591
+2039,"North Carolina","Car",5316759838.9969
+2039,"North Carolina","Light Truck",14479149499.58
+2039,"North Dakota","Car",318756237.70057
+2039,"North Dakota","Light Truck",996616086.14132
+2039,"Ohio","Car",5211125604.94123
+2039,"Ohio","Light Truck",15460376066.945
+2039,"Oklahoma","Car",1861156252.99994
+2039,"Oklahoma","Light Truck",5320360300.19405
+2039,"Oregon","Car",2612200392.57523
+2039,"Oregon","Light Truck",5734125775.04168
+2039,"Pennsylvania","Car",6025286363.91465
+2039,"Pennsylvania","Light Truck",17102522097.737
+2039,"Rhode Island","Car",465923498.75127
+2039,"Rhode Island","Light Truck",1521114851.44952
+2039,"South Carolina","Car",2511985022.24225
+2039,"South Carolina","Light Truck",6865247772.08528
+2039,"South Dakota","Car",374590355.536397
+2039,"South Dakota","Light Truck",1171163982.60622
+2039,"Tennessee","Car",3248787798.45141
+2039,"Tennessee","Light Truck",9353524648.33452
+2039,"Texas","Car",14798958435.9063
+2039,"Texas","Light Truck",42167540735.3046
+2039,"Utah","Car",1775698851.97941
+2039,"Utah","Light Truck",4863681567.74125
+2039,"Vermont","Car",303418070.265246
+2039,"Vermont","Light Truck",987351845.379128
+2039,"Virginia","Car",4498865816.90501
+2039,"Virginia","Light Truck",12207467842.9602
+2039,"Washington","Car",5288831576.53121
+2039,"Washington","Light Truck",11544536392.2751
+2039,"West Virginia","Car",787561600.466449
+2039,"West Virginia","Light Truck",2160532967.71528
+2039,"Wisconsin","Car",2637123124.23711
+2039,"Wisconsin","Light Truck",7822290569.52795
+2039,"Wyoming","Car",259284065.262671
+2039,"Wyoming","Light Truck",713995266.720679
+2040,"Alabama","Car",2438520953.42133
+2040,"Alabama","Light Truck",7051884299.54913
+2040,"Alaska","Car",417447863.343391
+2040,"Alaska","Light Truck",930780957.34054
+2040,"Arizona","Car",4079493775.40261
+2040,"Arizona","Light Truck",11187693162.1574
+2040,"Arkansas","Car",1457932401.50454
+2040,"Arkansas","Light Truck",4190656755.24406
+2040,"California","Car",30800585107.6497
+2040,"California","Light Truck",67090062785.8968
+2040,"Colorado","Car",3484101146.38156
+2040,"Colorado","Light Truck",9528826270.56028
+2040,"Connecticut","Car",1717147309.07146
+2040,"Connecticut","Light Truck",5607675001.80443
+2040,"Delaware","Car",560730265.297162
+2040,"Delaware","Light Truck",1529536215.07532
+2040,"District of Columbia","Car",374607662.953476
+2040,"District of Columbia","Light Truck",1020460408.76086
+2040,"Florida","Car",12792905319.984
+2040,"Florida","Light Truck",34791474082.4482
+2040,"Georgia","Car",5998157542.62403
+2040,"Georgia","Light Truck",16361162722.0727
+2040,"Hawaii","Car",938214120.965789
+2040,"Hawaii","Light Truck",2069405835.20496
+2040,"Idaho","Car",991443832.479335
+2040,"Idaho","Light Truck",2727952101.52626
+2040,"Illinois","Car",6360549183.253
+2040,"Illinois","Light Truck",18862491376.4362
+2040,"Indiana","Car",3271671376.98183
+2040,"Indiana","Light Truck",9718208826.51439
+2040,"Iowa","Car",1452019411.71471
+2040,"Iowa","Light Truck",4540807753.3182
+2040,"Kansas","Car",1355006556.31152
+2040,"Kansas","Light Truck",4235676739.52145
+2040,"Kentucky","Car",2164790913.24583
+2040,"Kentucky","Light Truck",6259553724.90705
+2040,"Louisiana","Car",2157812436.46708
+2040,"Louisiana","Light Truck",6205800515.37175
+2040,"Maine","Car",635710836.703053
+2040,"Maine","Light Truck",2079612218.59887
+2040,"Maryland","Car",3549253312.27017
+2040,"Maryland","Light Truck",9643155070.20672
+2040,"Massachusetts","Car",3442751393.23944
+2040,"Massachusetts","Light Truck",11227161347.9267
+2040,"Michigan","Car",4892416652.75878
+2040,"Michigan","Light Truck",14523723298.0147
+2040,"Minnesota","Car",2760576339.37455
+2040,"Minnesota","Light Truck",8620967172.66957
+2040,"Mississippi","Car",1374190076.45223
+2040,"Mississippi","Light Truck",3979540640.60896
+2040,"Missouri","Car",2880400273.27006
+2040,"Missouri","Light Truck",9002165284.37404
+2040,"Montana","Car",567125695.404948
+2040,"Montana","Light Truck",1560931608.18435
+2040,"Nebraska","Car",907676288.583393
+2040,"Nebraska","Light Truck",2837631506.03824
+2040,"Nevada","Car",1850198780.64714
+2040,"Nevada","Light Truck",5064129376.31981
+2040,"New Hampshire","Car",648767962.83989
+2040,"New Hampshire","Light Truck",2120909964.80781
+2040,"New Jersey","Car",5384214770.90027
+2040,"New Jersey","Light Truck",15231362948.0748
+2040,"New Mexico","Car",1076268307.61665
+2040,"New Mexico","Light Truck",2960306434.80463
+2040,"New York","Car",10119389285.4828
+2040,"New York","Light Truck",28743360943.7536
+2040,"North Carolina","Car",5723717407.82898
+2040,"North Carolina","Light Truck",15646152626.3597
+2040,"North Dakota","Car",348940201.833834
+2040,"North Dakota","Light Truck",1091646667.92854
+2040,"Ohio","Car",5659790104.53331
+2040,"Ohio","Light Truck",16808543222.8145
+2040,"Oklahoma","Car",2015735977.72336
+2040,"Oklahoma","Light Truck",5775186801.71986
+2040,"Oregon","Car",2774414842.28108
+2040,"Oregon","Light Truck",6118943472.35123
+2040,"Pennsylvania","Car",6520796273.12204
+2040,"Pennsylvania","Light Truck",18541235876.8162
+2040,"Rhode Island","Car",503606111.507035
+2040,"Rhode Island","Light Truck",1646841927.29416
+2040,"South Carolina","Car",2724156246.56246
+2040,"South Carolina","Light Truck",7470544414.31045
+2040,"South Dakota","Car",409906758.53778
+2040,"South Dakota","Light Truck",1282340004.13491
+2040,"Tennessee","Car",3520209654.88482
+2040,"Tennessee","Light Truck",10157504806.6959
+2040,"Texas","Car",15898532794.8211
+2040,"Texas","Light Truck",45413957053.5475
+2040,"Utah","Car",1897992010.95854
+2040,"Utah","Light Truck",5202936620.53474
+2040,"Vermont","Car",323399017.181002
+2040,"Vermont","Light Truck",1053990714.73795
+2040,"Virginia","Car",4807529169.30336
+2040,"Virginia","Light Truck",13098535150.7202
+2040,"Washington","Car",5550605304.06041
+2040,"Washington","Light Truck",12174877047.946
+2040,"West Virginia","Car",860752290.076076
+2040,"West Virginia","Light Truck",2368400721.77499
+2040,"Wisconsin","Car",2860434121.12237
+2040,"Wisconsin","Light Truck",8493087572.98147
+2040,"Wyoming","Car",283783728.738651
+2040,"Wyoming","Light Truck",782049876.132447
+2041,"Alabama","Car",2620179212.20732
+2041,"Alabama","Light Truck",7595507019.07367
+2041,"Alaska","Car",447881965.436396
+2041,"Alaska","Light Truck",1002339199.99425
+2041,"Arizona","Car",4316203318.2081
+2041,"Arizona","Light Truck",11853362813.6075
+2041,"Arkansas","Car",1568953568.39135
+2041,"Arkansas","Light Truck",4519451382.22135
+2041,"California","Car",31584265341.1287
+2041,"California","Light Truck",69160516155.1288
+2041,"Colorado","Car",3647577287.62801
+2041,"Colorado","Light Truck",9989609919.55423
+2041,"Connecticut","Car",1822498078.36095
+2041,"Connecticut","Light Truck",5964311822.38143
+2041,"Delaware","Car",593469753.985799
+2041,"Delaware","Light Truck",1625644967.64963
+2041,"District of Columbia","Car",395517296.234641
+2041,"District of Columbia","Light Truck",1082187842.11959
+2041,"Florida","Car",13460691663.376
+2041,"Florida","Light Truck",36771919231.0777
+2041,"Georgia","Car",6347874747.77333
+2041,"Georgia","Light Truck",17387572066.3086
+2041,"Hawaii","Car",985906149.992057
+2041,"Hawaii","Light Truck",2184881117.87168
+2041,"Idaho","Car",1062417275.20336
+2041,"Idaho","Light Truck",2927030755.53138
+2041,"Illinois","Car",6756602174.0642
+2041,"Illinois","Light Truck",20066584279.637
+2041,"Indiana","Car",3507511720.1841
+2041,"Indiana","Light Truck",10435822755.49
+2041,"Iowa","Car",1561137921.51992
+2041,"Iowa","Light Truck",4887544072.22688
+2041,"Kansas","Car",1452873664.10566
+2041,"Kansas","Light Truck",4546509289.8606
+2041,"Kentucky","Car",2325363125.63359
+2041,"Kentucky","Light Truck",6740137062.92956
+2041,"Louisiana","Car",2324926363.59329
+2041,"Louisiana","Light Truck",6700229996.99429
+2041,"Maine","Car",678911949.741235
+2041,"Maine","Light Truck",2225615347.97714
+2041,"Maryland","Car",3727014714.06798
+2041,"Maryland","Light Truck",10171981432.7671
+2041,"Massachusetts","Car",3635612998.46856
+2041,"Massachusetts","Light Truck",11881027908.2427
+2041,"Michigan","Car",5227363692.74647
+2041,"Michigan","Light Truck",15542609642.1785
+2041,"Minnesota","Car",2940723918.64011
+2041,"Minnesota","Light Truck",9192360624.7528
+2041,"Mississippi","Car",1481534871.91252
+2041,"Mississippi","Light Truck",4300089663.46633
+2041,"Missouri","Car",3084261675.56414
+2041,"Missouri","Light Truck",9649473783.93707
+2041,"Montana","Car",608448489.815963
+2041,"Montana","Light Truck",1676831682.02729
+2041,"Nebraska","Car",973891067.588777
+2041,"Nebraska","Light Truck",3047960662.71601
+2041,"Nevada","Car",1942828583.55569
+2041,"Nevada","Light Truck",5325102426.27075
+2041,"New Hampshire","Car",691169286.829796
+2041,"New Hampshire","Light Truck",2264307528.10167
+2041,"New Jersey","Car",5633896161.79349
+2041,"New Jersey","Light Truck",15970709613.1789
+2041,"New Mexico","Car",1151763268.50565
+2041,"New Mexico","Light Truck",3172110790.76823
+2041,"New York","Car",10760276971.3714
+2041,"New York","Light Truck",30632192850.3095
+2041,"North Carolina","Car",6083362024.4136
+2041,"North Carolina","Light Truck",16695752201.4495
+2041,"North Dakota","Car",376186558.142152
+2041,"North Dakota","Light Truck",1178266144.37209
+2041,"Ohio","Car",6061078252.68468
+2041,"Ohio","Light Truck",18029475126.1785
+2041,"Oklahoma","Car",2153644292.22765
+2041,"Oklahoma","Light Truck",6186136591.9305
+2041,"Oregon","Car",2914791661.84326
+2041,"Oregon","Light Truck",6458680512.68662
+2041,"Pennsylvania","Car",6961938857.66491
+2041,"Pennsylvania","Light Truck",19840364193.8948
+2041,"Rhode Island","Car",537112385.214628
+2041,"Rhode Island","Light Truck",1760116489.53832
+2041,"South Carolina","Car",2913579771.25846
+2041,"South Carolina","Light Truck",8019221944.08754
+2041,"South Dakota","Car",441776565.180632
+2041,"South Dakota","Light Truck",1383651023.06481
+2041,"Tennessee","Car",3762264682.77966
+2041,"Tennessee","Light Truck",10884570109.9466
+2041,"Texas","Car",16867975471.8681
+2041,"Texas","Light Truck",48319165199.9097
+2041,"Utah","Car",2004945738.02826
+2041,"Utah","Light Truck",5503757454.20586
+2041,"Vermont","Car",340753813.96717
+2041,"Vermont","Light Truck",1112878465.0086
+2041,"Virginia","Car",5076887223.42548
+2041,"Virginia","Light Truck",13892360505.8815
+2041,"Washington","Car",5769166297.19875
+2041,"Washington","Light Truck",12716924642.654
+2041,"West Virginia","Car",926678613.116091
+2041,"West Virginia","Light Truck",2558130962.85877
+2041,"Wisconsin","Car",3059776285.25987
+2041,"Wisconsin","Light Truck",9099544227.57309
+2041,"Wyoming","Car",305918811.501035
+2041,"Wyoming","Light Truck",844088881.536672
+2042,"Alabama","Car",2788994849.51371
+2042,"Alabama","Light Truck",8108506583.37252
+2042,"Alaska","Car",476105904.397985
+2042,"Alaska","Light Truck",1069977235.88187
+2042,"Arizona","Car",4531775856.82379
+2042,"Arizona","Light Truck",12471486661.567
+2042,"Arkansas","Car",1672388586.26795
+2042,"Arkansas","Light Truck",4830037789.29297
+2042,"California","Car",32209906451.1586
+2042,"California","Light Truck",70946634811.5254
+2042,"Colorado","Car",3792667585.96114
+2042,"Colorado","Light Truck",10409114081.7908
+2042,"Connecticut","Car",1918453558.32471
+2042,"Connecticut","Light Truck",6297081827.20418
+2042,"Delaware","Car",623245343.804169
+2042,"Delaware","Light Truck",1715124712.03473
+2042,"District of Columbia","Car",414492960.153951
+2042,"District of Columbia","Light Truck",1139561149.64925
+2042,"Florida","Car",14061391103.8485
+2042,"Florida","Light Truck",38601731599.5115
+2042,"Georgia","Car",6665749134.97531
+2042,"Georgia","Light Truck",18342837542.8224
+2042,"Hawaii","Car",1028773328.11248
+2042,"Hawaii","Light Truck",2291724463.18457
+2042,"Idaho","Car",1128184370.65256
+2042,"Idaho","Light Truck",3114332035.12151
+2042,"Illinois","Car",7118633700.97768
+2042,"Illinois","Light Truck",21189477166.6754
+2042,"Indiana","Car",3725883172.61531
+2042,"Indiana","Light Truck",11111521053.1336
+2042,"Iowa","Car",1662516684.32734
+2042,"Iowa","Light Truck",5214629291.97101
+2042,"Kansas","Car",1543503200.12839
+2042,"Kansas","Light Truck",4838985818.24493
+2042,"Kentucky","Car",2474521667.56903
+2042,"Kentucky","Light Truck",7193508388.00996
+2042,"Louisiana","Car",2480779263.30152
+2042,"Louisiana","Light Truck",7167655041.55678
+2042,"Maine","Car",718622047.727562
+2042,"Maine","Light Truck",2362735849.48185
+2042,"Maryland","Car",3886026478.12322
+2042,"Maryland","Light Truck",10658755217.8037
+2042,"Massachusetts","Car",3809574642.48427
+2042,"Massachusetts","Light Truck",12486882724.0947
+2042,"Michigan","Car",5536177429.71662
+2042,"Michigan","Light Truck",16498917889.9694
+2042,"Minnesota","Car",3106078474.52612
+2042,"Minnesota","Light Truck",9726350463.52561
+2042,"Mississippi","Car",1581626463.0005
+2042,"Mississippi","Light Truck",4603355918.43872
+2042,"Missouri","Car",3272735000.8611
+2042,"Missouri","Light Truck",10257785601.9912
+2042,"Montana","Car",646805227.055547
+2042,"Montana","Light Truck",1786022011.01427
+2042,"Nebraska","Car",1035258084.09614
+2042,"Nebraska","Light Truck",3245990059.05923
+2042,"Nevada","Car",2025837840.52301
+2042,"Nevada","Light Truck",5564485637.5215
+2042,"New Hampshire","Car",730027679.752045
+2042,"New Hampshire","Light Truck",2398703805.57224
+2042,"New Jersey","Car",5854380443.36437
+2042,"New Jersey","Light Truck",16644975529.2659
+2042,"New Mexico","Car",1221607956.16909
+2042,"New Mexico","Light Truck",3371139823.44417
+2042,"New York","Car",11346240146.7924
+2042,"New York","Light Truck",32397958973.1384
+2042,"North Carolina","Car",6412697394.11765
+2042,"North Carolina","Light Truck",17677689011.2779
+2042,"North Dakota","Car",401567345.385009
+2042,"North Dakota","Light Truck",1260136886.97272
+2042,"Ohio","Car",6432129923.37745
+2042,"Ohio","Light Truck",19177895172.1272
+2042,"Oklahoma","Car",2281182446.38065
+2042,"Oklahoma","Light Truck",6572097482.69786
+2042,"Oregon","Car",3040713119.71045
+2042,"Oregon","Light Truck",6772602552.93458
+2042,"Pennsylvania","Car",7367839348.01316
+2042,"Pennsylvania","Light Truck",21060503578.2617
+2042,"Rhode Island","Car",567853253.879174
+2042,"Rhode Island","Light Truck",1866356116.31635
+2042,"South Carolina","Car",3088524740.31931
+2042,"South Carolina","Light Truck",8535674902.28311
+2042,"South Dakota","Car",471462982.48209
+2042,"South Dakota","Light Truck",1479411280.05916
+2042,"Tennessee","Car",3985807534.2212
+2042,"Tennessee","Light Truck",11567456838.9475
+2042,"Texas","Car",17754693937.5206
+2042,"Texas","Light Truck",51025300513.9929
+2042,"Utah","Car",2101984739.81264
+2042,"Utah","Light Truck",5782271631.77401
+2042,"Vermont","Car",356337567.837457
+2042,"Vermont","Light Truck",1167270843.8022
+2042,"Virginia","Car",5320993503.98676
+2042,"Virginia","Light Truck",14629579952.5235
+2042,"Washington","Car",5958489162.90596
+2042,"Washington","Light Truck",13206712075.7629
+2042,"West Virginia","Car",988018755.783879
+2042,"West Virginia","Light Truck",2737682867.03163
+2042,"Wisconsin","Car",3243765741.45731
+2042,"Wisconsin","Light Truck",9669160714.73547
+2042,"Wyoming","Car",326563150.741388
+2042,"Wyoming","Light Truck",902748554.554292
+2043,"Alabama","Car",2942086263.10311
+2043,"Alabama","Light Truck",8587004233.31923
+2043,"Alaska","Car",501708431.518243
+2043,"Alaska","Light Truck",1133136317.26615
+2043,"Arizona","Car",4722714565.21919
+2043,"Arizona","Light Truck",13038116051.1616
+2043,"Arkansas","Car",1766505551.87143
+2043,"Arkansas","Light Truck",5119957793.93125
+2043,"California","Car",32670002566.5834
+2043,"California","Light Truck",72451790319.3944
+2043,"Colorado","Car",3917142991.37492
+2043,"Colorado","Light Truck",10785791066.9977
+2043,"Connecticut","Car",2003329400.17843
+2043,"Connecticut","Light Truck",6603843425.26117
+2043,"Delaware","Car",649574190.259739
+2043,"Delaware","Light Truck",1797434183.72515
+2043,"District of Columbia","Car",431212946.789245
+2043,"District of Columbia","Light Truck",1192227350.11964
+2043,"Florida","Car",14585248457.9944
+2043,"Florida","Light Truck",40271363843.0313
+2043,"Georgia","Car",6946682122.06351
+2043,"Georgia","Light Truck",19221287673.132
+2043,"Hawaii","Car",1066187116.79288
+2043,"Hawaii","Light Truck",2389267993.94048
+2043,"Idaho","Car",1187697899.39076
+2043,"Idaho","Light Truck",3288427443.36236
+2043,"Illinois","Car",7440618295.33583
+2043,"Illinois","Light Truck",22224027748.2992
+2043,"Indiana","Car",3923148221.58483
+2043,"Indiana","Light Truck",11740217252.0995
+2043,"Iowa","Car",1754450338.85541
+2043,"Iowa","Light Truck",5519495291.41065
+2043,"Kansas","Car",1625374020.85605
+2043,"Kansas","Light Truck",5110905420.44531
+2043,"Kentucky","Car",2609725168.65385
+2043,"Kentucky","Light Truck",7616261980.79668
+2043,"Louisiana","Car",2622767831.03123
+2043,"Louisiana","Light Truck",7604342781.85794
+2043,"Maine","Car",754149418.829411
+2043,"Maine","Light Truck",2489991683.84528
+2043,"Maryland","Car",4023767015.55025
+2043,"Maryland","Light Truck",11101209133.1037
+2043,"Massachusetts","Car",3961596717.05965
+2043,"Massachusetts","Light Truck",13041382589.6904
+2043,"Michigan","Car",5813714704.81821
+2043,"Michigan","Light Truck",17385818923.6277
+2043,"Minnesota","Car",3253872188.93998
+2043,"Minnesota","Light Truck",10219369916.2929
+2043,"Mississippi","Car",1672756737.61961
+2043,"Mississippi","Light Truck",4886958812.18916
+2043,"Missouri","Car",3442657169.32166
+2043,"Missouri","Light Truck",10822616244.7287
+2043,"Montana","Car",681581356.367098
+2043,"Montana","Light Truck",1887647745.52639
+2043,"Nebraska","Car",1090747421.09883
+2043,"Nebraska","Light Truck",3430215262.60513
+2043,"Nevada","Car",2097901458.19619
+2043,"Nevada","Light Truck",5781112300.03292
+2043,"New Hampshire","Car",764659644.901084
+2043,"New Hampshire","Light Truck",2523157141.60288
+2043,"New Jersey","Car",6042069805.42192
+2043,"New Jersey","Light Truck",17251861415.8209
+2043,"New Mexico","Car",1284690748.9151
+2043,"New Mexico","Light Truck",3555902958.4579
+2043,"New York","Car",11867657142.1422
+2043,"New York","Light Truck",34029237158.5935
+2043,"North Carolina","Car",6706349566.09333
+2043,"North Carolina","Light Truck",18585466286.4183
+2043,"North Dakota","Car",424657820.166524
+2043,"North Dakota","Light Truck",1336601913.91137
+2043,"Ohio","Car",6766765876.7862
+2043,"Ohio","Light Truck",20245303011.5906
+2043,"Oklahoma","Car",2396198900.59975
+2043,"Oklahoma","Light Truck",6930237666.039
+2043,"Oregon","Car",3150404050.23009
+2043,"Oregon","Light Truck",7058870494.68049
+2043,"Pennsylvania","Car",7731778159.11228
+2043,"Pennsylvania","Light Truck",22192987452.4783
+2043,"Rhode Island","Car",595293205.729573
+2043,"Rhode Island","Light Truck",1964817670.26281
+2043,"South Carolina","Car",3246118472.95565
+2043,"South Carolina","Light Truck",9016122149.43214
+2043,"South Dakota","Car",498466586.446479
+2043,"South Dakota","Light Truck",1568846150.53755
+2043,"Tennessee","Car",4187033405.91705
+2043,"Tennessee","Light Truck",12201383491.6761
+2043,"Texas","Car",18544150809.6885
+2043,"Texas","Light Truck",53515474853.429
+2043,"Utah","Car",2187564984.11212
+2043,"Utah","Light Truck",6036843306.14247
+2043,"Vermont","Car",369876227.013739
+2043,"Vermont","Light Truck",1216885423.26574
+2043,"Virginia","Car",5535861142.48433
+2043,"Virginia","Light Truck",15305904546.835
+2043,"Washington","Car",6116178806.32533
+2043,"Washington","Light Truck",13642755466.2698
+2043,"West Virginia","Car",1043757903.79488
+2043,"West Virginia","Light Truck",2905628345.0427
+2043,"Wisconsin","Car",3409362666.40303
+2043,"Wisconsin","Light Truck",10197871291.1879
+2043,"Wyoming","Car",345387064.938235
+2043,"Wyoming","Light Truck",957548494.451367
+2044,"Alabama","Car",3081124307.96604
+2044,"Alabama","Light Truck",9030688735.11646
+2044,"Alaska","Car",524922457.863314
+2044,"Alaska","Light Truck",1191777094.78776
+2044,"Arizona","Car",4893039682.56744
+2044,"Arizona","Light Truck",13554401545.1003
+2044,"Arkansas","Car",1852168121.51776
+2044,"Arkansas","Light Truck",5389052610.02766
+2044,"California","Car",33000555834.1545
+2044,"California","Light Truck",73714286418.0575
+2044,"Colorado","Car",4024973735.84045
+2044,"Colorado","Light Truck",11122359711.0982
+2044,"Connecticut","Car",2078572088.15499
+2044,"Connecticut","Light Truck",6885512602.94792
+2044,"Delaware","Car",672932353.932303
+2044,"Delaware","Light Truck",1872820197.78283
+2044,"District of Columbia","Car",445995048.631051
+2044,"District of Columbia","Light Truck",1240363522.00228
+2044,"Florida","Car",15044037532.6303
+2044,"Florida","Light Truck",41789123206.1043
+2044,"Georgia","Car",7195812333.11454
+2044,"Georgia","Light Truck",20025650931.7714
+2044,"Hawaii","Car",1098916829.80068
+2044,"Hawaii","Light Truck",2477974188.35574
+2044,"Idaho","Car",1241800406.5241
+2044,"Idaho","Light Truck",3449125283.96167
+2044,"Illinois","Car",7727559985.57971
+2044,"Illinois","Light Truck",23173347932.9719
+2044,"Indiana","Car",4101480115.2833
+2044,"Indiana","Light Truck",12322190311.7429
+2044,"Iowa","Car",1837864273.96568
+2044,"Iowa","Light Truck",5802139883.16799
+2044,"Kansas","Car",1699401759.98695
+2044,"Kansas","Light Truck",5362447891.28366
+2044,"Kentucky","Car",2732469441.79269
+2044,"Kentucky","Light Truck",8008156450.17955
+2044,"Louisiana","Car",2752142247.58839
+2044,"Louisiana","Light Truck",8009968863.37779
+2044,"Maine","Car",785980645.427403
+2044,"Maine","Light Truck",2607544029.91712
+2044,"Maryland","Car",4143642949.38251
+2044,"Maryland","Light Truck",11501998251.0214
+2044,"Massachusetts","Car",4094826420.63585
+2044,"Massachusetts","Light Truck",13547245590.8674
+2044,"Michigan","Car",6063444780.14811
+2044,"Michigan","Light Truck",18204453894.6536
+2044,"Minnesota","Car",3386216245.31916
+2044,"Minnesota","Light Truck",10672645125.2095
+2044,"Mississippi","Car",1755807676.68214
+2044,"Mississippi","Light Truck",5150536469.44195
+2044,"Missouri","Car",3596025972.12342
+2044,"Missouri","Light Truck",11344527971.8086
+2044,"Montana","Car",713247229.742141
+2044,"Montana","Light Truck",1981562680.46793
+2044,"Nebraska","Car",1140964365.58379
+2044,"Nebraska","Light Truck",3600728433.86934
+2044,"Nevada","Car",2161021647.55196
+2044,"Nevada","Light Truck",5976099833.40938
+2044,"New Hampshire","Car",795577308.874375
+2044,"New Hampshire","Light Truck",2637890723.93929
+2044,"New Jersey","Car",6202215428.87313
+2044,"New Jersey","Light Truck",17797082605.6806
+2044,"New Mexico","Car",1341943621.9437
+2044,"New Mexico","Light Truck",3726251098.1931
+2044,"New York","Car",12332241471.2548
+2044,"New York","Light Truck",35530128270.8604
+2044,"North Carolina","Car",6968851414.21148
+2044,"North Carolina","Light Truck",19420682999.9529
+2044,"North Dakota","Car",445669565.579642
+2044,"North Dakota","Light Truck",1407622462.96303
+2044,"Ohio","Car",7068831784.08416
+2044,"Ohio","Light Truck",21232465016.9241
+2044,"Oklahoma","Car",2500062800.33531
+2044,"Oklahoma","Light Truck",7260872105.58959
+2044,"Oregon","Car",3246202998.57993
+2044,"Oregon","Light Truck",7318957900.16024
+2044,"Pennsylvania","Car",8058327873.35632
+2044,"Pennsylvania","Light Truck",23239245759.0706
+2044,"Rhode Island","Car",619826646.614852
+2044,"Rhode Island","Light Truck",2055661026.5075
+2044,"South Carolina","Car",3388287955.58165
+2044,"South Carolina","Light Truck",9460671603.45213
+2044,"South Dakota","Car",523035307.891983
+2044,"South Dakota","Light Truck",1651908401.09611
+2044,"Tennessee","Car",4368606719.57652
+2044,"Tennessee","Light Truck",12786679711.4126
+2044,"Texas","Car",19248985856.4878
+2044,"Texas","Light Truck",55797234126.6791
+2044,"Utah","Car",2263616103.81246
+2044,"Utah","Light Truck",6268188503.84966
+2044,"Vermont","Car",381673721.360108
+2044,"Vermont","Light Truck",1262008021.17164
+2044,"Virginia","Car",5725679129.64024
+2044,"Virginia","Light Truck",15923791359.2466
+2044,"Washington","Car",6247867357.81167
+2044,"Washington","Light Truck",14030001833.1769
+2044,"West Virginia","Car",1094426468.33465
+2044,"West Virginia","Light Truck",3061780952.70846
+2044,"Wisconsin","Car",3558573094.34424
+2044,"Wisconsin","Light Truck",10686265409.7569
+2044,"Wyoming","Car",362611007.736743
+2044,"Wyoming","Light Truck",1008363684.34448
+2045,"Alabama","Car",3203834015.8216
+2045,"Alabama","Light Truck",9437033170.23113
+2045,"Alaska","Car",545544303.590841
+2045,"Alaska","Light Truck",1245380924.00705
+2045,"Arizona","Car",5040349787.09207
+2045,"Arizona","Light Truck",14019987435.9509
+2045,"Arkansas","Car",1928060113.49136
+2045,"Arkansas","Light Truck",5635561441.70218
+2045,"California","Car",33215282235.6354
+2045,"California","Light Truck",74757797214.8822
+2045,"Colorado","Car",4115067754.64109
+2045,"Colorado","Light Truck",11420668018.2487
+2045,"Connecticut","Car",2143255423.95889
+2045,"Connecticut","Light Truck",7141138457.63672
+2045,"Delaware","Car",693059746.726534
+2045,"Delaware","Light Truck",1941080648.91362
+2045,"District of Columbia","Car",458676129.765415
+2045,"District of Columbia","Light Truck",1283864992.42944
+2045,"Florida","Car",15433442978.4105
+2045,"Florida","Light Truck",43154280899.1134
+2045,"Georgia","Car",7410397807.69628
+2045,"Georgia","Light Truck",20753845183.5524
+2045,"Hawaii","Car",1126896379.95412
+2045,"Hawaii","Light Truck",2557529077.75198
+2045,"Idaho","Car",1289617858.62256
+2045,"Idaho","Light Truck",3595695375.04325
+2045,"Illinois","Car",7976056783.9719
+2045,"Illinois","Light Truck",24034227402.8503
+2045,"Indiana","Car",4258417056.46206
+2045,"Indiana","Light Truck",12853951005.1528
+2045,"Iowa","Car",1911599297.95171
+2045,"Iowa","Light Truck",6060646057.72636
+2045,"Kansas","Car",1764594971.1408
+2045,"Kansas","Light Truck",5592072014.28755
+2045,"Kentucky","Car",2840753616.01951
+2045,"Kentucky","Light Truck",8366992320.35555
+2045,"Louisiana","Car",2866900507.7326
+2045,"Louisiana","Light Truck",8381792910.77048
+2045,"Maine","Car",813681533.817068
+2045,"Maine","Light Truck",2714786537.35052
+2045,"Maryland","Car",4244654614.46283
+2045,"Maryland","Light Truck",11861370676.0144
+2045,"Massachusetts","Car",4207834171.08627
+2045,"Massachusetts","Light Truck",14003762430.6144
+2045,"Michigan","Car",6282077093.39454
+2045,"Michigan","Light Truck",18950613097.1902
+2045,"Minnesota","Car",3501523977.13448
+2045,"Minnesota","Light Truck",11084222470.7343
+2045,"Mississippi","Car",1829388510.11778
+2045,"Mississippi","Light Truck",5392405070.94203
+2045,"Missouri","Car",3730825850.74164
+2045,"Missouri","Light Truck",11820495544.9734
+2045,"Montana","Car",741283357.755805
+2045,"Montana","Light Truck",2067304988.04195
+2045,"Nebraska","Car",1185230273.40494
+2045,"Nebraska","Light Truck",3756457565.56329
+2045,"Nevada","Car",2214451145.7249
+2045,"Nevada","Light Truck",6150049514.03705
+2045,"New Hampshire","Car",822370791.954786
+2045,"New Hampshire","Light Truck",2742377500.90987
+2045,"New Jersey","Car",6333841405.39587
+2045,"New Jersey","Light Truck",18282572145.4001
+2045,"New Mexico","Car",1392452721.08045
+2045,"New Mexico","Light Truck",3881469381.56368
+2045,"New York","Car",12734376086.7895
+2045,"New York","Light Truck",36894985047.9765
+2045,"North Carolina","Car",7197000129.5624
+2045,"North Carolina","Light Truck",20179976458.2396
+2045,"North Dakota","Car",464302882.714938
+2045,"North Dakota","Light Truck",1472680817.89279
+2045,"Ohio","Car",7334220340.09113
+2045,"Ohio","Light Truck",22133737370.0453
+2045,"Oklahoma","Car",2591271853.15386
+2045,"Oklahoma","Light Truck",7562348026.09459
+2045,"Oregon","Car",3327969003.18242
+2045,"Oregon","Light Truck",7552033252.84232
+2045,"Pennsylvania","Car",8343209966.08102
+2045,"Pennsylvania","Light Truck",24194013551.0838
+2045,"Rhode Island","Car",641125647.879123
+2045,"Rhode Island","Light Truck",2138450602.37711
+2045,"South Carolina","Car",3513119195.40945
+2045,"South Carolina","Light Truck",9866796987.7441
+2045,"South Dakota","Car",544818176.407838
+2045,"South Dakota","Light Truck",1727991991.13218
+2045,"Tennessee","Car",4527693316.81416
+2045,"Tennessee","Light Truck",13320770332.8883
+2045,"Texas","Car",19860197862.0361
+2045,"Texas","Light Truck",57864355920.1195
+2045,"Utah","Car",2329111340.33293
+2045,"Utah","Light Truck",6476346940.02749
+2045,"Vermont","Car",391611898.374085
+2045,"Vermont","Light Truck",1302616872.89276
+2045,"Virginia","Car",5888429810.84943
+2045,"Virginia","Light Truck",16482026906.9204
+2045,"Washington","Car",6354620070.47478
+2045,"Washington","Light Truck",14369632088.9115
+2045,"West Virginia","Car",1139288606.78732
+2045,"West Virginia","Light Truck",3205031727.28899
+2045,"Wisconsin","Car",3689413355.92524
+2045,"Wisconsin","Light Truck",11131734714.9723
+2045,"Wyoming","Car",377943455.916928
+2045,"Wyoming","Light Truck",1054893039.82941
+2046,"Alabama","Car",3304296488.17123
+2046,"Alabama","Light Truck",9778567632.89306
+2046,"Alaska","Car",564522848.513169
+2046,"Alaska","Light Truck",1287561388.07905
+2046,"Arizona","Car",5157356095.90273
+2046,"Arizona","Light Truck",14398151858.6274
+2046,"Arkansas","Car",1990501834.79305
+2046,"Arkansas","Light Truck",5842974741.07098
+2046,"California","Car",33391691718.8635
+2046,"California","Light Truck",75298387939.8927
+2046,"Colorado","Car",4182532787.52109
+2046,"Colorado","Light Truck",11653892634.5394
+2046,"Connecticut","Car",2193909149.48679
+2046,"Connecticut","Light Truck",7352175112.3803
+2046,"Delaware","Car",708821184.188607
+2046,"Delaware","Light Truck",1997211548.23809
+2046,"District of Columbia","Car",468521427.695122
+2046,"District of Columbia","Light Truck",1319474868.81607
+2046,"Florida","Car",15730132777.6278
+2046,"Florida","Light Truck",44261191961.2699
+2046,"Georgia","Car",7578336359.94809
+2046,"Georgia","Light Truck",21352453331.6192
+2046,"Hawaii","Car",1152355724.91693
+2046,"Hawaii","Light Truck",2616201923.29151
+2046,"Idaho","Car",1328951472.02013
+2046,"Idaho","Light Truck",3717735593.48878
+2046,"Illinois","Car",8172573454.06728
+2046,"Illinois","Light Truck",24744246878.9971
+2046,"Indiana","Car",4385882786.55817
+2046,"Indiana","Light Truck",13299525583.9744
+2046,"Iowa","Car",1971944546.0087
+2046,"Iowa","Light Truck",6277782609.85089
+2046,"Kansas","Car",1817629554.60282
+2046,"Kansas","Light Truck",5784206916.78643
+2046,"Kentucky","Car",2929348742.49839
+2046,"Kentucky","Light Truck",8668471194.41198
+2046,"Louisiana","Car",2961511004.33277
+2046,"Louisiana","Light Truck",8695073687.10026
+2046,"Maine","Car",835826660.401817
+2046,"Maine","Light Truck",2804305761.15877
+2046,"Maryland","Car",4320609895.12177
+2046,"Maryland","Light Truck",12150910527.4701
+2046,"Massachusetts","Car",4294302148.16035
+2046,"Massachusetts","Light Truck",14376225981.9017
+2046,"Michigan","Car",6458147307.17796
+2046,"Michigan","Light Truck",19572629512.7511
+2046,"Minnesota","Car",3593693268.04141
+2046,"Minnesota","Light Truck",11424837625.5381
+2046,"Mississippi","Car",1890002588.29387
+2046,"Mississippi","Light Truck",5596510296.46736
+2046,"Missouri","Car",3840134160.86161
+2046,"Missouri","Light Truck",12217946481.7392
+2046,"Montana","Car",764405568.134428
+2046,"Montana","Light Truck",2138835381.51124
+2046,"Nebraska","Car",1221295821.28858
+2046,"Nebraska","Light Truck",3886889183.34713
+2046,"Nevada","Car",2255371070.85669
+2046,"Nevada","Light Truck",6287977577.79952
+2046,"New Hampshire","Car",843638921.073481
+2046,"New Hampshire","Light Truck",2829261768.63876
+2046,"New Jersey","Car",6428438699.50451
+2046,"New Jersey","Light Truck",18666992647.4798
+2046,"New Mexico","Car",1433881627.2948
+2046,"New Mexico","Light Truck",4010439473.35404
+2046,"New York","Car",13052150425.3744
+2046,"New York","Light Truck",38026382139.6894
+2046,"North Carolina","Car",7378359127.61873
+2046,"North Carolina","Light Truck",20809474179.8042
+2046,"North Dakota","Car",479632028.019171
+2046,"North Dakota","Light Truck",1527510953.58213
+2046,"Ohio","Car",7549195625.78267
+2046,"Ohio","Light Truck",22887704250.7487
+2046,"Oklahoma","Car",2665229404.32528
+2046,"Oklahoma","Light Truck",7813581708.6916
+2046,"Oregon","Car",3402323769.6492
+2046,"Oregon","Light Truck",7723572704.19503
+2046,"Pennsylvania","Car",8571300269.49179
+2046,"Pennsylvania","Light Truck",24991173226.2634
+2046,"Rhode Island","Car",658085389.283774
+2046,"Rhode Island","Light Truck",2207408242.45567
+2046,"South Carolina","Car",3614087106.44554
+2046,"South Carolina","Light Truck",10206861344.6942
+2046,"South Dakota","Car",562730732.734924
+2046,"South Dakota","Light Truck",1792097168.94911
+2046,"Tennessee","Car",4656410112.87909
+2046,"Tennessee","Light Truck",13766348860.0101
+2046,"Texas","Car",20345645507.103
+2046,"Texas","Light Truck",59564717667.0624
+2046,"Utah","Car",2380778477.79311
+2046,"Utah","Light Truck",6644632923.07869
+2046,"Vermont","Car",399122494.46116
+2046,"Vermont","Light Truck",1335549993.03994
+2046,"Virginia","Car",6014730844.87712
+2046,"Virginia","Light Truck",16938889264.1143
+2046,"Washington","Car",6450080496.77708
+2046,"Washington","Light Truck",14600806379.7452
+2046,"West Virginia","Car",1176079744.17943
+2046,"West Virginia","Light Truck",3325980995.49102
+2046,"Wisconsin","Car",3795074618.26202
+2046,"Wisconsin","Light Truck",11503698713.8202
+2046,"Wyoming","Car",390695500.419477
+2046,"Wyoming","Light Truck",1093954394.79405
+2047,"Alabama","Car",3387730478.10807
+2047,"Alabama","Light Truck",10081074509.3135
+2047,"Alaska","Car",580775158.404005
+2047,"Alaska","Light Truck",1324534722.13105
+2047,"Arizona","Car",5251624754.42087
+2047,"Arizona","Light Truck",14731257986.2022
+2047,"Arkansas","Car",2042675634.70656
+2047,"Arkansas","Light Truck",6026541233.58984
+2047,"California","Car",33497812392.9223
+2047,"California","Light Truck",75719236266.4695
+2047,"Colorado","Car",4234169511.05612
+2047,"Colorado","Light Truck",11857616074.8253
+2047,"Connecticut","Car",2233815149.02823
+2047,"Connecticut","Light Truck",7539266578.9079
+2047,"Delaware","Car",721442425.70188
+2047,"Delaware","Light Truck",2046779376.7108
+2047,"District of Columbia","Car",476350487.710318
+2047,"District of Columbia","Light Truck",1350892503.22442
+2047,"Florida","Car",15962424916.8027
+2047,"Florida","Light Truck",45235658514.2435
+2047,"Georgia","Car",7712752803.56822
+2047,"Georgia","Light Truck",21881026371.9171
+2047,"Hawaii","Car",1173530329.32034
+2047,"Hawaii","Light Truck",2666892917.61001
+2047,"Idaho","Car",1361540695.23434
+2047,"Idaho","Light Truck",3825781341.59951
+2047,"Illinois","Car",8331430651.00313
+2047,"Illinois","Light Truck",25370828510.0523
+2047,"Indiana","Car",4491061086.69267
+2047,"Indiana","Light Truck",13694040131.9381
+2047,"Iowa","Car",2021906550.04316
+2047,"Iowa","Light Truck",6470136819.47092
+2047,"Kansas","Car",1861337110.77532
+2047,"Kansas","Light Truck",5954276131.62814
+2047,"Kentucky","Car",3002892544.26912
+2047,"Kentucky","Light Truck",8935473672.3376
+2047,"Louisiana","Car",3040674577.30069
+2047,"Louisiana","Light Truck",8972423169.18617
+2047,"Maine","Car",853599719.878961
+2047,"Maine","Light Truck",2883822466.55013
+2047,"Maryland","Car",4379416982.75875
+2047,"Maryland","Light Truck",12405431666.9939
+2047,"Massachusetts","Car",4360960028.08011
+2047,"Massachusetts","Light Truck",14705713321.7461
+2047,"Michigan","Car",6602497431.85112
+2047,"Michigan","Light Truck",20122781154.9305
+2047,"Minnesota","Car",3668617121.71488
+2047,"Minnesota","Light Truck",11725639267.8649
+2047,"Mississippi","Car",1940567363.01921
+2047,"Mississippi","Light Truck",5777453824.66572
+2047,"Missouri","Car",3929995995.70914
+2047,"Missouri","Light Truck",12569604817.8024
+2047,"Montana","Car",783601681.056151
+2047,"Montana","Light Truck",2202189971.30192
+2047,"Nebraska","Car",1251053707.90934
+2047,"Nebraska","Light Truck",4002364725.27949
+2047,"Nevada","Car",2287330777.69927
+2047,"Nevada","Light Truck",6408849521.69738
+2047,"New Hampshire","Car",860600734.783492
+2047,"New Hampshire","Light Truck",2906388064.05152
+2047,"New Jersey","Car",6498227737.34646
+2047,"New Jersey","Light Truck",19004614308.7885
+2047,"New Mexico","Car",1468130681.54401
+2047,"New Mexico","Light Truck",4124571553.73942
+2047,"New York","Car",13307501981.9378
+2047,"New York","Light Truck",39028846824.3312
+2047,"North Carolina","Car",7525315425.04236
+2047,"North Carolina","Light Truck",21366365059.8396
+2047,"North Dakota","Car",492373748.734077
+2047,"North Dakota","Light Truck",1576115694.89738
+2047,"Ohio","Car",7726224938.14046
+2047,"Ohio","Light Truck",23555042980.7665
+2047,"Oklahoma","Car",2726393981.84156
+2047,"Oklahoma","Light Truck",8035427246.34305
+2047,"Oregon","Car",3464096854.71813
+2047,"Oregon","Light Truck",7871694558.1011
+2047,"Pennsylvania","Car",8756548644.10794
+2047,"Pennsylvania","Light Truck",25698459475.1942
+2047,"Rhode Island","Car",671649106.486001
+2047,"Rhode Island","Light Truck",2268637316.36476
+2047,"South Carolina","Car",3696999064.10932
+2047,"South Carolina","Light Truck",10508349681.6539
+2047,"South Dakota","Car",577614971.042897
+2047,"South Dakota","Light Truck",1848922026.88715
+2047,"Tennessee","Car",4762389737.03052
+2047,"Tennessee","Light Truck",14160346254.2012
+2047,"Texas","Car",20741130622.2123
+2047,"Texas","Light Truck",61061360366.105
+2047,"Utah","Car",2422170174.53265
+2047,"Utah","Light Truck",6792714829.23264
+2047,"Vermont","Car",404843190.80148
+2047,"Vermont","Light Truck",1364651510.16415
+2047,"Virginia","Car",6115133409.89873
+2047,"Virginia","Light Truck",17341920513.4533
+2047,"Washington","Car",6526028720.10819
+2047,"Washington","Light Truck",14796590737.7019
+2047,"West Virginia","Car",1206604939.8027
+2047,"West Virginia","Light Truck",3433401082.01727
+2047,"Wisconsin","Car",3881883642.35727
+2047,"Wisconsin","Light Truck",11832789661.6079
+2047,"Wyoming","Car",401350722.402222
+2047,"Wyoming","Light Truck",1128594315.65513
+2048,"Alabama","Car",3455051477.9665
+2048,"Alabama","Light Truck",10339631212.4711
+2048,"Alaska","Car",594381225.051013
+2048,"Alaska","Light Truck",1355682563.28079
+2048,"Arizona","Car",5325995266.53037
+2048,"Arizona","Light Truck",15013799078.3517
+2048,"Arkansas","Car",2085021045.80594
+2048,"Arkansas","Light Truck",6183324690.2483
+2048,"California","Car",33557830573.5775
+2048,"California","Light Truck",76027484922.9821
+2048,"Colorado","Car",4272864787.87454
+2048,"Colorado","Light Truck",12029025032.2602
+2048,"Connecticut","Car",2264525206.40025
+2048,"Connecticut","Light Truck",7699062878.40024
+2048,"Delaware","Car",731255284.384603
+2048,"Delaware","Light Truck",2089040328.37709
+2048,"District of Columbia","Car",482392422.365246
+2048,"District of Columbia","Light Truck",1377657064.1612
+2048,"Florida","Car",16138730126.3422
+2048,"Florida","Light Truck",46064273625.8855
+2048,"Georgia","Car",7817210072.195
+2048,"Georgia","Light Truck",22331652510.6411
+2048,"Hawaii","Car",1190854356.76159
+2048,"Hawaii","Light Truck",2708950014.86435
+2048,"Idaho","Car",1387928756.34669
+2048,"Idaho","Light Truck",3917877865.3812
+2048,"Illinois","Car",8455802448.32771
+2048,"Illinois","Light Truck",25905266210.8565
+2048,"Indiana","Car",4575170705.27199
+2048,"Indiana","Light Truck",14031441233.8438
+2048,"Iowa","Car",2062151123.932
+2048,"Iowa","Light Truck",6634508574.59261
+2048,"Kansas","Car",1896388001.5442
+2048,"Kansas","Light Truck",6099504035.75342
+2048,"Kentucky","Car",3062206769.98062
+2048,"Kentucky","Light Truck",9163665777.88711
+2048,"Louisiana","Car",3105011863.01183
+2048,"Louisiana","Light Truck",9209370970.28004
+2048,"Maine","Car",867534063.514245
+2048,"Maine","Light Truck",2951860855.53274
+2048,"Maryland","Car",4423502843.53173
+2048,"Maryland","Light Truck",12621588053.2547
+2048,"Massachusetts","Car",4411108262.9143
+2048,"Massachusetts","Light Truck",14986572640.369
+2048,"Michigan","Car",6717177585.56136
+2048,"Michigan","Light Truck",20592882676.8079
+2048,"Minnesota","Car",3727897922.20042
+2048,"Minnesota","Light Truck",11981990483.6756
+2048,"Mississippi","Car",1981542485.02623
+2048,"Mississippi","Light Truck",5932226437.49558
+2048,"Missouri","Car",4001886899.44178
+2048,"Missouri","Light Truck",12869788421.4014
+2048,"Montana","Car",799173150.625555
+2048,"Montana","Light Truck",2256213396.18291
+2048,"Nebraska","Car",1274945014.63978
+2048,"Nebraska","Light Truck",4100990502.23937
+2048,"Nevada","Car",2311785573.95601
+2048,"Nevada","Light Truck",6510863180.23714
+2048,"New Hampshire","Car",873815936.025275
+2048,"New Hampshire","Light Truck",2972340756.23305
+2048,"New Jersey","Car",6547528148.50143
+2048,"New Jersey","Light Truck",19291304058.1689
+2048,"New Mexico","Car",1495806951.88824
+2048,"New Mexico","Light Truck",4221815989.99534
+2048,"New York","Car",13506512183.3853
+2048,"New York","Light Truck",39886369212.7021
+2048,"North Carolina","Car",7640977026.65143
+2048,"North Carolina","Light Truck",21841888476.9329
+2048,"North Dakota","Car",502676126.712796
+2048,"North Dakota","Light Truck",1617674165.26149
+2048,"Ohio","Car",7867504448.05207
+2048,"Ohio","Light Truck",24125614733.6228
+2048,"Oklahoma","Car",2775545666.86223
+2048,"Oklahoma","Light Truck",8224534505.18488
+2048,"Oregon","Car",3514592837.40427
+2048,"Oregon","Light Truck",7994520632.92765
+2048,"Pennsylvania","Car",8902525837.35923
+2048,"Pennsylvania","Light Truck",26304161430.726
+2048,"Rhode Island","Car",682246458.003884
+2048,"Rhode Island","Light Truck",2321009391.58408
+2048,"South Carolina","Car",3763135316.64797
+2048,"South Carolina","Light Truck",10766257537.2222
+2048,"South Dakota","Car",589645831.68482
+2048,"South Dakota","Light Truck",1897507089.76469
+2048,"Tennessee","Car",4847184887.38453
+2048,"Tennessee","Light Truck",14496618408.8204
+2048,"Texas","Car",21054270179.4622
+2048,"Texas","Light Truck",62333649660.87
+2048,"Utah","Car",2454648879.91443
+2048,"Utah","Light Truck",6918196166.16766
+2048,"Vermont","Car",409091409.245444
+2048,"Vermont","Light Truck",1389432947.15953
+2048,"Virginia","Car",6192595946.70369
+2048,"Virginia","Light Truck",17685236711.0435
+2048,"Washington","Car",6585896123.3544
+2048,"Washington","Light Truck",14955562353.3034
+2048,"West Virginia","Car",1231202034.843
+2048,"West Virginia","Light Truck",3525431706.82532
+2048,"Wisconsin","Car",3951000013.21125
+2048,"Wisconsin","Light Truck",12114069464.9885
+2048,"Wyoming","Car",410044085.503968
+2048,"Wyoming","Light Truck",1158167922.34905
+2049,"Alabama","Car",3506532401.53585
+2049,"Alabama","Light Truck",10561720974.9901
+2049,"Alaska","Car",605539609.883489
+2049,"Alaska","Light Truck",1381843013.35771
+2049,"Arizona","Car",5382225507.9204
+2049,"Arizona","Light Truck",15257073829.5122
+2049,"Arkansas","Car",2117762955.22977
+2049,"Arkansas","Light Truck",6317657975.20393
+2049,"California","Car",33595129539.1064
+2049,"California","Light Truck",76291927877.7095
+2049,"Colorado","Car",4300427620.34087
+2049,"Colorado","Light Truck",12177975385.9771
+2049,"Connecticut","Car",2286336973.62688
+2049,"Connecticut","Light Truck",7837585998.97872
+2049,"Delaware","Car",738402542.688998
+2049,"Delaware","Light Truck",2125666915.00678
+2049,"District of Columbia","Car",486748181.677265
+2049,"District of Columbia","Light Truck",1400886436.22029
+2049,"Florida","Car",16262907433.8343
+2049,"Florida","Light Truck",46785439239.3076
+2049,"Georgia","Car",7893244176.25858
+2049,"Georgia","Light Truck",22722230633.1238
+2049,"Hawaii","Car",1204895156.54618
+2049,"Hawaii","Light Truck",2744351721.31721
+2049,"Idaho","Car",1408444029.61031
+2049,"Idaho","Light Truck",3996713772.96829
+2049,"Illinois","Car",8547386230.17609
+2049,"Illinois","Light Truck",26367454943.8396
+2049,"Indiana","Car",4638796835.73458
+2049,"Indiana","Light Truck",14321840607.264
+2049,"Iowa","Car",2092927118.97554
+2049,"Iowa","Light Truck",6775511869.09109
+2049,"Kansas","Car",1923050116.56135
+2049,"Kansas","Light Truck",6224215260.02651
+2049,"Kentucky","Car",3107540034.26951
+2049,"Kentucky","Light Truck",9359694288.11512
+2049,"Louisiana","Car",3154835804.47546
+2049,"Louisiana","Light Truck",9412320709.51097
+2049,"Maine","Car",877701463.7049
+2049,"Maine","Light Truck",3010635111.86529
+2049,"Maryland","Car",4454003815.36414
+2049,"Maryland","Light Truck",12810069020.1545
+2049,"Massachusetts","Car",4445517814.92076
+2049,"Massachusetts","Light Truck",15230956531.6602
+2049,"Michigan","Car",6803221098.14738
+2049,"Michigan","Light Truck",20998120707.7259
+2049,"Minnesota","Car",3772253793.71093
+2049,"Minnesota","Light Truck",12202792184.4745
+2049,"Mississippi","Car",2013041617.39444
+2049,"Mississippi","Light Truck",6065027912.90539
+2049,"Missouri","Car",4056413200.56625
+2049,"Missouri","Light Truck",13127708627.8926
+2049,"Montana","Car",811301673.088197
+2049,"Montana","Light Truck",2302439017.43203
+2049,"Nebraska","Car",1293143374.98984
+2049,"Nebraska","Light Truck",4185660507.97092
+2049,"Nevada","Car",2329644835.27464
+2049,"Nevada","Light Truck",6599212156.93122
+2049,"New Hampshire","Car",883372477.374541
+2049,"New Hampshire","Light Truck",3029384198.98375
+2049,"New Jersey","Car",6578294851.05014
+2049,"New Jersey","Light Truck",19543931655.9964
+2049,"New Mexico","Car",1517278599.29366
+2049,"New Mexico","Light Truck",4305098573.35442
+2049,"New York","Car",13651308661.7705
+2049,"New York","Light Truck",40630136873.4141
+2049,"North Carolina","Car",7726602312.54309
+2049,"North Carolina","Light Truck",22253030291.5451
+2049,"North Dakota","Car",510590192.975105
+2049,"North Dakota","Light Truck",1653291182.48709
+2049,"Ohio","Car",7974107406.66462
+2049,"Ohio","Light Truck",24616939341.3317
+2049,"Oklahoma","Car",2813109940.4413
+2049,"Oklahoma","Light Truck",8386951285.36364
+2049,"Oregon","Car",3555500473.41392
+2049,"Oregon","Light Truck",8097914684.95467
+2049,"Pennsylvania","Car",9010340663.61445
+2049,"Pennsylvania","Light Truck",26828276000.0455
+2049,"Rhode Island","Car",689940954.52538
+2049,"Rhode Island","Light Truck",2366281308.2558
+2049,"South Carolina","Car",3812952895.2462
+2049,"South Carolina","Light Truck",10988608527.0037
+2049,"South Dakota","Car",598884083.610974
+2049,"South Dakota","Light Truck",1939150036.58775
+2049,"Tennessee","Car",4911354096.87912
+2049,"Tennessee","Light Truck",14786040725.4815
+2049,"Texas","Car",21289375948.9445
+2049,"Texas","Light Truck",63429851081.4064
+2049,"Utah","Car",2479059761.5493
+2049,"Utah","Light Truck",7026354149.82974
+2049,"Vermont","Car",411946427.842075
+2049,"Vermont","Light Truck",1411038361.32201
+2049,"Virginia","Car",6248424727.17063
+2049,"Virginia","Light Truck",17983206666.8666
+2049,"Washington","Car",6633456009.13223
+2049,"Washington","Light Truck",15089780592.8756
+2049,"West Virginia","Car",1249967942.1974
+2049,"West Virginia","Light Truck",3604587508.63229
+2049,"Wisconsin","Car",4003000304.4206
+2049,"Wisconsin","Light Truck",12356411564.7722
+2049,"Wyoming","Car",416855838.40205
+2049,"Wyoming","Light Truck",1183436401.65862
+2050,"Alabama","Car",3544829470.27605
+2050,"Alabama","Light Truck",10748471970.7749
+2050,"Alaska","Car",614500408.165371
+2050,"Alaska","Light Truck",1403424096.00335
+2050,"Arizona","Car",5423758052.7132
+2050,"Arizona","Light Truck",15464218478.3939
+2050,"Arkansas","Car",2142318915.52251
+2050,"Arkansas","Light Truck",6430429774.10837
+2050,"California","Car",33628125742.2997
+2050,"California","Light Truck",76543333307.1811
+2050,"Colorado","Car",4319761732.8626
+2050,"Colorado","Light Truck",12307275613.4246
+2050,"Connecticut","Car",2301039209.42481
+2050,"Connecticut","Light Truck",7956076312.44022
+2050,"Delaware","Car",743446724.151029
+2050,"Delaware","Light Truck",2156959551.99211
+2050,"District of Columbia","Car",489790709.596879
+2050,"District of Columbia","Light Truck",1420784766.37116
+2050,"Florida","Car",16347573810.9755
+2050,"Florida","Light Truck",47406389546.7995
+2050,"Georgia","Car",7946871847.98932
+2050,"Georgia","Light Truck",23055980765.4631
+2050,"Hawaii","Car",1216213754.41011
+2050,"Hawaii","Light Truck",2774023521.15099
+2050,"Idaho","Car",1423938102.04703
+2050,"Idaho","Light Truck",4063013314.94593
+2050,"Illinois","Car",8612586647.51959
+2050,"Illinois","Light Truck",26761417406.0733
+2050,"Indiana","Car",4685288055.17097
+2050,"Indiana","Light Truck",14567175995.3454
+2050,"Iowa","Car",2115623550.38452
+2050,"Iowa","Light Truck",6894234515.86744
+2050,"Kansas","Car",1942614903.37842
+2050,"Kansas","Light Truck",6329439382.52413
+2050,"Kentucky","Car",3141248615.13577
+2050,"Kentucky","Light Truck",9524564907.96546
+2050,"Louisiana","Car",3192250940.83153
+2050,"Louisiana","Light Truck",9582576809.65724
+2050,"Maine","Car",884773661.235931
+2050,"Maine","Light Truck",3060585426.06578
+2050,"Maryland","Car",4474401308.64591
+2050,"Maryland","Light Truck",12972924214.7276
+2050,"Massachusetts","Car",4467734638.58996
+2050,"Massachusetts","Light Truck",15441440973.5256
+2050,"Michigan","Car",6865605345.45097
+2050,"Michigan","Light Truck",21341464987.458
+2050,"Minnesota","Car",3804292634.56146
+2050,"Minnesota","Light Truck",12390211763.786
+2050,"Mississippi","Car",2036575440.42789
+2050,"Mississippi","Light Truck",6176468698.20564
+2050,"Missouri","Car",4096314988.48879
+2050,"Missouri","Light Truck",13345568652.0601
+2050,"Montana","Car",820474940.408003
+2050,"Montana","Light Truck",2341278362.67694
+2050,"Nebraska","Car",1306514709.23107
+2050,"Nebraska","Light Truck",4257062148.47809
+2050,"Nevada","Car",2342454501.09223
+2050,"Nevada","Light Truck",6675363787.87275
+2050,"New Hampshire","Car",889951905.281834
+2050,"New Hampshire","Light Truck",3077974471.19731
+2050,"New Jersey","Car",6595865513.65534
+2050,"New Jersey","Light Truck",19765858310.9039
+2050,"New Mexico","Car",1533468412.58034
+2050,"New Mexico","Light Truck",4375210110.87782
+2050,"New York","Car",13752266926.9438
+2050,"New York","Light Truck",41265716033.5073
+2050,"North Carolina","Car",7788002089.05092
+2050,"North Carolina","Light Truck",22602730718.2332
+2050,"North Dakota","Car",516451108.155215
+2050,"North Dakota","Light Truck",1683224941.57705
+2050,"Ohio","Car",8051815699.96786
+2050,"Ohio","Light Truck",25032397651.5407
+2050,"Oklahoma","Car",2841011189.84681
+2050,"Oklahoma","Light Truck",8523969323.03874
+2050,"Oregon","Car",3588480467.04121
+2050,"Oregon","Light Truck",8184616683.52918
+2050,"Pennsylvania","Car",9086733112.42848
+2050,"Pennsylvania","Light Truck",27274258115.2328
+2050,"Rhode Island","Car",695263126.637136
+2050,"Rhode Island","Light Truck",2404805090.76694
+2050,"South Carolina","Car",3849266752.83594
+2050,"South Carolina","Light Truck",11176711730.9366
+2050,"South Dakota","Car",605723152.151465
+2050,"South Dakota","Light Truck",1974154169.39449
+2050,"Tennessee","Car",4958676193.73107
+2050,"Tennessee","Light Truck",15030346147.4279
+2050,"Texas","Car",21461383636.3133
+2050,"Texas","Light Truck",64360716221.3151
+2050,"Utah","Car",2497001966.05371
+2050,"Utah","Light Truck",7118660204.22207
+2050,"Vermont","Car",413739663.31042
+2050,"Vermont","Light Truck",1429713323.01006
+2050,"Virginia","Car",6287410632.24346
+2050,"Virginia","Light Truck",18238457131.9284
+2050,"Washington","Car",6672036632.72455
+2050,"Washington","Light Truck",15204767505.1801
+2050,"West Virginia","Car",1263808502.73358
+2050,"West Virginia","Light Truck",3671251914.10284
+2050,"Wisconsin","Car",4040801427.51239
+2050,"Wisconsin","Light Truck",12561541562.7322
+2050,"Wyoming","Car",422031639.76282
+2050,"Wyoming","Light Truck",1204601554.97011
