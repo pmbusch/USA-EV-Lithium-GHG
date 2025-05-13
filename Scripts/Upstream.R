@@ -5,8 +5,15 @@ upstream_libmaterial<- read.csv("Inputs/upstream_libmaterial.csv")
 #lib assembly unit: kg co2e/ kwh
 upstream_libassembly <- sum(LIB_Assembly$GWP_component,na.rm = TRUE) / 1000
 
+
 #Gasoline upstream unit: kg co2e/ gal
-upstream_gas <- sum(Gas_upstream$GWP_component, na.rm = TRUE) / 1000
+upstream_gas_gal <- sum(Gas_upstream$GWP_component, na.rm = TRUE) / 1000
+
+#Gasoline upstream unit: kg co2e/ kWh
+LHV_btu_per_gal <- 112194
+BTU_per_kWh <- 3412
+upstream_gas_kWh <- (upstream_gas_gal / LHV_btu_per_gal) * BTU_per_kWh
+
 
 #Vehicle production unit: kg co2e/veh life
 Upstream_Prod_Veh <- Prod_Veh %>%
