@@ -97,12 +97,14 @@ lib_recyc_upstream <- lib_recyc_upstream %>%
 lib_recyc_upstream <- sum(lib_recyc_upstream$tonsCO2e,na.rm=T)
 
 # tons LI recovered
-Li_recycled <- read.csv("Results/LiRecycled")
+Li_recycled <- read.csv("Results/MineralRecycled.csv")
+Li_recycled <- Li_recycled %>% filter(Mineral=="Lithium") %>% 
+  mutate(Mineral=NULL)
 
 Li_recycled_total <- Li_recycled %>% 
-  mutate(tonsCO2e=Li_recycled_tons*lib_recyc_upstream*5.323) %>%  # Li to LCE conversion
+  mutate(tonsCO2e=Min_recycled_tons*lib_recyc_upstream*5.323) %>%  # Li to LCE conversion
   mutate(Stage="Lithium recycling") %>% 
-  mutate(vehicle_type="EV",Li_recycled_tons=NULL)
+  mutate(vehicle_type="EV",Min_recycled_tons=NULL)
 
 # divide half-half to car and light truck for now
 Li_recycled_total <- rbind(
@@ -139,6 +141,8 @@ sum(ev_usage_total$tonsCO2e)/1e6
 ## Gasoline emissions ----
 # based on fleet operation
 gas_gallons <- read.csv("Parameters/ICE_gasGallons_consumption.csv")
+# 1 oil barrel = 42 gasoline gallons
+sum(gas_gallons$total_gallons)/42/1e6 # million oil barrels
 
 gas <- read.csv("Inputs/Gas_upstream.csv")
 gas <- sum(gas$GWP_component,na.rm=T)/1e3 # kg CO2e per gallon
@@ -216,17 +220,29 @@ total_type <- df %>%
   mutate(lab_total=paste0(round(tonsCO2e,0)," Mtons"))
 
 # load lithium
-lithium_demand <- read.csv("Results/LiDemand.csv")
+mineral_demand <- read.csv("Results/MineralDemand.csv")
+
+lithium_demand <- mineral_demand %>% filter(Mineral=="Lithium")
 
 # reduction in ton CO2e per ton of lithium 
-(li_red <- (total_type[2,2]-total_type[1,2])/(sum(lithium_demand$Lithium_tons)/1e6))
+(li_red <- (total_type[2,2]-total_type[1,2])/(sum(lithium_demand$Mineral_tons)/1e6))
 
 # 2.1 tons CO2e avoided per kg of lithium
 # why allocate everything to lithium???? 
 
 # based on value by content
-(li_value <- read.csv("Results/LiValue.csv"))
+(li_value <- read.csv("Results/MineralValue.csv"))
 li_red*li_value[4,4] # 72 kg CO2e per kg Lithium extracted
+
+# Reduction by kWh of battery pack - units are in MWh
+(kwh_red <- (total_type[2,2]-total_type[1,2])/ # million tons CO2e
+    sum(filter(mineral_demand,Mineral=="kWh")$Mineral_tons*1e3))*1e6*1e3 # from mtons to kg
+# 207 kg CO2 per kWh
+
+# Reduction per kg of critical Mineral - Li,Ni,Co,Graphite,Cu
+mineral_demand %>% group_by(Mineral) %>% reframe(x=sum(Mineral_tons)/1e6)
+(kwh_red <- (total_type[2,2]-total_type[1,2])/ # million tons CO2e
+    sum(filter(mineral_demand,Mineral!="kWh")$Mineral_tons/1e6))
 
 
 # million tons

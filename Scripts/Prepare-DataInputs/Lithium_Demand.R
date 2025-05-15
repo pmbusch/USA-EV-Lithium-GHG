@@ -27,21 +27,24 @@ intensity <- read_excel("Inputs/Mineral_Intensity.xlsx",sheet="Li")
 intensity <- intensity %>% 
   filter(Anode=="Graphite",str_detect(Electrolyte,"liquid"))
 
-li_intensity <- intensity %>% filter(Mineral=="Lithium")
+unique(intensity$Mineral)
+
 
 bat <- bat %>% 
-  left_join(li_intensity) %>% 
+  left_join(intensity) %>% 
   mutate(kg_veh=kwh_veh*kg_per_kwh)
 
-li_veh <- sum(bat$kg_veh) # in kg
+li_veh <- bat %>% group_by(Mineral) %>% 
+  reframe(kg_veh=sum(kg_veh)) %>% ungroup() # in kg
 
 # Lithium demand, in tons
 cathode_scrap <- 0.04 # manufacturing scrap
-sales <- sales %>% mutate(Lithium_tons=Sales*li_veh/1e3/(1-cathode_scrap)) %>% 
-  mutate(Sales=NULL)
+sales <- sales %>% 
+  mutate(x=1) %>% left_join(mutate(li_veh,x=1)) %>% 
+  mutate(Mineral_tons=Sales*kg_veh/1e3/(1-cathode_scrap), x=NULL) %>% # tons or MWh
+  mutate(Sales=NULL,kg_veh=NULL)
 
-sum(sales$Lithium_tons)/1e6 # 3 M tons
-
+sales %>% group_by(Mineral) %>% reframe(x=sum(Mineral_tons)/1e6) # 3 M tons for Li, 32 TWh
 
 # Account for Recycling flows
 us_recycling <- 0.05
@@ -53,35 +56,43 @@ LIB_available$LIB <- LIB_available$LIB*0.5 # Other half goes to SSPS
 Li_recycled <- rbind(LIB_failure,LIB_available) %>% 
   group_by(Year) %>% 
   reframe(LIB=sum(LIB)) %>% ungroup() %>% 
-  mutate(Li_recycled_tons=LIB*li_veh*us_recycling/1e3,
-         LIB=NULL)
+  mutate(x=1) %>% left_join(mutate(li_veh,x=1)) %>% 
+  mutate(Min_recycled_tons=LIB*kg_veh*us_recycling/1e3, # tons or MWh
+         LIB=NULL,x=NULL,kg_veh=NULL)
 
 # add scrap to recycling
-Li_recycled$Li_recycled_tons <- Li_recycled$Li_recycled_tons+
-  sales$Lithium_tons*cathode_scrap*us_recycling
+Li_recycled <- Li_recycled %>% 
+  left_join(sales) %>% 
+  mutate(Min_recycled_tons=Min_recycled_tons+
+           Mineral_tons*cathode_scrap*us_recycling,
+         Mineral_tons=NULL)
 
 # delay one year
-Li_recycled <- Li_recycled %>% mutate(Year=Year+1) %>% 
+Li_recycled <- Li_recycled %>% 
+  mutate(Year=Year+1) %>% 
   filter(Year<2051) %>% 
-  rbind(tibble(Year=2022,Li_recycled_tons=0)) %>% arrange(Year)
+  rbind(tibble(Year=2022,Min_recycled_tons=0,
+               Mineral=unique(Li_recycled$Mineral))) %>% arrange(Year)
 
-# reduce primary Lithium extraction
-sales$Lithium_tons <- sales$Lithium_tons-Li_recycled$Li_recycled_tons
-
-write.csv(sales,"Results/LiDemand.csv",row.names = F)
-write.csv(Li_recycled,"Results/LiRecycled",row.names = F)
-
+# reduce primary Mineral extraction
+sales <- sales %>% 
+  left_join(Li_recycled) %>% 
+  mutate(Mineral_tons=Mineral_tons-Min_recycled_tons,
+         Min_recycled_tons=NULL)
+  
+write.csv(sales,"Results/MineralDemand.csv",row.names = F)
+write.csv(Li_recycled,"Results/MineralRecycled.csv",row.names = F)
 
 
 # Share of value in the battery, by Mineral price
-
 bat <- read.csv("Inputs/USA_bat_size.csv")
 price <- read_excel("Inputs/Mineral_Price.xlsx")
 
 
 bat <- bat %>% 
   left_join(dplyr::select(intensity,Mineral,chemistry,kg_per_kwh)) %>%
-  left_join(dplyr::select(price,Mineral,USD_ton))
+  left_join(dplyr::select(price,Mineral,USD_ton)) %>% 
+  filter(Mineral!="kWh")
 
 bat <- bat %>% mutate(kg=kwh_veh*kg_per_kwh,
                       value=kwh_veh*kg_per_kwh*USD_ton/1e3)
@@ -92,9 +103,7 @@ value <- bat %>% group_by(Mineral) %>%
   mutate(share_value=value/sum(value))
 value
 
-write.csv(value,"Results/LiValue.csv",row.names = F)
-
-
+write.csv(value,"Results/MineralValue.csv",row.names = F)
 
 
 # EoF
