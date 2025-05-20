@@ -120,6 +120,7 @@ Li_recycled_total <- rbind(
 # based on fleet operation
 ev_kwh <- read.csv("Parameters/EV_kwh_consumption.csv")
 head(ev_kwh)
+ev_kwh %>% group_by(Scenario) %>% reframe(x=sum(total_kwh)/1e9) # TWh
 
 ## Electricity impacts ----
 electricity <- read.csv("Parameters/countyElectricityCarbon.csv")

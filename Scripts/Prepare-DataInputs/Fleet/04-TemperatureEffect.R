@@ -1,5 +1,7 @@
 # Temperature effect on driving efficiency
 # Low and high temperature affect efficiency, especially for EVs
+# Data on SI of Woody et al: Woody, M., Vaishnav, P., Keoleian, G. A., De Kleine, R., Kim, H. C., Anderson, J. E., & Wallington, T. J. (2022). The role of pickup truck electrification in the decarbonization of light-duty vehicles. Environmental Research Letters, 17(3), 034031.
+
 
 library(tidyverse)
 

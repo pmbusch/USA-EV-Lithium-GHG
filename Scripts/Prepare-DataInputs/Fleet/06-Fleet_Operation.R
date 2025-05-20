@@ -96,6 +96,10 @@ fe <- fe %>%
   
 fe_ice <- fe %>% filter(vehType=="Gasoline")
 
+# Adjustment from 2-cycle to aggressive driving, no temperature yet
+# Equations for city
+fe_ice$mpge <- 1/(0.00187+1.134/fe_ice$mpge)
+
 fe_ev <- fe %>% 
   filter(vehType=="Electric") %>% 
   mutate(seriesName=str_remove_all(full.name,"Light-Duty Fuel Economy: Alternative-Fuel |: Reference case") %>% 
@@ -110,6 +114,10 @@ fe_ev <- fe_ev %>%
 
 # convert to kWh based on EPA assumption of 33.7 kWh per gallon https://www.epa.gov/greenvehicles/fuel-economy-and-ev-range-testing
 fe_ev$mpge <- fe_ev$mpge/33.7 # miles per kWh, really high efficiency
+
+# Adjustment from 2-cycle to aggressive driving, no temperature yet
+# Equations for city
+fe_ev$mpge <- 1/(1/fe_ev$mpge+0.67*(1/fe_ev$mpge/0.7-1/fe_ev$mpge))
 
 # join them
 fe <- fe_ice %>% mutate(full.name=NULL,unit="gallons") %>% 
@@ -148,7 +156,7 @@ fleet <- read.csv("Parameters/USA_fleet.csv") %>%
 range(fleet$modelYear)
 fleet %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35, total fleet over time
 
-# divide EV fleet into US States, based on Dissagregate EV script
+# divide EV fleet into US States, based on dissagregate EV script
 ev_state_share <- read.csv("Parameters/EV_share_state.csv")
 head(ev_state_share)
 ev_state_share %>% group_by(period) %>% reframe(x=sum(ev_share))
@@ -241,13 +249,23 @@ rm(i,aux)
 # Electric Vehicles only
 fe_bev <- fe %>% filter(vehType=="Electric")
 
+# Temperature adjustment factors
+temp_factor <- read.csv("Parameters/TempAdjFactorsState.csv")  
+# Need to extrapolate data to missing states, based on temperature profiles 
+# Alaska is closer to North Dakota
+# Hawaii is closer to Florida
+temp_factor <- rbind(temp_factor,
+                     mutate(filter(temp_factor,State=="North Dakota"),State="Alaska"),
+                     mutate(filter(temp_factor,State=="Florida"),State="Hawaii"))
+
 consumption_ev <- consumption %>% 
   left_join(fe_bev,by=c("vehSize","modelYear"="period")) %>% 
+  left_join(dplyr::select(temp_factor,State,BEVs)) %>% 
   mutate(degradation_factor=(1-0.0033)^age) %>% # 0.33% per year
-  mutate(total_kwh=total_vmt/(mpge*degradation_factor))
+  mutate(total_kwh=total_vmt/(mpge*degradation_factor/BEVs))
 consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
-consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(total_kwh)/1e9) # 14680 TWh
-14680/3.35
+consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(total_kwh)/1e9) # 25626 TWh
+25626/3.35
 
 # aggregate at state level
 head(consumption_ev)
@@ -262,10 +280,11 @@ fe_ice <- fe %>% filter(vehType=="Gasoline")
 
 consumption_ice <- consumption %>% 
   left_join(fe_ice,by=c("vehSize","modelYear"="period")) %>% 
+  left_join(dplyr::select(temp_factor,State,ICEVs)) %>% 
   mutate(degradation_factor=(1-0.01)^age) %>% # 1% per year
-  mutate(total_gallons=total_vmt/(mpge*degradation_factor))
+  mutate(total_gallons=total_vmt/(mpge*degradation_factor/ICEVs))
 consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
-consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/1e9) # 1154
+consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/1e9) # 1543
 
 # aggregate at state level
 head(consumption_ice)
