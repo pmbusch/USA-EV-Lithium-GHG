@@ -102,7 +102,18 @@ electricity <- df %>%
   group_by(State,STATEFP,COUNTYFP,NAME,period) %>% 
   reframe(pop=mean(pop),
           kg_co2e=sum(kg_co2e)) %>% ungroup()
-  
+
+# T&D losses - 8%, towards goal of 4% in 2030  
+td_loss <- tibble(period=2022:2050) %>% 
+  mutate(losses=case_when(
+    period<2030 ~ 0.08-0.04/8*(period-2022),
+    T ~ 0.04))
+
+electricity <- electricity %>% 
+  left_join(td_loss) %>% 
+  mutate(kg_co2e=kg_co2e/(1-losses),
+         losses=NULL)
+
 write.csv(electricity,"Parameters/countyElectricityCarbon.csv",row.names = F)
 # electricity <- read.csv("Parameters/countyElectricityCarbon.csv")
 
@@ -188,7 +199,7 @@ map
 hist <- ggplot(geo_shifted,aes(kg_co2e,fill=after_stat(x)))+
   geom_histogram(col="white",binwidth = 50,boundary=0)+
   facet_wrap(~period,ncol=2,scales="free_x")+
-  scale_x_continuous(limits = c(0,1.01e3))+
+  scale_x_continuous(limits = c(0,1.05e3))+
   scale_fill_gradientn(colors = c("tan", "darkred"))+
   coord_cartesian(expand = F)+
   labs(x=expression("Grid Intensity [kg CO"["2"]*"e per MWh]"),y="")+

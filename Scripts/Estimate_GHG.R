@@ -45,17 +45,19 @@ lib_upstream <- lib_upstream %>% rename(vehSize=Type) %>%
 
 fleet <- read.csv("Parameters/USA_fleet_type.csv")
 head(fleet)
+unique(fleet$Scenario)
 
 # new sales
 sales <- read.csv("Parameters/salesEV_type.csv")
 head(sales)
+unique(sales$Scenario)
 # dissagregation into state can be done later, but upstream does not depend on state...
 
 # as if sales were either EV or ICE (comparative scenario)
 veh_prod_total <- sales %>%
   left_join(veh_prod) %>%
   mutate(tonsCO2e=Sales*vehProd_kgCO2/1e3) %>% 
-  group_by(Year,vehSize,vehicle_type) %>% 
+  group_by(Scenario,Year,vehSize,vehicle_type) %>% 
   reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>% 
   mutate(Stage="Vehicle production")
 
@@ -63,7 +65,7 @@ veh_prod_total <- sales %>%
 lib_prod_total <- sales %>% 
   left_join(lib_upstream) %>% 
   mutate(tonsCO2e=Sales*LIB_kgco2/1e3) %>% 
-  group_by(Year,vehSize) %>% 
+  group_by(Scenario,Year,vehSize) %>% 
   reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>% 
   mutate(Stage="LIB production") %>% 
   mutate(vehicle_type="EV")
@@ -73,10 +75,10 @@ LIB_replacement <- read.csv("Parameters/LIB_replacement_type.csv") # units of LI
 
 # add kWh
 LIB_replacement_total <- LIB_replacement %>% 
-  group_by(Year,vehSize) %>% reframe(LIB=sum(LIB)) %>% ungroup() %>% 
+  group_by(Scenario,Year,vehSize) %>% reframe(LIB=sum(LIB)) %>% ungroup() %>% 
   left_join(lib_upstream) %>%  # assume all car for now
   mutate(tonsCO2e=LIB*LIB_kgco2/1e3) %>% 
-  group_by(Year,vehSize) %>% 
+  group_by(Scenario,Year,vehSize) %>% 
   reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>% 
   mutate(Stage="LIB Replacement") %>% 
   mutate(vehicle_type="EV")
@@ -133,36 +135,38 @@ ev_usage_total <- ev_kwh %>%
 
 # agg to national level
 ev_usage_total <- ev_usage_total %>% 
-  group_by(Year,vehSize,Stage) %>% reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>% 
+  group_by(Scenario,Year,vehSize,Stage) %>% reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>% 
   mutate(vehicle_type="EV")
 
-sum(ev_usage_total$tonsCO2e)/1e6
+ev_usage_total %>% group_by(Scenario) %>% reframe(x=sum(tonsCO2e)/1e6)
 
 ## Gasoline emissions ----
 # based on fleet operation
 gas_gallons <- read.csv("Parameters/ICE_gasGallons_consumption.csv")
 # 1 oil barrel = 42 gasoline gallons
-sum(gas_gallons$total_gallons)/42/1e6 # million oil barrels
+gas_gallons %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/42/1e6) # million oil barrels
 
 gas <- read.csv("Inputs/Gas_upstream.csv")
 gas <- sum(gas$GWP_component,na.rm=T)/1e3 # kg CO2e per gallon
 
 ice_usage_total <- gas_gallons %>% 
-  group_by(Year,vehSize) %>% 
+  group_by(Scenario,Year,vehSize) %>% 
   reframe(tonsCO2e=sum(total_gallons)) %>% ungroup() %>% 
   mutate(tonsCO2e=tonsCO2e*gas/1e3) %>% 
   mutate(vehicle_type="ICE",Stage="Driving")
 
-sum(ice_usage_total$tonsCO2e)/1e6
+ice_usage_total %>% group_by(Scenario) %>% reframe(x=sum(tonsCO2e)/1e6)
 
 # JOIN ALL -----------
 
+# 5% recycling scenario, other scenario comes later
+# NO RECYCLING FOR NOW, NEED TO DO DISPLACEMENT OF PRIMARY LITHIUM FIRST
 df <- rbind(veh_prod_total,
             lib_prod_total,
             LIB_replacement_total,
             ev_usage_total,
-            ice_usage_total,
-            Li_recycled_total)
+            ice_usage_total)
+            # mutate(filter(Li_recycled_total,scen_recyc=="Recycling 5%"),scen_recyc=NULL))
 
 write.csv(df,"Results/tonsGHG.csv",row.names = F)
 
@@ -175,6 +179,7 @@ df <- df %>% mutate(Stage=factor(Stage,levels=stage_lvl))
 # total emissions by year
 df %>% 
   filter(Year %in% c(2030,2040,2050)) %>% 
+  filter(Scenario=="Ambitious") %>% 
   group_by(vehicle_type,Year) %>% 
   reframe(mtons=sum(tonsCO2e)/1e6) %>% 
   pivot_wider(names_from = Year, values_from = mtons)
@@ -184,28 +189,29 @@ df %>%
 
 # by vmt
 vmt <- read.csv("Results/total_VMT.csv")
-vmt_size <- vmt %>% group_by(vehSize) %>% reframe(vmt=sum(total_vmt))
-vmt <- vmt %>% group_by(Year) %>% reframe(vmt=sum(total_vmt)/1e6) %>% ungroup()
+vmt_size <- vmt %>% group_by(Scenario,vehSize) %>% reframe(vmt=sum(total_vmt))
+vmt <- vmt %>% group_by(Scenario,Year) %>% reframe(vmt=sum(total_vmt)/1e6) %>% ungroup()
 
-vmt[2,2]/1e6 # trillion
-vmt[22,2]/1e6 # trillion
+vmt[2,3]/1e6 # trillion
+vmt[22,3]/1e6 # trillion
 
 # 2023, 3.19 trillion miles in USA
 # https://afdc.energy.gov/data/10315
 
-vmt_total <- sum(vmt$vmt)*1e6 # total miles
+vmt_total <- vmt %>% group_by(Scenario) %>% reframe(vmt=sum(vmt)*1e6) # total miles 
 
 # GHG intensity (gr CO2 per mile)
 df %>% 
-  group_by(vehicle_type) %>% 
+  group_by(Scenario,vehicle_type) %>% 
   reframe(CI=sum(tonsCO2e)*1e6) %>% ungroup() %>% # to grams 
-  mutate(CI=CI/vmt_total,
+  left_join(vmt_total) %>% 
+  mutate(CI=CI/vmt,
          CI_km=CI/1.609)
 # 163 for EV, 310 for ICE , same ballpark as https://www.nature.com/articles/s41598-024-51697-1
 
 # by size
 df %>% 
-  group_by(vehicle_type,vehSize) %>%
+  group_by(Scenario,vehicle_type,vehSize) %>%
   reframe(CI=sum(tonsCO2e)*1e6) %>% ungroup() %>% # to grams 
   left_join(vmt_size) %>% 
   mutate(CI=CI/vmt,
@@ -215,7 +221,7 @@ df %>%
 
 # by lithium
 total_type <- df %>% 
-  group_by(vehicle_type) %>% 
+  group_by(Scenario,vehicle_type) %>% 
   reframe(tonsCO2e=sum(tonsCO2e)/1e6) %>% ungroup() %>% 
   mutate(lab_total=paste0(round(tonsCO2e,0)," Mtons"))
 
@@ -224,8 +230,11 @@ mineral_demand <- read.csv("Results/MineralDemand.csv")
 
 lithium_demand <- mineral_demand %>% filter(Mineral=="Lithium")
 
+li_demand_amb <- lithium_demand %>% filter(Scenario=="Ambitious",
+                                           scen_recyc=="Recycling 5%")
+
 # reduction in ton CO2e per ton of lithium 
-(li_red <- (total_type[2,2]-total_type[1,2])/(sum(lithium_demand$Mineral_tons)/1e6))
+(li_red <- (total_type[2,3]-total_type[1,3])/(sum(li_demand_amb$Mineral_tons)/1e6))
 
 # 2.1 tons CO2e avoided per kg of lithium
 # why allocate everything to lithium???? 
@@ -235,27 +244,51 @@ lithium_demand <- mineral_demand %>% filter(Mineral=="Lithium")
 li_red*li_value[4,4] # 72 kg CO2e per kg Lithium extracted
 
 # Reduction by kWh of battery pack - units are in MWh
-(kwh_red <- (total_type[2,2]-total_type[1,2])/ # million tons CO2e
-    sum(filter(mineral_demand,Mineral=="kWh")$Mineral_tons*1e3))*1e6*1e3 # from mtons to kg
-# 207 kg CO2 per kWh
+total_kwh <- mineral_demand %>% 
+  filter(Mineral=="kWh",
+         scen_recyc=="Recycling 5%") %>% 
+  group_by(Scenario) %>% 
+  reframe(kWh=sum(Mineral_tons)*1e3) %>% ungroup()
+
+kwh_red <- total_type %>% 
+  dplyr::select(-lab_total) %>% 
+  pivot_wider(names_from = vehicle_type, values_from = tonsCO2e) %>% 
+  mutate(red=ICE-EV) %>% 
+  left_join(total_kwh) %>% 
+  mutate(red_pkWh=red*1e9/kWh) #from mtons to kg
+kwh_red
+# ~200 kg CO2 per kWh
 
 # Reduction per kg of critical Mineral - Li,Ni,Co,Graphite,Cu
-mineral_demand %>% group_by(Mineral) %>% reframe(x=sum(Mineral_tons)/1e6)
-(kwh_red <- (total_type[2,2]-total_type[1,2])/ # million tons CO2e
-    sum(filter(mineral_demand,Mineral!="kWh")$Mineral_tons/1e6))
+total_mineral <- mineral_demand %>% 
+  filter(Mineral!="kWh",
+         scen_recyc=="Recycling 5%") %>% 
+  group_by(Scenario) %>% reframe(mtons=sum(Mineral_tons)/1e6)
 
+min_red <- total_type %>% 
+  dplyr::select(-lab_total) %>% 
+  pivot_wider(names_from = vehicle_type, values_from = tonsCO2e) %>% 
+  mutate(red=ICE-EV) %>% 
+  left_join(total_mineral) %>% 
+  mutate(red_kg_per_kg=red/mtons)
+min_red
+  
 
 # million tons
 total_df <- df %>% 
-  group_by(vehicle_type,Stage) %>% 
+  filter(Scenario=="Ambitious") %>% 
+  group_by(Scenario,vehicle_type,Stage) %>% 
   reframe(tonsCO2e=sum(tonsCO2e)/1e6) %>% ungroup() %>% 
   mutate(Stage=factor(Stage,levels=stage_lvl))
+
+total_type_p <- total_type %>% filter(Scenario=="Ambitious")
 
 ggplot(total_df,aes(vehicle_type,tonsCO2e))+
   geom_col(aes(fill=Stage),position = position_stack(),
            col="black",linewidth=0.1)+
-  geom_text(data=total_type,aes(label=lab_total),size=8*5/14 * 0.8,
+  geom_text(data=total_type_p,aes(label=lab_total),size=8*5/14 * 0.8,
             nudge_y = 1000)+
+  # facet_wrap(~Scenario)+
   scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE))+
   scale_fill_viridis_d(direction = -1,option = "E")+
   labs(x="",y="",title = "Million tons CO2e emissions, 2022-2050")+
@@ -266,12 +299,12 @@ ggsave("Figures/GHG_fleet.png", ggplot2::last_plot(),units="cm",dpi=600,width=8.
 
 # over time
 df %>% 
-  group_by(Year,vehicle_type,Stage) %>%
+  group_by(Scenario,Year,vehicle_type,Stage) %>%
   reframe(tonsCO2e=sum(tonsCO2e)) %>% ungroup() %>%
   mutate(tonsCO2e=tonsCO2e/1e6) %>% 
   ggplot(aes(Year,tonsCO2e,fill=Stage))+
   geom_area()+
-  facet_wrap(~vehicle_type)+
+  facet_grid(vehicle_type~Scenario)+
   coord_cartesian(expand = F)+
   scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE))+
   scale_fill_viridis_d(direction = -1,option = "E")+
@@ -287,9 +320,11 @@ ggsave("Figures/GHG_fleet_time.png", ggplot2::last_plot(),units="cm",
 # By stage and vehicle size
 stage_lvl2 <- expand.grid(stage_lvl,c("Car","Light Truck")) %>% 
   mutate(x=paste0(Var2,"-",Var1)) %>% pull(x)
+
 # million tons
 total_df <- df %>% 
-  group_by(vehicle_type,Stage,vehSize) %>% 
+  filter(Scenario=="Ambitious") %>% 
+  group_by(Scenario,vehicle_type,Stage,vehSize) %>% 
   reframe(tonsCO2e=sum(tonsCO2e)/1e6) %>% ungroup() %>% 
   mutate(Stage=paste0(vehSize,"-",Stage),
          Stage=factor(Stage,levels=stage_lvl2))
@@ -297,8 +332,9 @@ total_df <- df %>%
 ggplot(total_df,aes(vehicle_type,tonsCO2e))+
   geom_col(aes(fill=Stage),position = position_stack(),
            col="black",linewidth=0.1)+
-  geom_text(data=total_type,aes(label=lab_total),size=8*5/14 * 0.8,
+  geom_text(data=total_type_p,aes(label=lab_total),size=8*5/14 * 0.8,
             nudge_y = 1000)+
+  # facet_wrap(~Scenario)+
   scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE))+
   scale_fill_viridis_d(direction = -1,option = "E")+
   labs(x="",y="",title = "Million tons CO2e emissions, 2022-2050")+
@@ -306,6 +342,20 @@ ggplot(total_df,aes(vehicle_type,tonsCO2e))+
   theme(panel.grid = element_blank())
 
 ggsave("Figures/GHG_fleet_type.png", ggplot2::last_plot(),units="cm",dpi=600,width=8.7,height=8.7)
+
+
+# Recycling Analysis --------------
+
+
+# PENDING
+Li_recycled_total
+df <- rbind(veh_prod_total,
+            lib_prod_total,
+            LIB_replacement_total,
+            ev_usage_total,
+            ice_usage_total)
+
+write.csv(df,"Results/tonsGHG.csv",row.names = F)
 
 
 
