@@ -258,6 +258,20 @@ LIBRec_GWP <- tibble::rownames_to_column(LIBRec_GWP, var = "Chemistry")
 
 write_csv(LIBRec_GWP, "Inputs/LIBRec_GWP.csv")
 
+# LIB Extraction ---------
 
+Li_Extraction <- read_excel(sprintf(url_file, "GREET2024_Data.xlsx"), 
+                            sheet = "Lithium_Extraction", col_names = FALSE)
+
+
+GWP_factors <- c(CO2 = 1, CH4 = 29.8, N2O = 273)
+
+# Average Li2CO3 in column v, row 13-25
+Li_exact <- Li_Extraction[13:25, ] %>%
+  select(name = ...1, value = ...22) %>% 
+  mutate(gwp = GWP_factors[name],
+         co2e_g = ifelse(!is.na(gwp), as.numeric(value) * gwp, NA))
+
+write.csv(Li_exact, "Inputs/Li_exact.csv", row.names = FALSE)
 
 

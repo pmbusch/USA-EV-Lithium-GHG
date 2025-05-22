@@ -19,6 +19,8 @@ lib_materials <- read.csv("Inputs/upstream_libmaterial.csv")
 lib_assembly <- read.csv("Inputs/LIB_Assembly.csv")
 lib_assembly <- sum(lib_assembly$GWP_component,na.rm=T)/1e3 # kg CO2 per kWh
 lib_materials$kgco2e_kwh <- lib_materials$kgco2e_kwh+lib_assembly
+lib_extraction <- read.csv("Inputs/Li_exact.csv")
+lib_extraction <- sum(lib_extraction$co2e_g, na.rm = TRUE) / 1e3 # kg CO2 per Li2CO3
 
 # Battery size USA
 # Data: EV Volumes 2022
