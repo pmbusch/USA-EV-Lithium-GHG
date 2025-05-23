@@ -1,175 +1,175 @@
 "Scenario","Year","vehSize","Sales"
-"Ambitious",2022,"Car",302183.959873066
-"Ambitious",2022,"Light Truck",460372.040126934
-"Ambitious",2023,"Car",436811.573806793
-"Ambitious",2023,"Light Truck",717042.426193208
-"Ambitious",2024,"Car",755249.652558599
-"Ambitious",2024,"Light Truck",1280376.3474414
-"Ambitious",2025,"Car",1225166.80889014
-"Ambitious",2025,"Light Truck",2223115.19110986
-"Ambitious",2026,"Car",1482314.42284312
-"Ambitious",2026,"Light Truck",2774007.57715689
-"Ambitious",2027,"Car",1752938.87950538
-"Ambitious",2027,"Light Truck",3348580.12049463
-"Ambitious",2028,"Car",2127053.15716971
-"Ambitious",2028,"Light Truck",4163707.84283028
-"Ambitious",2029,"Car",2584865.13715792
-"Ambitious",2029,"Light Truck",5115419.86284208
-"Ambitious",2030,"Car",2994804.92408756
-"Ambitious",2030,"Light Truck",5977213.07591244
-"Ambitious",2031,"Car",3251553.54783239
-"Ambitious",2031,"Light Truck",6553324.45216762
-"Ambitious",2032,"Car",3540711.32125148
-"Ambitious",2032,"Light Truck",7163541.67874852
-"Ambitious",2033,"Car",3894291.75942857
-"Ambitious",2033,"Light Truck",7940967.24057143
-"Ambitious",2034,"Car",4242735.77920505
-"Ambitious",2034,"Light Truck",8718061.22079495
-"Ambitious",2035,"Car",4831347.3117888
-"Ambitious",2035,"Light Truck",10025981.6882112
-"Ambitious",2036,"Car",4876555.92848238
-"Ambitious",2036,"Light Truck",10107916.0715176
-"Ambitious",2037,"Car",4892365.09024673
-"Ambitious",2037,"Light Truck",10199888.9097533
-"Ambitious",2038,"Car",4914734.47879449
-"Ambitious",2038,"Light Truck",10307662.5212055
-"Ambitious",2039,"Car",4932794.28850427
-"Ambitious",2039,"Light Truck",10401631.7114957
-"Ambitious",2040,"Car",4950771.07878026
-"Ambitious",2040,"Light Truck",10520339.9212197
-"Ambitious",2041,"Car",4938577.27553027
-"Ambitious",2041,"Light Truck",10586384.7244697
-"Ambitious",2042,"Car",4926839.95234748
-"Ambitious",2042,"Light Truck",10658051.0476525
-"Ambitious",2043,"Car",4893554.16119283
-"Ambitious",2043,"Light Truck",10735290.8388072
-"Ambitious",2044,"Car",4886490.19111929
-"Ambitious",2044,"Light Truck",10793547.8088807
-"Ambitious",2045,"Car",4895774.39558699
-"Ambitious",2045,"Light Truck",10915250.604413
-"Ambitious",2046,"Car",4969570.58647254
-"Ambitious",2046,"Light Truck",10958714.4135275
-"Ambitious",2047,"Car",4952350.5019929
-"Ambitious",2047,"Light Truck",11043924.4980071
-"Ambitious",2048,"Car",4957728.96059911
-"Ambitious",2048,"Light Truck",11079998.0394009
-"Ambitious",2049,"Car",4956844.18211729
-"Ambitious",2049,"Light Truck",11175037.8178827
-"Ambitious",2050,"Car",4990091.55947315
-"Ambitious",2050,"Light Truck",11285639.4405269
-"Baseline",2022,"Car",302183.959873066
-"Baseline",2022,"Light Truck",460372.040126934
-"Baseline",2023,"Car",436811.573806793
-"Baseline",2023,"Light Truck",717042.426193208
-"Baseline",2024,"Car",523544.274450201
-"Baseline",2024,"Light Truck",887565.725549799
-"Baseline",2025,"Car",616874.690574733
-"Baseline",2025,"Light Truck",1119344.30942527
-"Baseline",2026,"Car",737714.991646977
-"Baseline",2026,"Light Truck",1380562.00835302
-"Baseline",2027,"Car",877770.179812338
-"Baseline",2027,"Light Truck",1676774.82018766
-"Baseline",2028,"Car",1037388.79864343
-"Baseline",2028,"Light Truck",2030689.20135657
-"Baseline",2029,"Car",1251491.33079935
-"Baseline",2029,"Light Truck",2476687.66920065
-"Baseline",2030,"Car",1499651.89916968
-"Baseline",2030,"Light Truck",2993096.10083032
-"Baseline",2031,"Car",1557778.49824002
-"Baseline",2031,"Light Truck",3139615.50175999
-"Baseline",2032,"Car",1622375.18816513
-"Baseline",2032,"Light Truck",3282377.81183487
-"Baseline",2033,"Car",1680673.73335257
-"Baseline",2033,"Light Truck",3427112.26664743
-"Baseline",2034,"Car",1747979.85170564
-"Baseline",2034,"Light Truck",3591785.14829436
-"Baseline",2035,"Car",1820859.58700734
-"Baseline",2035,"Light Truck",3778636.41299267
-"Baseline",2036,"Car",1911414.00089845
-"Baseline",2036,"Light Truck",3961896.99910156
-"Baseline",2037,"Car",1991364.60026863
-"Baseline",2037,"Light Truck",4151713.39973137
-"Baseline",2038,"Car",2074561.1544927
-"Baseline",2038,"Light Truck",4350972.8455073
-"Baseline",2039,"Car",2156548.16464348
-"Baseline",2039,"Light Truck",4547446.83535653
-"Baseline",2040,"Car",2239042.23663442
-"Baseline",2040,"Light Truck",4757942.76336559
-"Baseline",2041,"Car",2307978.24481928
-"Baseline",2041,"Light Truck",4947405.75518073
-"Baseline",2042,"Car",2376766.89304354
-"Baseline",2042,"Light Truck",5141572.10695647
-"Baseline",2043,"Car",2434481.70422159
-"Baseline",2043,"Light Truck",5340672.29577841
-"Baseline",2044,"Car",2504633.03800581
-"Baseline",2044,"Light Truck",5532370.9619942
-"Baseline",2045,"Car",2583197.3509108
-"Baseline",2045,"Light Truck",5759302.64908921
-"Baseline",2046,"Car",2697053.57645535
-"Baseline",2046,"Light Truck",5947443.42354466
-"Baseline",2047,"Car",2762366.25150569
-"Baseline",2047,"Light Truck",6160178.74849431
-"Baseline",2048,"Car",2840106.16200317
-"Baseline",2048,"Light Truck",6347335.83799684
-"Baseline",2049,"Car",2914325.52331842
-"Baseline",2049,"Light Truck",6570248.47668159
-"Baseline",2050,"Car",3009100.3901119
-"Baseline",2050,"Light Truck",6805410.6098881
-"Momentum",2022,"Car",302183.959873066
-"Momentum",2022,"Light Truck",460372.040126934
-"Momentum",2023,"Car",436811.573806793
-"Momentum",2023,"Light Truck",717042.426193208
-"Momentum",2024,"Car",590297.458722922
-"Momentum",2024,"Light Truck",1000732.54127708
-"Momentum",2025,"Car",784235.56022717
-"Momentum",2025,"Light Truck",1423027.43977283
-"Momentum",2026,"Car",1058115.16446915
-"Momentum",2026,"Light Truck",1980159.83553085
-"Momentum",2027,"Car",1419937.74145532
-"Momentum",2027,"Light Truck",2712459.25854469
-"Momentum",2028,"Car",1599223.34129022
-"Momentum",2028,"Light Truck",3130480.65870978
-"Momentum",2029,"Car",2034936.63470491
-"Momentum",2029,"Light Truck",4027117.36529509
-"Momentum",2030,"Car",2259475.64379753
-"Momentum",2030,"Light Truck",4509598.35620247
-"Momentum",2031,"Car",2638332.76460959
-"Momentum",2031,"Light Truck",5317412.23539041
-"Momentum",2032,"Car",2953214.55440041
-"Momentum",2032,"Light Truck",5974922.44559959
-"Momentum",2033,"Car",3242969.83974904
-"Momentum",2033,"Light Truck",6612837.16025096
-"Momentum",2034,"Car",3350780.31437601
-"Momentum",2034,"Light Truck",6885252.68562399
-"Momentum",2035,"Car",3475656.79112604
-"Momentum",2035,"Light Truck",7212661.20887397
-"Momentum",2036,"Car",3542486.93886767
-"Momentum",2036,"Light Truck",7342715.06113234
-"Momentum",2037,"Car",3588881.63744255
-"Momentum",2037,"Light Truck",7482310.36255746
-"Momentum",2038,"Car",3639867.13620153
-"Momentum",2038,"Light Truck",7633885.86379847
-"Momentum",2039,"Car",3687945.23287501
-"Momentum",2039,"Light Truck",7776656.76712499
-"Momentum",2040,"Car",3736214.94179665
-"Momentum",2040,"Light Truck",7939420.05820335
-"Momentum",2041,"Car",3761756.44213971
-"Momentum",2041,"Light Truck",8063739.5578603
-"Momentum",2042,"Car",3787477.24653097
-"Momentum",2042,"Light Truck",8193309.75346904
-"Momentum",2043,"Car",3796316.0071585
-"Momentum",2043,"Light Truck",8328211.99284151
-"Momentum",2044,"Car",3825213.16092245
-"Momentum",2044,"Light Truck",8449340.83907756
-"Momentum",2045,"Car",3866923.66083434
-"Momentum",2045,"Light Truck",8621402.33916567
-"Momentum",2046,"Car",3960672.83299778
-"Momentum",2046,"Light Truck",8733930.16700223
-"Momentum",2047,"Car",3981789.15231167
-"Momentum",2047,"Light Truck",8879536.84768834
-"Momentum",2048,"Car",4020992.20005432
-"Momentum",2048,"Light Truck",8986490.79994569
-"Momentum",2049,"Car",4055147.0089838
-"Momentum",2049,"Light Truck",9142191.99101621
-"Momentum",2050,"Car",4117452.50459414
-"Momentum",2050,"Light Truck",9312070.49540587
+"Ambitious",2022,"Car",308254.365303992
+"Ambitious",2022,"Light Truck",454301.634696008
+"Ambitious",2023,"Car",465000.31898576
+"Ambitious",2023,"Light Truck",688853.68101424
+"Ambitious",2024,"Car",818031.491494524
+"Ambitious",2024,"Light Truck",1217594.50850548
+"Ambitious",2025,"Car",1448621.25088635
+"Ambitious",2025,"Light Truck",1999660.74911364
+"Ambitious",2026,"Car",1716310.26748326
+"Ambitious",2026,"Light Truck",2540011.73251674
+"Ambitious",2027,"Car",1993568.59700541
+"Ambitious",2027,"Light Truck",3107950.40299459
+"Ambitious",2028,"Car",2426447.92357273
+"Ambitious",2028,"Light Truck",3864313.07642726
+"Ambitious",2029,"Car",2929591.085052
+"Ambitious",2029,"Light Truck",4770693.914948
+"Ambitious",2030,"Car",3470981.02936387
+"Ambitious",2030,"Light Truck",5501036.97063613
+"Ambitious",2031,"Car",3748242.50726549
+"Ambitious",2031,"Light Truck",6056635.49273452
+"Ambitious",2032,"Car",4039591.71101767
+"Ambitious",2032,"Light Truck",6664661.28898232
+"Ambitious",2033,"Car",4354006.16651907
+"Ambitious",2033,"Light Truck",7481252.83348093
+"Ambitious",2034,"Car",4844824.25714175
+"Ambitious",2034,"Light Truck",8115972.74285826
+"Ambitious",2035,"Car",5587076.91566755
+"Ambitious",2035,"Light Truck",9270252.08433246
+"Ambitious",2036,"Car",5663669.96320934
+"Ambitious",2036,"Light Truck",9320802.03679067
+"Ambitious",2037,"Car",5700514.68913188
+"Ambitious",2037,"Light Truck",9391739.31086813
+"Ambitious",2038,"Car",5717863.93793527
+"Ambitious",2038,"Light Truck",9504533.06206474
+"Ambitious",2039,"Car",5757461.55253375
+"Ambitious",2039,"Light Truck",9576964.44746626
+"Ambitious",2040,"Car",5804243.75689397
+"Ambitious",2040,"Light Truck",9666867.24310604
+"Ambitious",2041,"Car",5766340.06515623
+"Ambitious",2041,"Light Truck",9758621.93484378
+"Ambitious",2042,"Car",5782811.06616455
+"Ambitious",2042,"Light Truck",9802079.93383546
+"Ambitious",2043,"Car",5795638.19069263
+"Ambitious",2043,"Light Truck",9833206.80930738
+"Ambitious",2044,"Car",5662408.96483457
+"Ambitious",2044,"Light Truck",10017629.0351654
+"Ambitious",2045,"Car",5751388.14807732
+"Ambitious",2045,"Light Truck",10059636.8519227
+"Ambitious",2046,"Car",5748848.71563366
+"Ambitious",2046,"Light Truck",10179436.2843664
+"Ambitious",2047,"Car",5816302.48893068
+"Ambitious",2047,"Light Truck",10179972.5110693
+"Ambitious",2048,"Car",5831518.55342856
+"Ambitious",2048,"Light Truck",10206208.4465714
+"Ambitious",2049,"Car",5857825.07580778
+"Ambitious",2049,"Light Truck",10274056.9241922
+"Ambitious",2050,"Car",5925353.8831906
+"Ambitious",2050,"Light Truck",10350377.1168094
+"Baseline",2022,"Car",308254.365303992
+"Baseline",2022,"Light Truck",454301.634696008
+"Baseline",2023,"Car",465000.31898576
+"Baseline",2023,"Light Truck",688853.68101424
+"Baseline",2024,"Car",567065.078733932
+"Baseline",2024,"Light Truck",844044.921266068
+"Baseline",2025,"Car",729384.586177307
+"Baseline",2025,"Light Truck",1006834.41382269
+"Baseline",2026,"Car",854169.53051805
+"Baseline",2026,"Light Truck",1264107.46948195
+"Baseline",2027,"Car",998263.593968225
+"Baseline",2027,"Light Truck",1556281.40603178
+"Baseline",2028,"Car",1183407.14143475
+"Baseline",2028,"Light Truck",1884670.85856525
+"Baseline",2029,"Car",1418394.24928793
+"Baseline",2029,"Light Truck",2309784.75071207
+"Baseline",2030,"Car",1738097.61390497
+"Baseline",2030,"Light Truck",2754650.38609503
+"Baseline",2031,"Car",1795735.94532985
+"Baseline",2031,"Light Truck",2901658.05467015
+"Baseline",2032,"Car",1850965.17836313
+"Baseline",2032,"Light Truck",3053787.82163687
+"Baseline",2033,"Car",1879074.36087878
+"Baseline",2033,"Light Truck",3228711.63912122
+"Baseline",2034,"Car",1996036.43197533
+"Baseline",2034,"Light Truck",3343728.56802468
+"Baseline",2035,"Car",2105682.30944962
+"Baseline",2035,"Light Truck",3493813.69055039
+"Baseline",2036,"Car",2219931.07900545
+"Baseline",2036,"Light Truck",3653379.92099455
+"Baseline",2037,"Car",2320309.90039545
+"Baseline",2037,"Light Truck",3822768.09960455
+"Baseline",2038,"Car",2413570.55269134
+"Baseline",2038,"Light Truck",4011963.44730867
+"Baseline",2039,"Car",2517081.07371469
+"Baseline",2039,"Light Truck",4186913.92628531
+"Baseline",2040,"Car",2625034.9120584
+"Baseline",2040,"Light Truck",4371950.0879416
+"Baseline",2041,"Car",2694822.14818261
+"Baseline",2041,"Light Truck",4560561.85181739
+"Baseline",2042,"Car",2789697.66091893
+"Baseline",2042,"Light Truck",4728641.33908107
+"Baseline",2043,"Car",2883257.17357339
+"Baseline",2043,"Light Truck",4891896.82642662
+"Baseline",2044,"Car",2902340.12825806
+"Baseline",2044,"Light Truck",5134663.87174194
+"Baseline",2045,"Car",3034651.80943898
+"Baseline",2045,"Light Truck",5307848.19056102
+"Baseline",2046,"Car",3119978.420511
+"Baseline",2046,"Light Truck",5524518.57948901
+"Baseline",2047,"Car",3244269.09959325
+"Baseline",2047,"Light Truck",5678275.90040676
+"Baseline",2048,"Car",3340669.06623045
+"Baseline",2048,"Light Truck",5846772.93376956
+"Baseline",2049,"Car",3444047.96728333
+"Baseline",2049,"Light Truck",6040526.03271668
+"Baseline",2050,"Car",3573077.66179392
+"Baseline",2050,"Light Truck",6241433.33820609
+"Momentum",2022,"Car",308254.365303992
+"Momentum",2022,"Light Truck",454301.634696008
+"Momentum",2023,"Car",465000.31898576
+"Momentum",2023,"Light Truck",688853.68101424
+"Momentum",2024,"Car",639367.272727177
+"Momentum",2024,"Light Truck",951662.727272822
+"Momentum",2025,"Car",927269.895007185
+"Momentum",2025,"Light Truck",1279993.10499281
+"Momentum",2026,"Car",1225147.5752863
+"Momentum",2026,"Light Truck",1813127.42471371
+"Momentum",2027,"Car",1614855.67133228
+"Momentum",2027,"Light Truck",2517541.32866773
+"Momentum",2028,"Car",1824323.07473033
+"Momentum",2028,"Light Truck",2905380.92526967
+"Momentum",2029,"Car",2306322.344628
+"Momentum",2029,"Light Truck",3755731.655372
+"Momentum",2030,"Car",2618733.87239752
+"Momentum",2030,"Light Truck",4150340.12760248
+"Momentum",2031,"Car",3041349.5798688
+"Momentum",2031,"Light Truck",4914395.4201312
+"Momentum",2032,"Car",3369317.61796271
+"Momentum",2032,"Light Truck",5558819.38203729
+"Momentum",2033,"Car",3625796.82067134
+"Momentum",2033,"Light Truck",6230010.17932866
+"Momentum",2034,"Car",3826291.00473554
+"Momentum",2034,"Light Truck",6409741.99526446
+"Momentum",2035,"Car",4019326.40551434
+"Momentum",2035,"Light Truck",6668991.59448567
+"Momentum",2036,"Car",4114271.86829581
+"Momentum",2036,"Light Truck",6770930.1317042
+"Momentum",2037,"Car",4181714.18412381
+"Momentum",2037,"Light Truck",6889477.8158762
+"Momentum",2038,"Car",4234667.22907631
+"Momentum",2038,"Light Truck",7039085.7709237
+"Momentum",2039,"Car",4304497.94665295
+"Momentum",2039,"Light Truck",7160104.05334706
+"Momentum",2040,"Car",4380308.01773207
+"Momentum",2040,"Light Truck",7295326.98226794
+"Momentum",2041,"Car",4392270.42070343
+"Momentum",2041,"Light Truck",7433225.57929658
+"Momentum",2042,"Car",4445499.66021324
+"Momentum",2042,"Light Truck",7535287.33978677
+"Momentum",2043,"Car",4496133.75274514
+"Momentum",2043,"Light Truck",7628394.24725486
+"Momentum",2044,"Car",4432613.2761251
+"Momentum",2044,"Light Truck",7841940.72387491
+"Momentum",2045,"Car",4542729.52865016
+"Momentum",2045,"Light Truck",7945596.47134985
+"Momentum",2046,"Car",4581745.7530443
+"Momentum",2046,"Light Truck",8112857.24695571
+"Momentum",2047,"Car",4676423.88148171
+"Momentum",2047,"Light Truck",8184902.1185183
+"Momentum",2048,"Car",4729683.8540715
+"Momentum",2048,"Light Truck",8277799.1459285
+"Momentum",2049,"Car",4792230.89582083
+"Momentum",2049,"Light Truck",8405108.10417918
+"Momentum",2050,"Car",4889161.43044189
+"Momentum",2050,"Light Truck",8540361.56955812

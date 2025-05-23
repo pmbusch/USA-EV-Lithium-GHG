@@ -5,7 +5,7 @@
 # PBH January 2025
 
 source("Scripts/00-Libraries.R", encoding = "UTF-8")
-source("Scripts/Prepare-DataInputs/Electricity/EIA_API.R", encoding = "UTF-8") # private API
+source("Scripts/Prepare-DataInputs/Electricity/00-EIA_API.R", encoding = "UTF-8") # private API
 
 # Download data -----
 
@@ -14,7 +14,6 @@ source("Scripts/Prepare-DataInputs/Electricity/EIA_API.R", encoding = "UTF-8") #
 
 library(jsonlite)
 url <- "https://api.eia.gov/v2/aeo/2023/data/?api_key=%s&frequency=annual&data[0]=value&facets[tableId][]=%s&facets[scenario][]=%s&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=5000"
-
 
 
 ## get unique regions -----

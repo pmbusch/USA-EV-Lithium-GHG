@@ -46,11 +46,13 @@ lib_upstream <- lib_upstream %>% rename(vehSize=Type) %>%
 ## Fleet, Sales and LIB -----
 
 fleet <- read.csv("Parameters/USA_fleet_type.csv")
+range(fleet$Year)
 head(fleet)
 unique(fleet$Scenario)
 
 # new sales
 sales <- read.csv("Parameters/salesEV_type.csv")
+range(sales$Year)
 head(sales)
 unique(sales$Scenario)
 # dissagregation into state can be done later, but upstream does not depend on state...
@@ -260,7 +262,7 @@ kwh_red <- total_type %>%
   left_join(total_kwh) %>% 
   mutate(red_pkWh=red*1e9/kWh) #from mtons to kg
 kwh_red
-# ~200 kg CO2 per kWh
+# ~370 kg CO2 per kWh
 
 # Reduction per kg of critical Mineral - Li,Ni,Co,Graphite,Cu
 total_mineral <- mineral_demand %>% 

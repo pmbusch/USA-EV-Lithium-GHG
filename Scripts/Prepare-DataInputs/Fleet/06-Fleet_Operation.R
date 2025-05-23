@@ -6,7 +6,7 @@ library(tidyverse)
 
 # Fuel Consumption ------
 # get Fuel Consumption from EIA data
-fe <- read.csv("Inputs/EIA_Table40_Energy Consumption.csv",skip = 4)
+fe <- readxl::read_excel("Inputs/EIA2025Table40.xlsx",skip = 4)
 names(fe)
 fe[,1]
 
@@ -18,14 +18,16 @@ fe[,1]
 
 fe <- fe[c(3,7:9,23,28:29),]
 names(fe)
-fe <- fe %>% dplyr::select(-X,-api.key,-units,-Growth..2022.2050.,-X2021) %>% 
-  pivot_longer(c(-full.name), names_to = "period", values_to = "mpge") %>% 
-  mutate(period=as.integer(str_remove(period,"X")))
+fe[,1]
+fe <- fe %>% dplyr::select(-...1,-`api key`,-units,-`Growth (2024-2050)`,-`2023`) %>% 
+  pivot_longer(c(-`full name`), names_to = "period", values_to = "mpge") %>% 
+  mutate(period=as.integer(str_remove(period,"X"))) %>% 
+  rename(full.name=`full name`)
 unique(fe$full.name)
   
 ## EV Range Share range --------
 # get share of sales of 100-200-300 mile EV, to average them
-share_eia <- read.csv("Inputs/EIA_Table38.csv")
+share_eia <- read.csv("Inputs/EIA2025Table38.csv")
 names(share_eia)
 unique(share_eia$scenario);unique(share_eia$tableName);unique(share_eia$unit)
 unique(share_eia$seriesName)
@@ -93,12 +95,9 @@ unique(share_eia_ev$seriesName)
 fe <- fe %>% 
   mutate(vehSize=str_extract(full.name,"Car|Light Truck"),
          vehType=str_extract(full.name,"Gasoline|Electric"))
-  
+
 fe_ice <- fe %>% filter(vehType=="Gasoline")
 
-# Adjustment from 2-cycle to aggressive driving, no temperature yet
-# Equations for city
-fe_ice$mpge <- 1/(0.00187+1.134/fe_ice$mpge)
 
 fe_ev <- fe %>% 
   filter(vehType=="Electric") %>% 
@@ -112,8 +111,32 @@ fe_ev <- fe_ev %>%
   group_by(period,vehSize,vehType) %>% 
   reframe(mpge=sum(mpge)) %>% ungroup()
 
+# Figure before adjustments
+data_mpg <- fe_ice %>% mutate(full.name=NULL,unit="gallons") %>% 
+  rbind(mutate(fe_ev,unit="kWh")) %>% 
+  mutate(type=paste0(vehSize,"-",vehType))
+ggplot(data_mpg,aes(period,mpge,col=type))+
+  geom_line(linewidth=0.3)+
+  geom_text(data=filter(data_mpg,period==2040),aes(label=type),
+            nudge_y = c(1,-1,1,-1)*5,
+            size=8*5/14 * 0.8)+
+  coord_cartesian(expand=F,ylim = c(0,200))+
+  scale_color_manual(values=c("#e41a1c","#377eb8","#4daf4a","#984ea3"))+
+  labs(x="",y="",fill="",title="Miles per gallon equivalent",col="")+
+  theme_bw(8)+
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(hjust=1),
+        legend.position = "none")
+ggsave("Figures/Fleet/mpge.png", 
+       ggplot2::last_plot(),units="cm",dpi=600,width=8.7*1.5,height=8.7)
+
+
 # convert to kWh based on EPA assumption of 33.7 kWh per gallon https://www.epa.gov/greenvehicles/fuel-economy-and-ev-range-testing
 fe_ev$mpge <- fe_ev$mpge/33.7 # miles per kWh, really high efficiency
+
+# Adjustment from 2-cycle to aggressive driving, no temperature yet
+# Equations for city
+fe_ice$mpge <- 1/(0.00187+1.134/fe_ice$mpge)
 
 # Adjustment from 2-cycle to aggressive driving, no temperature yet
 # Equations for city
@@ -175,9 +198,9 @@ join_size <- share_eia_size %>%
   dplyr::select(period,regionName,vehSize,share) %>% 
   left_join(dict_reg,by=c("regionName"="Region_Transport")) %>% 
   rename(State=NAME) %>% dplyr::select(period,vehSize,State,share)
-range(join_size$period) # use 2022 for past model years
-aux <- join_size %>% filter(period==2022)
-for (i in 2015:2021){
+range(join_size$period) # use 2024 for past model years
+aux <- join_size %>% filter(period==2024)
+for (i in 2015:2023){
   aux$period <- i
   join_size <- rbind(join_size,aux)
 }
@@ -237,10 +260,10 @@ write.csv(consumption,"Results/total_VMT.csv",row.names = F)
 
 # get total gallons of gasoline or kWh consumed
 
-# get data for 2015-2021
+# get data for 2015-2023 - assume same as 2024
 range(fe$period)
-aux <- fe %>% filter(period==2022)
-for (i in 2015:2021){
+aux <- fe %>% filter(period==2024)
+for (i in 2015:2023){
   aux$period <- i
   fe <- rbind(fe,aux) } 
 rm(i,aux)
@@ -263,9 +286,9 @@ consumption_ev <- consumption %>%
   left_join(dplyr::select(temp_factor,State,BEVs)) %>% 
   mutate(degradation_factor=(1-0.0033)^age) %>% # 0.33% per year
   mutate(total_kwh=total_vmt/(mpge*degradation_factor/BEVs))
-consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
-consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(total_kwh)/1e9) # 25626 TWh
-25626/3.35
+consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35 fleet
+consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(total_kwh)/1e9) # 18700 TWh
+18700/3.35
 
 # aggregate at state level
 head(consumption_ev)
@@ -284,7 +307,7 @@ consumption_ice <- consumption %>%
   mutate(degradation_factor=(1-0.01)^age) %>% # 1% per year
   mutate(total_gallons=total_vmt/(mpge*degradation_factor/ICEVs))
 consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
-consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/1e9) # 1543
+consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/1e9) # 1739
 
 # aggregate at state level
 head(consumption_ice)
