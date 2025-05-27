@@ -1,145 +1,144 @@
 "sheet","Name","Region","kg_co2e"
-"Sheet1","electricity production, wind, 1-3MW turbine, offshore","RoW",0.0170290814214835
-"Sheet10","electricity production, wind, 1-3MW turbine, onshore","US-ASCC",0.0137747740735534
-"Sheet101","electricity production, oil","US-RFC",1.32534086183283
-"Sheet102","electricity production, hard coal","US-RFC",1.15827841335435
-"Sheet105","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-SERC",0.0733865641548759
-"Sheet106","electricity production, oil","US-SERC",1.11440072466423
-"Sheet107","electricity production, deep geothermal","US-SERC",0.0727448836066028
-"Sheet108","electricity production, nuclear, boiling water reactor","US-SERC",0.00778637521958375
-"Sheet109","electricity production, natural gas, conventional power plant","US-SERC",0.760816267386814
-"Sheet11","electricity production, hydro, reservoir, alpine region","US-ASCC",0.00716934326629202
-"Sheet111","electricity production, wind, 1-3MW turbine, onshore","US-SERC",0.0137747740735534
-"Sheet112","electricity production, solar thermal parabolic trough, 50 MW","US-SERC",0.0530489760373955
-"Sheet113","electricity production, wind, <1MW turbine, onshore","US-SERC",0.0132689206719139
-"Sheet114","electricity production, nuclear, pressure water reactor","US-SERC",0.00732206444632899
-"Sheet115","electricity production, wind, >3MW turbine, onshore","US-SERC",0.0225616511672473
-"Sheet116","electricity production, lignite","US-SERC",1.29151753784729
-"Sheet119","electricity production, hydro, pumped storage","US-SERC",0.81967427524137
-"Sheet12","electricity production, hard coal","US-ASCC",1.7711887123513
-"Sheet120","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-SERC",0.0751544856697508
-"Sheet121","electricity production, hydro, reservoir, alpine region","US-SERC",0.00716934326629202
-"Sheet123","electricity production, hydro, reservoir, non-alpine region","US-SERC",0.0128026085469666
-"Sheet124","electricity production, natural gas, combined cycle power plant","US-SERC",0.47728135956953
-"Sheet125","electricity production, hydro, run-of-river","US-SERC",0.00470451045259971
-"Sheet126","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-SERC",0.0838662427993728
-"Sheet127","electricity production, hard coal","US-SERC",1.23880484765224
-"Sheet128","electricity production, wind, <1MW turbine, onshore","US-TRE",0.0132689206719139
-"Sheet129","electricity production, hydro, pumped storage","US-TRE",0.690352243952678
-"Sheet13","electricity production, hydro, pumped storage","US-ASCC",0.878886344617261
-"Sheet130","electricity production, natural gas, combined cycle power plant","US-TRE",0.447633109468321
-"Sheet131","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-TRE",0.0833778370592769
-"Sheet136","electricity production, oil","US-TRE",1.19323293026749
-"Sheet137","electricity production, wind, >3MW turbine, onshore","US-TRE",0.0225616511672473
-"Sheet138","electricity production, hydro, run-of-river","US-TRE",0.00470451045259971
-"Sheet139","electricity production, nuclear, pressure water reactor","US-TRE",0.00732206444632899
-"Sheet14","electricity production, wind, <1MW turbine, onshore","US-ASCC",0.0132689206719139
-"Sheet140","electricity production, hard coal","US-TRE",1.21246383527341
-"Sheet141","electricity production, nuclear, boiling water reactor","US-TRE",0.00778637521958375
-"Sheet142","electricity production, wind, 1-3MW turbine, onshore","US-TRE",0.0137747740735534
-"Sheet143","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-TRE",0.0729591881573022
-"Sheet144","electricity, high voltage, import from MX","US-TRE",0.625608872668405
-"Sheet145","electricity production, lignite","US-TRE",1.24021112389722
-"Sheet146","electricity production, natural gas, conventional power plant","US-TRE",0.657362497317217
-"Sheet149","electricity production, hydro, reservoir, non-alpine region","US-TRE",0.0128026085469667
-"Sheet15","electricity production, wind, >3MW turbine, onshore","US-ASCC",0.0225616511672473
-"Sheet150","electricity production, nuclear, pressure water reactor","US-WECC",0.00732206444632899
-"Sheet151","electricity production, wind, 1-3MW turbine, onshore","US-WECC",0.0137747740735534
-"Sheet152","electricity production, lignite","US-WECC",1.24021112389722
-"Sheet153","electricity production, hydro, reservoir, alpine region","US-WECC",0.00716934326629202
-"Sheet154","electricity production, solar tower power plant, 20 MW","US-WECC",0.0470623357363563
-"Sheet155","electricity, high voltage, import from CA-BC","US-WECC",0.0974980686426998
-"Sheet156","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-WECC",0.0697426305812459
-"Sheet157","electricity, high voltage, import from CA-AB","US-WECC",0.779702289952631
-"Sheet158","electricity production, wind, <1MW turbine, onshore","US-WECC",0.0132689206719139
-"Sheet161","electricity production, natural gas, combined cycle power plant","US-WECC",0.431856863311783
-"Sheet162","electricity production, solar thermal parabolic trough, 50 MW","US-WECC",0.0530489760373955
-"Sheet163","electricity production, hydro, run-of-river","US-WECC",0.00470451045259971
-"Sheet164","electricity production, deep geothermal","US-WECC",0.0727448836066028
-"Sheet165","electricity, high voltage, import from MX","US-WECC",0.625608872668405
-"Sheet166","electricity production, hard coal","US-WECC",1.01732308841856
-"Sheet168","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-WECC",0.0624979891268978
-"Sheet169","electricity production, nuclear, boiling water reactor","US-WECC",0.00778637521958375
-"Sheet172","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-WECC",0.0610277969137624
-"Sheet173","electricity production, natural gas, conventional power plant","US-WECC",0.609707793560469
-"Sheet174","electricity production, hydro, pumped storage","US-WECC",0.608597619489958
-"Sheet175","electricity production, wind, >3MW turbine, onshore","US-WECC",0.0225616511672473
-"Sheet176","electricity production, oil","US-WECC",2.01682305061516
-"Sheet178","electricity voltage transformation from medium to low voltage","US-ASCC",0.627876027254735
-"Sheet179","electricity voltage transformation from medium to low voltage","US-HICC",0.939989559853407
-"Sheet180","electricity voltage transformation from medium to low voltage","US-MRO",0.556006725463589
-"Sheet181","electricity voltage transformation from medium to low voltage","US-NPCC",0.299270702321159
-"Sheet182","electricity voltage transformation from medium to low voltage","US-PR",0.936951056030431
-"Sheet183","electricity voltage transformation from medium to low voltage","US-RFC",0.532432500995739
-"Sheet184","electricity voltage transformation from medium to low voltage","US-SERC",0.586312196862824
-"Sheet185","electricity voltage transformation from medium to low voltage","US-TRE",0.492901694577228
-"Sheet186","electricity voltage transformation from medium to low voltage","US-WECC",0.436852131057582
-"Sheet187","electricity, from municipal waste incineration to generic market for electricity, medium voltage","RoW",0.152027293518611
-"Sheet188","electricity production, wood, future","GLO",1.96267211824981
-"Sheet19","electricity production, oil","US-ASCC",0.902908616333793
-"Sheet20","electricity production, wind, >3MW turbine, onshore","US-HICC",0.0225616511672473
-"Sheet21","electricity production, deep geothermal","US-HICC",0.0727448836066028
-"Sheet22","electricity production, wind, 1-3MW turbine, onshore","US-HICC",0.0137747740735534
-"Sheet24","electricity production, hydro, pumped storage","US-HICC",1.36663769281943
-"Sheet25","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-HICC",0.0729591881573022
-"Sheet26","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-HICC",0.0747168139561997
-"Sheet27","electricity production, wind, <1MW turbine, onshore","US-HICC",0.0132689206719139
-"Sheet28","electricity production, hard coal","US-HICC",1.16663746014108
-"Sheet29","electricity production, lignite","US-HICC",1.21425387008143
-"Sheet30","electricity production, hydro, run-of-river","US-HICC",0.00470451045259971
-"Sheet31","electricity production, oil","US-HICC",1.00567870274577
-"Sheet32","electricity production, hydro, reservoir, non-alpine region","US-HICC",0.0128026085469666
-"Sheet33","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-HICC",0.0833778370592769
-"Sheet37","electricity production, nuclear, pressure water reactor","US-MRO",0.007322064446329
-"Sheet39","electricity, high voltage, import from CA-MB","US-MRO",0.0197610792043716
-"Sheet4","electricity production, lignite","US-ASCC",1.8041550127831
-"Sheet42","electricity production, oil","US-MRO",1.37442756041921
-"Sheet43","electricity, high voltage, import from CA-SK","US-MRO",0.702740641840722
-"Sheet44","electricity production, wind, 1-3MW turbine, onshore","US-MRO",0.0137747740735534
-"Sheet45","electricity production, natural gas, combined cycle power plant","US-MRO",0.457666092979106
-"Sheet46","electricity production, hydro, run-of-river","US-MRO",0.00470451045259971
-"Sheet47","electricity production, wind, <1MW turbine, onshore","US-MRO",0.0132689206719139
-"Sheet48","electricity production, lignite","US-MRO",1.2555537149919
-"Sheet49","electricity production, hydro, reservoir, alpine region","US-MRO",0.00716934326629202
-"Sheet51","electricity production, hard coal","US-MRO",1.23271067183239
-"Sheet52","electricity production, natural gas, conventional power plant","US-MRO",0.69062190938386
-"Sheet53","electricity production, hydro, pumped storage","US-MRO",0.779139392596311
-"Sheet54","electricity production, nuclear, boiling water reactor","US-MRO",0.00778637521958375
-"Sheet55","electricity production, wind, >3MW turbine, onshore","US-MRO",0.0225616511672473
-"Sheet56","electricity production, nuclear, boiling water reactor","US-NPCC",0.00778637521958375
-"Sheet57","electricity production, lignite","US-NPCC",1.24783477164613
-"Sheet58","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-NPCC",0.0751544856697508
-"Sheet59","electricity production, wind, <1MW turbine, onshore","US-NPCC",0.0132689206719139
-"Sheet6","electricity voltage transformation from high to medium voltage","US-ASCC",0.610040030483448
-"Sheet63","electricity production, hydro, reservoir, alpine region","US-NPCC",0.00716934326629202
-"Sheet64","electricity production, hydro, run-of-river","US-NPCC",0.00470451045259971
-"Sheet65","electricity production, wind, 1-3MW turbine, onshore","US-NPCC",0.0137747740735534
-"Sheet67","electricity, high voltage, import from CA-NS","US-NPCC",0.947310119727159
-"Sheet68","electricity production, hard coal","US-NPCC",1.17952111089385
-"Sheet69","electricity production, oil","US-NPCC",1.2796394528041
-"Sheet7","electricity production, natural gas, combined cycle power plant","US-ASCC",0.527669447690972
-"Sheet70","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-NPCC",0.0838662427993728
-"Sheet72","electricity production, natural gas, conventional power plant","US-NPCC",0.67260568566081
-"Sheet73","electricity production, nuclear, pressure water reactor","US-NPCC",0.00732206444632899
-"Sheet74","electricity, high voltage, import from CA-NB","US-NPCC",0.270798362620783
-"Sheet75","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-NPCC",0.0733865641548759
-"Sheet77","electricity, high voltage, import from CA-ON","US-NPCC",0.0707918821120095
-"Sheet78","electricity production, wind, >3MW turbine, onshore","US-NPCC",0.0225616511672473
-"Sheet79","electricity production, hydro, pumped storage","US-NPCC",0.421710399944939
-"Sheet8","electricity production, hydro, run-of-river","US-ASCC",0.00470451045259971
-"Sheet80","electricity production, natural gas, combined cycle power plant","US-NPCC",0.45259386242643
-"Sheet81","electricity production, hydro, pumped storage","US-RFC",0.745007223612493
-"Sheet82","electricity production, wind, >3MW turbine, onshore","US-RFC",0.0225616511672473
-"Sheet85","electricity production, natural gas, combined cycle power plant","US-RFC",0.447633109468321
-"Sheet86","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-RFC",0.0733865641548759
-"Sheet87","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-RFC",0.0838662427993728
-"Sheet88","electricity production, wind, 1-3MW turbine, onshore","US-RFC",0.0137747740735534
-"Sheet89","electricity production, wind, <1MW turbine, onshore","US-RFC",0.0132689206719139
-"Sheet9","electricity production, natural gas, conventional power plant","US-ASCC",1.05178281511906
-"Sheet90","electricity production, lignite","US-RFC",1.22155751770306
-"Sheet92","electricity production, natural gas, conventional power plant","US-RFC",0.656342667288888
-"Sheet93","electricity production, nuclear, pressure water reactor","US-RFC",0.00732206444632899
-"Sheet94","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-RFC",0.0751544856697508
-"Sheet95","electricity production, hydro, reservoir, alpine region","US-RFC",0.00716934326629202
-"Sheet96","electricity production, hydro, run-of-river","US-RFC",0.00470451045259971
-"Sheet98","electricity production, nuclear, boiling water reactor","US-RFC",0.00778637521958375
+"Sheet1","electricity production, wind, 1-3MW turbine, offshore","FR",0.0162405165953473
+"Sheet10","electricity production, wind, 1-3MW turbine, onshore","US-ASCC",0.0132067717587048
+"Sheet101","electricity production, oil","US-RFC",1.32365266888865
+"Sheet102","electricity production, hard coal","US-RFC",1.15348514928701
+"Sheet105","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-SERC",0.067968876331717
+"Sheet106","electricity production, oil","US-SERC",1.11298122308955
+"Sheet107","electricity production, deep geothermal","US-SERC",0.0698573614607483
+"Sheet108","electricity production, nuclear, boiling water reactor","US-SERC",0.00704982527053256
+"Sheet109","electricity production, natural gas, conventional power plant","US-SERC",0.759291115294888
+"Sheet11","electricity production, hydro, reservoir, alpine region","US-ASCC",0.00688273670030295
+"Sheet111","electricity production, wind, 1-3MW turbine, onshore","US-SERC",0.0132067717587048
+"Sheet112","electricity production, solar thermal parabolic trough, 50 MW","US-SERC",0.051765905894555
+"Sheet113","electricity production, wind, <1MW turbine, onshore","US-SERC",0.0126000147685951
+"Sheet114","electricity production, nuclear, pressure water reactor","US-SERC",0.0066811546146355
+"Sheet115","electricity production, wind, >3MW turbine, onshore","US-SERC",0.0216643762003789
+"Sheet116","electricity production, lignite","US-SERC",1.28994414899349
+"Sheet119","electricity production, hydro, pumped storage","US-SERC",0.723668062568319
+"Sheet12","electricity production, hard coal","US-ASCC",1.7614820230746
+"Sheet120","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-SERC",0.0700301901641806
+"Sheet121","electricity production, hydro, reservoir, alpine region","US-SERC",0.00688273670030295
+"Sheet123","electricity production, hydro, reservoir, non-alpine region","US-SERC",0.0119830419653878
+"Sheet124","electricity production, natural gas, combined cycle power plant","US-SERC",0.476468589868521
+"Sheet125","electricity production, hydro, run-of-river","US-SERC",0.00452139360439519
+"Sheet126","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-SERC",0.0783414234908745
+"Sheet127","electricity production, hard coal","US-SERC",1.23299333563025
+"Sheet128","electricity production, wind, <1MW turbine, onshore","US-TRE",0.0126000147685951
+"Sheet129","electricity production, hydro, pumped storage","US-TRE",0.681590359951789
+"Sheet13","electricity production, hydro, pumped storage","US-ASCC",0.870466462922245
+"Sheet130","electricity production, natural gas, combined cycle power plant","US-TRE",0.446862985911375
+"Sheet131","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-TRE",0.0778851922392641
+"Sheet136","electricity production, oil","US-TRE",1.19171301379042
+"Sheet137","electricity production, wind, >3MW turbine, onshore","US-TRE",0.0216643762003789
+"Sheet138","electricity production, hydro, run-of-river","US-TRE",0.00452139360439519
+"Sheet139","electricity production, nuclear, pressure water reactor","US-TRE",0.0066811546146355
+"Sheet14","electricity production, wind, <1MW turbine, onshore","US-ASCC",0.0126000147685951
+"Sheet140","electricity production, hard coal","US-TRE",1.20573487027114
+"Sheet141","electricity production, nuclear, boiling water reactor","US-TRE",0.00704982527053256
+"Sheet142","electricity production, wind, 1-3MW turbine, onshore","US-TRE",0.0132067717587048
+"Sheet143","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-TRE",0.0675730509287872
+"Sheet144","electricity, high voltage, import from MX","US-TRE",0.623201632460152
+"Sheet145","electricity production, lignite","US-TRE",1.23868263631983
+"Sheet146","electricity production, natural gas, conventional power plant","US-TRE",0.65604473134544
+"Sheet149","electricity production, hydro, reservoir, non-alpine region","US-TRE",0.0119830419653878
+"Sheet15","electricity production, wind, >3MW turbine, onshore","US-ASCC",0.0216643762003789
+"Sheet150","electricity production, nuclear, pressure water reactor","US-WECC",0.0066811546146355
+"Sheet151","electricity production, wind, 1-3MW turbine, onshore","US-WECC",0.0132067717587048
+"Sheet152","electricity production, lignite","US-WECC",1.23868263631983
+"Sheet153","electricity production, hydro, reservoir, alpine region","US-WECC",0.00688273670030295
+"Sheet154","electricity production, solar tower power plant, 20 MW","US-WECC",0.0461187835567317
+"Sheet155","electricity, high voltage, import from CA-BC","US-WECC",0.0731473401343206
+"Sheet156","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-WECC",0.0651482262154453
+"Sheet157","electricity, high voltage, import from CA-AB","US-WECC",0.756483471145694
+"Sheet158","electricity production, wind, <1MW turbine, onshore","US-WECC",0.0126000147685951
+"Sheet161","electricity production, natural gas, combined cycle power plant","US-WECC",0.431109432361115
+"Sheet162","electricity production, solar thermal parabolic trough, 50 MW","US-WECC",0.051765905894555
+"Sheet163","electricity production, hydro, run-of-river","US-WECC",0.00452139360439519
+"Sheet164","electricity production, deep geothermal","US-WECC",0.0698573614607483
+"Sheet165","electricity, high voltage, import from MX","US-WECC",0.623201632460152
+"Sheet166","electricity production, hard coal","US-WECC",1.01163973159414
+"Sheet168","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-WECC",0.0582366577913679
+"Sheet169","electricity production, nuclear, boiling water reactor","US-WECC",0.00704982527053256
+"Sheet172","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-WECC",0.0565224824052899
+"Sheet173","electricity production, natural gas, conventional power plant","US-WECC",0.608483658328791
+"Sheet174","electricity production, hydro, pumped storage","US-WECC",0.561984286107702
+"Sheet175","electricity production, wind, >3MW turbine, onshore","US-WECC",0.0216643762003789
+"Sheet176","electricity production, oil","US-WECC",2.01425406135228
+"Sheet178","electricity voltage transformation from medium to low voltage","US-ASCC",0.62209067448839
+"Sheet179","electricity voltage transformation from medium to low voltage","US-HICC",0.910754099006297
+"Sheet180","electricity voltage transformation from medium to low voltage","US-MRO",0.528893182459849
+"Sheet181","electricity voltage transformation from medium to low voltage","US-NPCC",0.235443913098572
+"Sheet182","electricity voltage transformation from medium to low voltage","US-PR",0.934220539228311
+"Sheet183","electricity voltage transformation from medium to low voltage","US-RFC",0.518948956261278
+"Sheet184","electricity voltage transformation from medium to low voltage","US-SERC",0.517227901689935
+"Sheet185","electricity voltage transformation from medium to low voltage","US-TRE",0.486868564087409
+"Sheet186","electricity voltage transformation from medium to low voltage","US-WECC",0.40331805730574
+"Sheet187","electricity, from municipal waste incineration to generic market for electricity, medium voltage","CA-ON",0.00511217705272358
+"Sheet19","electricity production, oil","US-ASCC",0.901758509218538
+"Sheet20","electricity production, wind, >3MW turbine, onshore","US-HICC",0.0216643762003789
+"Sheet21","electricity production, deep geothermal","US-HICC",0.0698573614607483
+"Sheet22","electricity production, wind, 1-3MW turbine, onshore","US-HICC",0.0132067717587048
+"Sheet24","electricity production, hydro, pumped storage","US-HICC",1.33378008522347
+"Sheet25","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-HICC",0.0675730509287872
+"Sheet26","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-HICC",0.0696223604377669
+"Sheet27","electricity production, wind, <1MW turbine, onshore","US-HICC",0.0126000147685951
+"Sheet28","electricity production, hard coal","US-HICC",1.16101186132527
+"Sheet29","electricity production, lignite","US-HICC",1.21274809923163
+"Sheet30","electricity production, hydro, run-of-river","US-HICC",0.00452139360439519
+"Sheet31","electricity production, oil","US-HICC",1.00439768912959
+"Sheet32","electricity production, hydro, reservoir, non-alpine region","US-HICC",0.0119830419653878
+"Sheet33","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-HICC",0.0778851922392641
+"Sheet37","electricity production, nuclear, pressure water reactor","US-MRO",0.00668115461463552
+"Sheet39","electricity, high voltage, import from CA-MB","US-MRO",0.0187606280523402
+"Sheet4","electricity production, lignite","US-ASCC",1.80213298456448
+"Sheet42","electricity production, oil","US-MRO",1.37267684181044
+"Sheet43","electricity, high voltage, import from CA-SK","US-MRO",0.70140068782211
+"Sheet44","electricity production, wind, 1-3MW turbine, onshore","US-MRO",0.0132067717587048
+"Sheet45","electricity production, natural gas, combined cycle power plant","US-MRO",0.45688153794446
+"Sheet46","electricity production, hydro, run-of-river","US-MRO",0.00452139360439519
+"Sheet47","electricity production, wind, <1MW turbine, onshore","US-MRO",0.0126000147685951
+"Sheet48","electricity production, lignite","US-MRO",1.2540118002059
+"Sheet49","electricity production, hydro, reservoir, alpine region","US-MRO",0.00688273670030295
+"Sheet51","electricity production, hard coal","US-MRO",1.22575608209524
+"Sheet52","electricity production, natural gas, conventional power plant","US-MRO",0.689237470728987
+"Sheet53","electricity production, hydro, pumped storage","US-MRO",0.741168535381625
+"Sheet54","electricity production, nuclear, boiling water reactor","US-MRO",0.00704982527053256
+"Sheet55","electricity production, wind, >3MW turbine, onshore","US-MRO",0.0216643762003789
+"Sheet56","electricity production, nuclear, boiling water reactor","US-NPCC",0.00704982527053256
+"Sheet57","electricity production, lignite","US-NPCC",1.24629961216384
+"Sheet58","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-NPCC",0.0700301901641806
+"Sheet59","electricity production, wind, <1MW turbine, onshore","US-NPCC",0.0126000147685951
+"Sheet6","electricity voltage transformation from high to medium voltage","US-ASCC",0.604518647692919
+"Sheet63","electricity production, hydro, reservoir, alpine region","US-NPCC",0.00688273670030295
+"Sheet64","electricity production, hydro, run-of-river","US-NPCC",0.00452139360439519
+"Sheet65","electricity production, wind, 1-3MW turbine, onshore","US-NPCC",0.0132067717587048
+"Sheet67","electricity, high voltage, import from CA-NS","US-NPCC",0.86990477889292
+"Sheet68","electricity production, hard coal","US-NPCC",1.17392777997826
+"Sheet69","electricity production, oil","US-NPCC",1.27800947340973
+"Sheet7","electricity production, natural gas, combined cycle power plant","US-ASCC",0.526784199592157
+"Sheet70","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-NPCC",0.0783414234908745
+"Sheet72","electricity production, natural gas, conventional power plant","US-NPCC",0.671257362796933
+"Sheet73","electricity production, nuclear, pressure water reactor","US-NPCC",0.0066811546146355
+"Sheet74","electricity, high voltage, import from CA-NB","US-NPCC",0.265965848859134
+"Sheet75","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-NPCC",0.067968876331717
+"Sheet77","electricity, high voltage, import from CA-ON","US-NPCC",0.0615972435186693
+"Sheet78","electricity production, wind, >3MW turbine, onshore","US-NPCC",0.0216643762003789
+"Sheet79","electricity production, hydro, pumped storage","US-NPCC",0.335207353428974
+"Sheet8","electricity production, hydro, run-of-river","US-ASCC",0.00452139360439519
+"Sheet80","electricity production, natural gas, combined cycle power plant","US-NPCC",0.45181660330551
+"Sheet81","electricity production, hydro, pumped storage","US-RFC",0.726919561165562
+"Sheet82","electricity production, wind, >3MW turbine, onshore","US-RFC",0.0216643762003789
+"Sheet85","electricity production, natural gas, combined cycle power plant","US-RFC",0.446862985911375
+"Sheet86","electricity production, photovoltaic, 3kWp slanted-roof installation, multi-Si, panel, mounted","US-RFC",0.067968876331717
+"Sheet87","electricity production, photovoltaic, 3kWp slanted-roof installation, single-Si, panel, mounted","US-RFC",0.0783414234908745
+"Sheet88","electricity production, wind, 1-3MW turbine, onshore","US-RFC",0.0132067717587048
+"Sheet89","electricity production, wind, <1MW turbine, onshore","US-RFC",0.0126000147685951
+"Sheet9","electricity production, natural gas, conventional power plant","US-ASCC",1.049803362404
+"Sheet90","electricity production, lignite","US-RFC",1.22004535499938
+"Sheet92","electricity production, natural gas, conventional power plant","US-RFC",0.655024901317111
+"Sheet93","electricity production, nuclear, pressure water reactor","US-RFC",0.0066811546146355
+"Sheet94","electricity production, photovoltaic, 570kWp open ground installation, multi-Si","US-RFC",0.0700301901641806
+"Sheet95","electricity production, hydro, reservoir, alpine region","US-RFC",0.00688273670030295
+"Sheet96","electricity production, hydro, run-of-river","US-RFC",0.00452139360439519
+"Sheet98","electricity production, nuclear, boiling water reactor","US-RFC",0.00704982527053256

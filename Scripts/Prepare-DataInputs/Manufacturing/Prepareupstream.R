@@ -272,6 +272,6 @@ Li_exact <- Li_Extraction[13:25, ] %>%
   mutate(gwp = GWP_factors[name],
          co2e_g = ifelse(!is.na(gwp), as.numeric(value) * gwp, NA))
 
-write.csv(Li_exact, "Inputs/Li_exact.csv", row.names = FALSE)
+write.csv(Li_exact, "Inputs/Li_extract.csv", row.names = FALSE)
 
 

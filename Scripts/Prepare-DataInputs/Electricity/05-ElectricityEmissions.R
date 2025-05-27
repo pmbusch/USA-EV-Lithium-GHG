@@ -272,6 +272,113 @@ mix %>%
 ggsave("Figures/Electricity/Mix.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=18.5,height=9.7)
 
+# Fossil Fuel per MWh -----------
+fossil <- read.csv("Parameters/ecoinvent_fossil_electricity.csv")
+fossil <- fossil %>% filter(str_detect(Name,"electricity production|waste incineration")) %>% 
+  mutate(Name=str_remove(Name,"electricity production, "))
+unique(fossil$Name)
+
+df2 <- census_join %>% 
+  left_join(mix,by=c("Region_Electricity_EIA"="regionName"))
+unique(df2$fuel)
+join_fuel <- read.csv("Inputs/join_fuels.csv")
+fossil <- fossil %>% rename(ecoinvent_fuel=Name) %>% 
+  left_join(join_fuel) %>% 
+  rename(fuel=EIA_Fuel)
+
+# filter fuels not used
+fossil <- fossil %>% filter(!is.na(fuel))
+unique(fossil$fuel)
+
+# national avg
+fossil_nat <- fossil %>% group_by(fuel,fossilFuel,unit) %>% 
+  reframe(value=mean(value)) %>% ungroup()
+
+# Join to census
+unique(census_join$Region_ecoinvent)
+unique(fossil$Region)
+
+df2 <- df2 %>% 
+  left_join(fossil,by=c("Region_ecoinvent"="Region","fuel"))
+names(df2)
+df2 %>% filter(is.na(value)) %>% group_by(Region_ecoinvent,fuel,fossilFuel) %>% tally()
+
+# unmatch could be due to regional part, so add national averages
+df2$ecoinvent_fuel <- NULL
+df_na <- df2 %>% filter(is.na(value)) %>% dplyr::select(-sheet,-value,-fossilFuel,-unit)
+df_na <- df_na %>% left_join(fossil_nat) %>% 
+  mutate(sheet="National")
+unique(df_na$fuel)
+
+# ALL assigned
+df_na %>% filter(is.na(value))
+
+# add to main
+df2 <- df2 %>% filter(!is.na(value)) %>% rbind(df_na)
+rm(df_na)
+
+#  by year and county 
+# Aggregate
+head(df2)
+names(df2)
+electricity2 <- df2 %>% 
+  filter(!is.na(value)) %>% 
+  mutate(value=value*share) %>% 
+  group_by(State,STATEFP,COUNTYFP,NAME,period,fossilFuel,unit) %>% 
+  reframe(pop=mean(pop),
+          value=sum(value)) %>% ungroup()
+
+# T&D losses - 8%, towards goal of 4% in 2030  
+td_loss <- tibble(period=2022:2050) %>% 
+  mutate(losses=case_when(
+    period<2030 ~ 0.08-0.04/8*(period-2022),
+    T ~ 0.04))
+
+electricity2 <- electricity2 %>% 
+  left_join(td_loss) %>% 
+  mutate(value=value/(1-losses),
+         losses=NULL)
+
+write.csv(electricity2,"Parameters/countyElectricityFossilFuel.csv",row.names = F)
+# electricity2 <- read.csv("Parameters/countyElectricityCarbon.csv")
+
+
+# at state
+electricity_state <- electricity2 %>%
+  mutate(fossilFuel=paste0(fossilFuel," (",unit,")")) %>% 
+  group_by(State,period,fossilFuel) %>% 
+  reframe(value=weighted.mean(value,pop)) %>% ungroup()
+
+
+state_highlight <- c("California","Texas","Florida","Michigan","Massachusetts",
+                     "New York","Minnesota")
+
+state_colors <- c("#FF5733","#8B4513","#FFA500","#4682B4","#800080",
+                  "#00008B","#228B22","#808080")
+names(state_colors) <- c(state_highlight,"Others")
+
+electricity_state <- electricity_state %>% 
+  mutate(state_color=if_else(State %in% state_highlight,State,"Others"))
+
+# figure
+ggplot(electricity_state,aes(period,value,group=State,col=state_color))+
+  geom_line(alpha=.7)+
+  geom_text_repel(data=filter(electricity_state,period==2050),
+                  size=5*5/14 * 0.8,alpha=.5,
+                  max.overlaps = 30,
+                  aes(label=State),nudge_x = 3)+
+  facet_wrap(~fossilFuel,scales="free_y")+
+  scale_x_continuous(breaks = c(2022, 2030, 2040, 2050))+
+  scale_color_manual(values = state_colors) +
+  # coord_cartesian(expand = F,ylim = c(0,0.9))+
+  labs(x="",y="",title="Average Fossil Fuel Resource consumption per kWh",fill="")+
+  theme_bw(7)+ 
+  theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),
+        legend.position="none")
+
+ggsave("Figures/Electricity/Electricity_fossil.png", ggplot2::last_plot(),units="cm",
+       dpi=600,width=8.7*2.2,height=12)
+
 
 
 # EoF

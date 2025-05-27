@@ -55,6 +55,8 @@ nrow(ecoinvent)/1e6 #0.3M
 unique(ecoinvent$Name)
 unique(ecoinvent$Region)
 
+ecoinvent <- ecoinvent %>% filter(!str_detect(Name,"wood, future"))
+
 # GWP values AR6 ------
 gwp <- read_excel(paste0(url_file,"/LCI_ecoinvent.xlsx"),
                   sheet="GWP100_AR6",range="A22:G325")
@@ -215,6 +217,49 @@ ggplot(data_fig,aes(Name,value))+
         legend.position = c(0.7,0.2))
 
 ggsave("Figures/Electricity/ecoinventOtherImpacts.png", 
+       ggplot2::last_plot(),units="cm",dpi=600,width=8.7*3,height=8.7*2)
+
+# Fossil fuel consumption --------------
+fossils <- c("Crude oil ecoinvent [Crude oil (resource)]",
+             "Coal, brown, in ground [Lignite (resource)]",
+             "Coal, hard, unspecified, in ground [Hard coal (resource)]",
+             "Gas, natural, in ground [Natural gas (resource)]",
+             "Gas, mine, off-gas, process, coal mining [Natural gas (resource)]")
+             # "Shale [Non renewable resources]")
+
+df_fossil <- ecoinvent %>% rename(Flow=Flows) %>% 
+  mutate(fossilFuel=str_extract(Flow,"Coal|Crude oil|Natural gas")) %>% 
+  filter(Flow %in% fossils) %>% 
+  filter(!is.na(Amount))
+df_fossil %>% group_by(Flow,fossilFuel,Units) %>% tally() # all in kg, except gas in Nm3
+
+# estimate kg and aggregate by process
+df_fossil <- df_fossil %>% 
+  mutate(qty=as.numeric(Amount)) %>% 
+  group_by(sheet,Name,fossilFuel,Region) %>% 
+  reframe(value=sum(qty)) %>% ungroup() %>% 
+  mutate(unit=if_else(fossilFuel=="Natural gas","m3/kWh","kg/kWh")) 
+
+# save
+write.csv(df_fossil,"Parameters/ecoinvent_fossil_electricity.csv",row.names = F)
+
+df_fossil <- df_fossil %>% 
+  mutate(Name=str_remove(Name,"electricity production, ") %>% 
+           str_remove("electricity, high voltage, ") %>% 
+           str_remove(" to generic market for electricity, medium voltage") %>% 
+           str_remove("electricity, from ")) %>% 
+  filter(!str_detect(Name,"import|voltage"))
+
+ggplot(df_fossil,aes(Name,value))+
+  geom_col(aes(fill=Region),position = "dodge")+
+  facet_wrap(~fossilFuel,scales="free_x")+
+  coord_flip(expand = F)+
+  guides(fill=guide_legend(nrow=2,reverse = T))+
+  labs(y="kg or Nm3 per kWh Electricity",x="")+
+  theme_bw(8)+
+  theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),
+        legend.position = "bottom")
+ggsave("Figures/Electricity/ecoinventFossilFuels.png", 
        ggplot2::last_plot(),units="cm",dpi=600,width=8.7*3,height=8.7*2)
 
 # EoF
