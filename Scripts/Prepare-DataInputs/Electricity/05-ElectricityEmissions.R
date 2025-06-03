@@ -25,7 +25,7 @@ otherImpacts <- read.csv("Parameters/ecoinvent_OtherImpacts_electricity.csv")
 # share mix of EIA (average emissions)
 names(mix)
 mix %>% group_by(period,regionName) %>% reframe(x=sum(share)) %>% arrange(desc(x))
-mix <- mix %>% dplyr::select(period,regionName,fuel,share)
+mix <- mix %>% dplyr::select(scenario,period,regionName,fuel,share)
 
 # HI and AK
 names(mix_HI_AK)
@@ -33,6 +33,13 @@ mix_HI_AK <- mix_HI_AK %>% rename(regionName=SRNAME)
 mix_HI_AK %>% group_by(period,regionName) %>% reframe(x=sum(share)) %>% arrange(desc(x))
 mix_HI_AK <- mix_HI_AK %>% dplyr::select(period,regionName,fuel,share)
 
+# same EIA scenario for all HI and AK
+aux <- c()
+for (i in unique(mix$scenario)){
+  aux <- rbind(aux,mutate(mix_HI_AK,scenario=i))  
+}
+rm(i)
+mix_HI_AK <- aux
 mix <- rbind(mix,mix_HI_AK)
 
 # census data ---
@@ -77,7 +84,7 @@ unique(ghg$Region)
 df <- df %>% 
   left_join(ghg,by=c("Region_ecoinvent"="Region","fuel"))
 names(df)
-df %>% filter(is.na(kg_co2e)) %>% group_by(Region_ecoinvent,fuel) %>% tally()
+df %>% filter(is.na(kg_co2e)) %>% group_by(scenario,Region_ecoinvent,fuel) %>% tally()
 
 # unmatch could be due to regional part, so add national averages
 df$ecoinvent_fuel <- NULL
@@ -99,7 +106,7 @@ names(df)
 electricity <- df %>% 
   filter(!is.na(kg_co2e)) %>% 
   mutate(kg_co2e=kg_co2e*share) %>% 
-  group_by(State,STATEFP,COUNTYFP,NAME,period) %>% 
+  group_by(scenario,State,STATEFP,COUNTYFP,NAME,period) %>% 
   reframe(pop=mean(pop),
           kg_co2e=sum(kg_co2e)) %>% ungroup()
 
@@ -120,7 +127,8 @@ write.csv(electricity,"Parameters/countyElectricityCarbon.csv",row.names = F)
 
 # at state
 electricity_state <- electricity %>% 
-  group_by(State,period) %>% 
+  filter(scenario=="ref2025") %>% 
+  group_by(scenario,State,period) %>% 
   reframe(kg_co2e=weighted.mean(kg_co2e,pop)) %>% ungroup()
 
 
@@ -159,7 +167,8 @@ ggsave("Figures/Electricity/Electricity_CO2.png", ggplot2::last_plot(),units="cm
 # as.data.frame(shp_state) %>% head()
 # shp_state$NAME %>% unique()
 
-data_fig <- electricity %>% filter(period %in% c(2022,2050)) %>% 
+data_fig <- electricity %>% filter(period %in% c(2024,2050)) %>% 
+  filter(scenario=="ref2025") %>% 
   mutate(kg_co2e=kg_co2e*1000) %>%  # kg per MWh
   mutate(STATEFP=paste0(if_else(str_length(STATEFP)==1,"0",""),STATEFP)) %>% 
   mutate(COUNTYFP=paste0(case_when(
@@ -226,6 +235,40 @@ ggdraw() +
 ggsave("Figures/Electricity/Electricity_CO2_map.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=8.7*2.2,height=12)
 
+# For all scenarios - TAKES A LOT OF TIME
+scens <- read.csv("Inputs/Join_EIAScenarios.csv")
+for (i in unique(df$scenario)){
+  
+  aux_co2 <-electricity %>% filter(period %in% c(2024,2050)) %>% 
+    filter(scenario==i) %>% 
+    mutate(kg_co2e=kg_co2e*1000) %>% 
+    mutate(STATEFP=paste0(if_else(str_length(STATEFP)==1,"0",""),STATEFP)) %>% 
+    mutate(COUNTYFP=paste0(case_when(
+      str_length(COUNTYFP)==1 ~ "00",
+      str_length(COUNTYFP)==2 ~ "0",
+      T ~ ""),COUNTYFP))
+  
+  new_data <- geo_shifted %>% mutate(kg_co2e=NULL) %>% 
+    left_join(aux_co2,by=c("State","COUNTYFP","period"))
+  
+  aux <- scens %>% filter(scenario==i) %>% pull(scenarioDescription)
+  
+  p3 <- map+ggtitle(aux)
+  p3$data <- new_data
+  p_hist <- hist
+  p_hist$data <- new_data
+  
+  ggdraw() +
+    draw_plot(p_hist, 0, 0.1, 0.9, 0.2)+ 
+    draw_plot(p3, 0, 0.05, 1, 0.95)
+  
+  ggsave(paste0("Figures/Electricity/EIA_Scenarios/",i,".png"), 
+                ggplot2::last_plot(),units="cm",
+         dpi=600,width=8.7*2.2,height=12)
+
+}
+rm(i)
+
 
 # Figure of MIX by time -----
 
@@ -235,12 +278,15 @@ source("Scripts/01-CommonVariables.R", encoding = "UTF-8")
 cat_colors <- names(fuel_colors)
 mix <- mix %>% mutate(fuel=factor(fuel,levels=cat_colors))
 
-mix %>% group_by(regionName,period) %>% 
+mix %>% 
+  filter(scenario=="ref2025") %>% 
+  group_by(regionName,period) %>% 
   filter(share>0) %>% 
   reframe(x=sum(share)) %>% arrange(desc(x))
 
 mix %>% 
   filter(regionName!="United States") %>% 
+  filter(scenario=="ref2025") %>% 
   mutate(regionName=regionName %>% 
            str_replace("Northeast Power Coordinating Council","NPCC") %>% 
            str_replace("Western Electricity Coordinating Council","WECC") %>% 
@@ -301,7 +347,7 @@ unique(fossil$Region)
 df2 <- df2 %>% 
   left_join(fossil,by=c("Region_ecoinvent"="Region","fuel"))
 names(df2)
-df2 %>% filter(is.na(value)) %>% group_by(Region_ecoinvent,fuel,fossilFuel) %>% tally()
+df2 %>% filter(is.na(value)) %>% group_by(scenario,Region_ecoinvent,fuel) %>% tally()
 
 # unmatch could be due to regional part, so add national averages
 df2$ecoinvent_fuel <- NULL
@@ -324,7 +370,7 @@ names(df2)
 electricity2 <- df2 %>% 
   filter(!is.na(value)) %>% 
   mutate(value=value*share) %>% 
-  group_by(State,STATEFP,COUNTYFP,NAME,period,fossilFuel,unit) %>% 
+  group_by(scenario,State,STATEFP,COUNTYFP,NAME,period,fossilFuel,unit) %>% 
   reframe(pop=mean(pop),
           value=sum(value)) %>% ungroup()
 
@@ -345,6 +391,7 @@ write.csv(electricity2,"Parameters/countyElectricityFossilFuel.csv",row.names = 
 
 # at state
 electricity_state <- electricity2 %>%
+  filter(scenario=="ref2025") %>% 
   mutate(fossilFuel=paste0(fossilFuel," (",unit,")")) %>% 
   group_by(State,period,fossilFuel) %>% 
   reframe(value=weighted.mean(value,pop)) %>% ungroup()
@@ -378,7 +425,5 @@ ggplot(electricity_state,aes(period,value,group=State,col=state_color))+
 
 ggsave("Figures/Electricity/Electricity_fossil.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=8.7*2.2,height=12)
-
-
 
 # EoF

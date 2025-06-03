@@ -10,20 +10,27 @@ source("Scripts/00-Libraries.R", encoding = "UTF-8")
 
 ## Load ----
 df <- read.csv("Inputs/EIA_Table54.csv")
-nrow(df) # 87464
+nrow(df)
 
 #Dimensions
-range(df$period) # 2022 to 2050
+range(df$period) # 2023 to 2050
 unique(df$regionName) # 25
-unique(df$history);unique(df$scenario);unique(df$tableName)
+unique(df$history);unique(df$tableName)
 unique(df$seriesId)
+unique(df$scenario) # 12
+
+# scenario names
+scens <- df %>% group_by(scenario,scenarioDescription) %>% tally() %>% 
+  mutate(n=NULL)
+write.csv(scens,"Inputs/Join_EIAScenarios.csv",row.names = F)
+rm(scens)
 
 ## Get Capacity data on Natural Gas -----
 # Purpose: estimate shares of conventional vs combined cycle
 ng <- df %>% 
   filter(str_detect(seriesName,"Capacity")) %>%
   filter(str_detect(seriesName,"Power")) %>% 
-  filter(str_detect(seriesName,"Combined|Combustion|Natural Gas"))
+  filter(str_detect(seriesName,"Combined|Combustion|Natural Gas|Steam"))
 unique(ng$seriesName)
 unique(ng$unit)
 
@@ -33,10 +40,10 @@ ng_share <- ng %>%
   mutate(type_ng=if_else(str_detect(seriesName,"Combustion"),
                          "Conventional","Combined Cycle")) %>% 
   mutate(value=as.numeric(value)) %>% 
-  group_by(regionId,regionName,period,type_ng) %>% 
+  group_by(scenario,regionId,regionName,period,type_ng) %>% 
   reframe(value=sum(value)) %>% ungroup()
 ng_share <- ng_share %>%
-  group_by(regionId,regionName,period) %>% 
+  group_by(scenario,regionId,regionName,period) %>% 
   mutate(share=value/sum(value)) %>% ungroup()
 
 
@@ -68,13 +75,14 @@ df <- df %>%  filter(fuel!="Natural Gas") %>%
 
 # Renewable generation data --------
 df_ren <- read.csv("Inputs/EIA_Table56.csv")
-nrow(df_ren) # 64090
+nrow(df_ren) 
 
 #Dimensions
-range(df_ren$period) # 2022 to 2050
+range(df_ren$period) # 2023 to 2050
 unique(df_ren$regionName) # 25
-unique(df_ren$history);unique(df_ren$scenario);unique(df_ren$tableName)
+unique(df_ren$history);unique(df_ren$tableName)
 unique(df_ren$seriesId)
+unique(df_ren$scenario)
 
 ## Filter data ---------
 # filter by generation data
@@ -108,9 +116,11 @@ df <- df %>%
            str_replace(" Reliability Corporation","") %>% 
            str_replace("Reliability Coordinating Council","RCC"))
 
+df <- df %>% mutate(fuel=str_replace(fuel,"Onshore Wind","Wind"))
+
 # Save -----
-df <- df %>% group_by(region,period) %>% mutate(share=value/sum(value)) %>% ungroup()
-df %>% group_by(region,period) %>% reframe(x=sum(share)) %>% arrange(desc(x))
+df <- df %>% group_by(scenario,region,period) %>% mutate(share=value/sum(value)) %>% ungroup()
+df %>% group_by(scenario,region,period) %>% reframe(x=sum(share)) %>% arrange(desc(x))
 
 head(df)
 write.csv(df,"Parameters/EIA_mix.csv",row.names = F)
@@ -124,12 +134,13 @@ cat_colors <- names(fuel_colors)
 df <- df %>% mutate(fuel=factor(fuel,levels=cat_colors))
 
 # For United States
-data_fig <- df %>% filter(str_detect(regionName,"United States"))
+data_fig <- df %>% filter(str_detect(regionName,"United States")) %>% 
+  filter(scenario=="ref2025")
 p1 <- ggplot(data_fig,aes(period,value))+
   geom_area(aes(fill=fuel))+
   coord_cartesian(expand = F)+
   scale_y_continuous(labels = scales::comma_format(big.mark = ' '))+
-  scale_x_continuous(breaks = c(2022, 2030, 2040, 2050))+
+  scale_x_continuous(breaks = c(2024, 2030, 2040, 2050))+
   labs(x="",y="",title="Generation [billion kWh]",fill="")+
   theme_bw(7)+ 
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank())
@@ -140,6 +151,7 @@ p1+scale_fill_manual(values=fuel_colors)
 # map: https://www.eia.gov/outlooks/aeo/pdf/nerc_map.pdf
 data_fig2 <- df %>% 
   filter(!str_detect(regionName,"United States")) %>% 
+  filter(scenario=="ref2025") %>% 
   mutate(fuel=regionName) %>% 
   group_by(period,fuel) %>% 
   reframe(value=sum(value)) %>% ungroup()
@@ -150,7 +162,8 @@ p2+theme(legend.position ="none")
 
 # Facet
 p3 <- p1
-p3$data <- df
+regs <- unique(df$region)
+p3$data <- df %>% filter(scenario=="ref2025") %>% mutate(region=factor(region,levels=regs))
 p3+facet_wrap(~region,scales="free_y")+
   scale_fill_manual(values=fuel_colors)+
   guides(fill=guide_legend(nrow=4))+
@@ -162,6 +175,28 @@ p3+facet_wrap(~region,scales="free_y")+
 
 ggsave("Figures/Electricity/EIA_Mix.png", ggplot2::last_plot(),units="cm",
        dpi=600,width=18.5,height=9.7)
+
+# Other scenarios
+for (i in unique(df$scenario)){
+  p3 <- p1
+  p3$data <- df %>% filter(scenario==i) %>% 
+    mutate(region=factor(region,levels=regs))
+  aux <- df %>% filter(scenario==i) %>% pull(scenarioDescription) %>% unique()
+  p3+facet_wrap(~region,scales="free_y")+
+    scale_fill_manual(values=fuel_colors)+
+    labs(x="",y="",fill="",
+         title=paste0(aux," - Generation [billion kWh]"))+
+    guides(fill=guide_legend(nrow=4))+
+    theme(legend.position=c(0.65,0.1),
+          legend.text = element_text(size=6.5),
+          legend.key.height= unit(0.25, 'cm'),
+          legend.key.width= unit(0.25, 'cm'),
+          legend.background = element_rect(fill = "transparent", color = NA))
+  
+  ggsave(paste0("Figures/Electricity/EIA_Scenarios/mix_",i,".png"), 
+                ggplot2::last_plot(),units="cm",
+         dpi=600,width=18.5,height=9.7)
+}
 
 
 # EoF
