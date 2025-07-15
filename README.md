@@ -1,7 +1,7 @@
 # GHG emissions reductions due to lithium usage in EV batteries - A US fleet model
 Comparison of United States (USA) life cycle greenhouse gas (GHG) emissions of electric vehicle (EV) fleet vs a combustion engine fleet, and the amount of lithium required for the EV fleet.
 
-If you identify any error in the source code or have any further suggestions please contact Pablo Busch at pmbusch@ucdavis.edu.
+If you identify any error in the source code or have any further suggestions please contact Pablo Busch at pmbuschh@gmail.com.
 
 
 # Organization
