@@ -24,7 +24,6 @@ ev <- ev %>%
 sum(ev$sales_2023)/1e6 # 1.1M
 
 
-
 # historical US sales
 historical_ev <- ev %>%
   dplyr::select(State,sales_2016,sales_2017,sales_2018,
@@ -75,9 +74,10 @@ ev_share %>%
   #                    scales = "free_y",
   #                    space = "free")+
   # scale_y_continuous(labels=scales::percent)+
-  scale_fill_viridis_d()+
+  # scale_fill_viridis_d()+
   labs(x="",y="State share within EIA Transport Region")+
   theme_bw(8)+
+  scale_fill_manual(values = scico::scico(51, palette = "batlow", direction = 1)) +
   theme(legend.position = "none",
         panel.grid = element_blank(),
         strip.text = element_text(size=6))
@@ -135,10 +135,16 @@ ggplot(df_share,aes(period,ev_share,fill=State))+
   geom_text(data=labels,aes(label=label_st),
             size=6*5/14 * 0.8,
             position = position_stack(vjust = .5))+
-  coord_cartesian(expand = F,xlim = c(2015,2051))+
-  scale_y_continuous(labels=scales::percent)+
-  labs(x="",y="",fill="Region")+
-  scale_fill_viridis_d()+scale_color_viridis_d()+
+  geom_vline(xintercept = 2022,linetype="dashed",linewidth=0.2)+
+  annotate("text", x = 2021.5, y = 0.1, label = "Historical", angle = 90,
+           size=8*5/14 * 0.8) +
+  coord_cartesian(expand = F,xlim = c(2016,2051))+
+  scale_y_continuous(labels=scales::percent,
+                     sec.axis = sec_axis(~ .,labels = scales::percent, 
+                                         name = "Based on Population"))+
+  labs(x="",y="Based on EV Registration Records",fill="Region")+
+  # scale_fill_viridis_d()+scale_color_viridis_d()+
+  scale_fill_manual(values = scico::scico(51, palette = "batlow", direction = 1)) +
   theme_bw(8)+
   theme(panel.grid = element_blank(),
         legend.position = "none")
@@ -151,7 +157,7 @@ df_share <- df_share %>% dplyr::select(period,State,ev_share)
 write.csv(df_share,"Parameters/EV_share_state.csv",row.names = F)
 
 # sales over time make sense?
-# Only for USA and BEV Cars
+# Only for USA and BEV Cars/Vans
 sales <- read.csv("Parameters/SalesEV.csv")
 
 sales <- sales %>%
@@ -163,7 +169,7 @@ sales <- df_share %>% left_join(sales) %>%
   mutate(ev_sales=Sales*ev_share)
 
 ggplot(sales,aes(period,ev_sales))+
-  geom_line()+
+  geom_line(aes(col=Vehicle))+
   facet_wrap(~State,scales="free_y")+
   # geofacet::facet_geo(~State)+
   labs(x="",y="",title="EV Sales, by state")+

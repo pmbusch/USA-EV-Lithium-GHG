@@ -10,6 +10,9 @@ fe <- readxl::read_excel("Inputs/EIA2025Table40.xlsx",skip = 4)
 names(fe)
 fe[,1]
 
+# Note: ICCT Vans = Light Commercial Vehicles < 3.5 tonnes
+# According to EIA Table 38, no Diesel sales for LDV, so all gasoline
+
 # get only rows of 
 # 3: Gasoline ICE Vehicles
 # 7 to 9 : EVs car
@@ -98,6 +101,20 @@ fe <- fe %>%
 
 fe_ice <- fe %>% filter(vehType=="Gasoline")
 
+# 15% improvement towards 2040 (linear)
+improv <- fe_ice %>% filter(period==2040) %>% 
+  mutate(add_mpge=mpge*0.15) %>% 
+  dplyr::select(vehSize,add_mpge)
+fe_ice_improv <- fe_ice %>% 
+  left_join(improv) %>% 
+  mutate(mpge=case_when(
+    period<2025 ~ mpge,
+    period <=2040 ~ mpge+add_mpge/15*(period-2025),
+    T ~ mpge+add_mpge)) %>% 
+  mutate(add_mpge=NULL) %>% 
+  mutate(vehType="Gasoline Improvement")
+fe_ice <- rbind(fe_ice,fe_ice_improv)
+
 
 fe_ev <- fe %>% 
   filter(vehType=="Electric") %>% 
@@ -115,13 +132,14 @@ fe_ev <- fe_ev %>%
 data_mpg <- fe_ice %>% mutate(full.name=NULL,unit="gallons") %>% 
   rbind(mutate(fe_ev,unit="kWh")) %>% 
   mutate(type=paste0(vehSize,"-",vehType))
+
 ggplot(data_mpg,aes(period,mpge,col=type))+
   geom_line(linewidth=0.3)+
   geom_text(data=filter(data_mpg,period==2040),aes(label=type),
-            nudge_y = c(1,-1,1,-1)*5,
+            nudge_y = c(1,-1,1,1,1,1)*5,
             size=8*5/14 * 0.8)+
   coord_cartesian(expand=F,ylim = c(0,200))+
-  scale_color_manual(values=c("#e41a1c","#377eb8","#4daf4a","#984ea3"))+
+  scale_color_manual(values=c("#4daf4a","#e41a1c","#e41a1c90","#377eb8","#984ea3","#984ea390"))+
   labs(x="",y="",fill="",title="Miles per gallon equivalent",col="")+
   theme_bw(8)+
   theme(panel.grid = element_blank(),
@@ -177,7 +195,7 @@ ggsave("Figures/Fleet/vmt.png",
 fleet <- read.csv("Parameters/USA_fleet.csv") %>% 
   mutate(modelYear=Year-age)
 range(fleet$modelYear)
-fleet %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35, total fleet over time
+fleet %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40, total fleet over time
 
 # divide EV fleet into US States, based on dissagregate EV script
 ev_state_share <- read.csv("Parameters/EV_share_state.csv")
@@ -190,7 +208,7 @@ ev_state_share %>% group_by(period) %>% reframe(x=sum(ev_share))
 consumption <- fleet %>% 
   left_join(ev_state_share,by=c("modelYear"="period")) %>% 
   mutate(fleet=fleet*ev_share)
-consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
+consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40
 
 # add VMT, but first divide fleet into cars-light trucks at each modelyear based on national EIA projections
 dict_reg <- read.csv("Inputs/Join_TransportEIA_State.csv")
@@ -206,11 +224,16 @@ for (i in 2015:2023){
 }
 rm(i,aux)
 
+# Assume all Vans (light commercial vehicles) are light trucks
+join_size <- rbind(
+  mutate(join_size,Vehicle="Cars"),
+  mutate(filter(join_size,vehSize=="Light Truck"),Vehicle="Vans",share=1))
+
 consumption <- consumption %>% 
   mutate(ev_share=NULL) %>% 
-  left_join(join_size,by=c("State","modelYear"="period")) %>% 
+  left_join(join_size,by=c("State","modelYear"="period","Vehicle")) %>% 
   mutate(fleet=fleet*share,share=NULL)
-consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
+consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40
 
 # BEGIN PARENTHESIS
 
@@ -218,43 +241,44 @@ consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
 fleet_type <- consumption %>% 
   group_by(Scenario,Year,age,modelYear,vehSize) %>% 
   reframe(fleet=sum(fleet)) %>% ungroup()
-consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
+fleet_type %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40
 write.csv(fleet_type,"Parameters/USA_fleet_type.csv",row.names = F)
 
 # do the same for sales
 sales <- read.csv("Parameters/salesEV.csv")
-sales %>% group_by(Scenario) %>% reframe(x=sum(Sales)/1e6)  # 335
+sales %>% group_by(Scenario) %>% reframe(x=sum(Sales)/1e6)  # 353
 # first by state, then by vehicle type
 sales <- sales %>% 
   left_join(ev_state_share,by=c("Year"="period")) %>% 
   mutate(Sales=Sales*ev_share,ev_share=NULL) %>% 
-  left_join(join_size,by=c("State","Year"="period")) %>% 
+  left_join(join_size,by=c("State","Year"="period","Vehicle")) %>% 
   mutate(Sales=Sales*share,share=NULL) %>% 
   group_by(Scenario,Year,vehSize) %>% 
   reframe(Sales=sum(Sales)) %>% ungroup()
-sales %>% group_by(Scenario) %>% reframe(x=sum(Sales)/1e6)  # 335
+sales %>% group_by(Scenario) %>% reframe(x=sum(Sales)/1e6)  # 353
 write.csv(sales,"Parameters/salesEV_type.csv",row.names = F)
 
 # LIB replacement
 addLIB <- read.csv("Parameters/LIB_replacement.csv")
-addLIB %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 44.1
+addLIB %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 24.2
 addLIB <- addLIB %>% 
   left_join(ev_state_share,by=c("modelYear"="period")) %>% 
   mutate(LIB=LIB*ev_share,ev_share=NULL) %>% 
-  left_join(join_size,by=c("State","modelYear"="period")) %>% 
+  left_join(join_size,by=c("State","modelYear"="period","Vehicle")) %>% 
   mutate(LIB=LIB*share,share=NULL) %>% 
   group_by(Scenario,Year,age,modelYear,vehSize) %>% 
   reframe(LIB=sum(LIB)) %>% ungroup()
-addLIB %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 44.1
+addLIB %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 24.2
 write.csv(addLIB,"Parameters/LIB_replacement_type.csv",row.names = F)
 
 # END PARENTHESIS
+
 # add VMT
 head(vmt)
 consumption <- consumption %>% 
   left_join(vmt) %>% 
   mutate(total_vmt=vmt*fleet)
-consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
+consumption %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40
 
 write.csv(consumption,"Results/total_VMT.csv",row.names = F)
 
@@ -267,7 +291,6 @@ for (i in 2015:2023){
   aux$period <- i
   fe <- rbind(fe,aux) } 
 rm(i,aux)
-
 
 # Electric Vehicles only
 fe_bev <- fe %>% filter(vehType=="Electric")
@@ -286,9 +309,9 @@ consumption_ev <- consumption %>%
   left_join(dplyr::select(temp_factor,State,BEVs)) %>% 
   mutate(degradation_factor=(1-0.0033)^age) %>% # 0.33% per year
   mutate(total_kwh=total_vmt/(mpge*degradation_factor/BEVs))
-consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35 fleet
-consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(total_kwh)/1e9) # 18700 TWh
-18700/3.35
+consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40 fleet
+consumption_ev %>% group_by(Scenario) %>% reframe(x=sum(total_kwh)/1e9) # 19400 TWh
+19400/3.4
 
 # aggregate at state level
 head(consumption_ev)
@@ -301,13 +324,15 @@ write.csv(cons,"Parameters/EV_kwh_consumption.csv",row.names = F)
 # Same but as the whole fleet was gasoline
 fe_ice <- fe %>% filter(vehType=="Gasoline")
 
+fe_ice
+
 consumption_ice <- consumption %>% 
   left_join(fe_ice,by=c("vehSize","modelYear"="period")) %>% 
   left_join(dplyr::select(temp_factor,State,ICEVs)) %>% 
   mutate(degradation_factor=(1-0.01)^age) %>% # 1% per year
   mutate(total_gallons=total_vmt/(mpge*degradation_factor/ICEVs))
-consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.35
-consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/1e9) # 1739
+consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.4
+consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/1e9) # 1796
 
 # aggregate at state level
 head(consumption_ice)
@@ -316,5 +341,25 @@ cons <- consumption_ice %>%
   reframe(total_gallons=sum(total_gallons))
 
 write.csv(cons,"Parameters/ICE_gasGallons_consumption.csv",row.names = F)
+
+# Improvement in MPG
+fe_ice <- fe %>% filter(vehType=="Gasoline Improvement")
+
+
+consumption_ice <- consumption %>% 
+  left_join(fe_ice,by=c("vehSize","modelYear"="period")) %>% 
+  left_join(dplyr::select(temp_factor,State,ICEVs)) %>% 
+  mutate(degradation_factor=(1-0.01)^age) %>% # 1% per year
+  mutate(total_gallons=total_vmt/(mpge*degradation_factor/ICEVs))
+consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.4
+consumption_ice %>% group_by(Scenario) %>% reframe(x=sum(total_gallons)/1e9) # 1796
+
+# aggregate at state level
+head(consumption_ice)
+cons <- consumption_ice %>% 
+  group_by(Scenario,Year,State,vehSize) %>% 
+  reframe(total_gallons=sum(total_gallons))
+
+write.csv(cons,"Parameters/ICE_gasGallons_consumption_MPGimproved.csv",row.names = F)
 
 # EoF
