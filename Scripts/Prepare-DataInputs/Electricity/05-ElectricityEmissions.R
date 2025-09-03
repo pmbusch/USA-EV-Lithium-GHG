@@ -13,6 +13,7 @@ head(census_join)
 # Electricity mixes
 mix <- read.csv("Parameters/EIA_mix.csv")
 mix_HI_AK <- read.csv("Parameters/HI_AK_mix.csv")
+mix_cambium <- read.csv("Parameters/Cambium_mix.csv")
 
 # emission factors
 ghg <- read.csv("Parameters/ecoinvent_GHG_electricity.csv")
@@ -39,8 +40,7 @@ for (i in unique(mix$scenario)){
   aux <- rbind(aux,mutate(mix_HI_AK,scenario=i))  
 }
 rm(i)
-mix_HI_AK <- aux
-mix <- rbind(mix,mix_HI_AK)
+mix <- rbind(mix,aux)
 
 # census data ---
 
@@ -56,6 +56,44 @@ df <- census_join %>%
 nrow(df)/1e6 # 1.3M
 names(df)
 df %>% filter(is.na(fuel)) # perfect join
+
+# Join cambium
+cambium_join <- read.csv("Inputs/Cambium/county_to_gea_mapping_cambium23.csv")
+# add some manual fixes
+cambium_join <- cambium_join %>% 
+  mutate(State=NULL) %>% 
+  rbind(tibble(State.FIPS=46,County.FIPS=102,County="Oglala Lakota",State.Abbr="SD",ReEDS.BA="p38",Cambium.GEA="SPP_North"))
+
+cambium_join <- census_join %>% 
+  left_join(cambium_join,by=c("STATEFP"="State.FIPS",
+                              "COUNTYFP"="County.FIPS"))
+
+cambium_join <- cambium_join %>% 
+  mutate(Cambium.GEA=if_else(is.na(Cambium.GEA)&Region_EMM=="ISNE",
+                             "ISONE",Cambium.GEA))
+# Filter Hawai and Alaska
+cambium_join <- cambium_join %>% 
+  filter(!(STATEFP %in% c(2,15)))
+
+cambium_join %>% filter(is.na(Cambium.GEA))
+
+# add mix
+df_cambium <- cambium_join %>% 
+  left_join(mix_cambium,by=c("Cambium.GEA"="gea"))
+
+# Join to big DF as scenario
+names(df)
+names(df_cambium)
+df_cambium <- df_cambium %>% 
+  dplyr::select(State,NAMELSAD,STATEFP,COUNTYFP,NAME,pop,Region_Transport,
+                Region_EMM,Region_Electricity_EIA,Region_ecoinvent_detail,
+                Region_ecoinvent,t,type,share) %>% 
+  rename(period=t,fuel=type) %>% mutate(scenario="Cambium")
+# add Alaska and Hawai
+df_cambium <- rbind(df_cambium,
+                    filter(df,scenario=="ref2025",State %in% c("Alaska","Hawaii")))
+
+df <- rbind(df,df_cambium)
 
 
 # Ecoinvent (emissions) ----
@@ -127,7 +165,8 @@ write.csv(electricity,"Parameters/countyElectricityCarbon.csv",row.names = F)
 
 # at state
 electricity_state <- electricity %>% 
-  filter(scenario=="ref2025") %>% 
+  filter(scenario=="ref2025") %>%
+  # filter(scenario=="Cambium") %>% 
   group_by(scenario,State,period) %>% 
   reframe(kg_co2e=weighted.mean(kg_co2e,pop)) %>% ungroup()
 
