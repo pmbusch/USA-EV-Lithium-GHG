@@ -57,7 +57,7 @@ mean_ev=17;sd_ev=4;mean_lib=15;sd_lib=4
 
 
 # ICCT sales for USA
-sales <- read.csv("Parameters/SalesEV.csv")
+sales <- read.csv("Parameters/Operation/SalesEV.csv")
 
 
 # Historical EV sales for stock

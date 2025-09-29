@@ -13,7 +13,6 @@ library(tidyverse)
 
 df <- read.csv("Inputs/Cambium/Cambium24_allScenarios_annual_gea.csv",skip = 5)
 
-df_orig <- df
 
 names(df)
 df <- df %>% 
@@ -46,6 +45,11 @@ df <- df %>%
     type=="wind.ofs" ~ "Offshore Wind",
     T  ~ type))
   
+# aggregate to new categorues
+df <- df %>% 
+  group_by(gea,t,type) %>% 
+  reframe(MWh=sum(MWh)) %>% ungroup()
+
 df %>% 
   filter(t==2035) %>% 
   group_by(type) %>% 
@@ -84,7 +88,8 @@ ggsave("Figures/Electricity/Cambium_MixEnergy.png", ggplot2::last_plot(),units="
        dpi=600,width=18.5,height=9.7)
 
 data_agg <- data_fig %>% 
-  group_by(t,type) %>% reframe(value=sum(value)) %>% ungroup() %>% 
+  group_by(t,type) %>% 
+  reframe(value=sum(value)) %>% ungroup() %>% 
   mutate(gea="USA")
 p1 %+% data_agg
 
@@ -128,11 +133,14 @@ df <- df %>% group_by(gea,t) %>% mutate(share=MWh/sum(MWh)) %>% ungroup()
 df %>% group_by(gea,t) %>% reframe(sum(share))
 
 
-write.csv(df,"Parameters/Cambium_mix.csv",row.names = F)
+write.csv(df,"Parameters/Electricity/Cambium_mix.csv",row.names = F)
 
 # Long term marginal emissions factors -----
 # get emissions directly
-lme <- df_orig %>% 
+
+df <- read.csv("Inputs/Cambium/Cambium24_allScenarios_annual_gea.csv",skip = 5)
+
+lme <- df %>% 
   filter(scenario=="MidCase") %>% 
   # combustion + precombustion
   dplyr::select(gea,t,"lrmer_co2_c","lrmer_ch4_c","lrmer_n2o_c",
@@ -185,7 +193,7 @@ lme_state <- df_cambium %>%
   group_by(period,State,pollutant) %>% 
   reframe(kg_MWh=weighted.mean(kg_MWh,pop)) %>% ungroup()
     
-write.csv(lme_state,"Parameters/cambium_LongMarginal.csv",row.names = F)
+write.csv(lme_state,"Parameters/Electricity/cambium_LongMarginal.csv",row.names = F)
 
 
 # EoF

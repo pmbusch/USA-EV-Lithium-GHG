@@ -105,7 +105,7 @@ df <- tempAdj %>%
 df %>% filter(is.na(State)) # just Tolland
 df <- df %>% filter(!is.na(State))
 
-write.csv(df,"Parameters/TempAdjFactors.csv",row.names = F)  
+write.csv(df,"Parameters/Operation/TempAdjFactors.csv",row.names = F)  
 
 # weighted meand by state
 df_state <- df %>% group_by(State) %>% 
@@ -114,6 +114,6 @@ df_state <- df %>% group_by(State) %>%
           PHEVs=weighted.mean(PHEVs,pop),
           BEVs=weighted.mean(BEVs,pop))
   
-write.csv(df_state,"Parameters/TempAdjFactorsState.csv",row.names = F)  
+write.csv(df_state,"Parameters/Operation/TempAdjFactorsState.csv",row.names = F)  
 
 # EoF

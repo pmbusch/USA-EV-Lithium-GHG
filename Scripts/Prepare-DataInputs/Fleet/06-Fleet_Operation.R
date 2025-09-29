@@ -89,7 +89,7 @@ ggplot(share_eia_size,aes(period,share,fill=vehSize))+
 ggsave("Figures/Fleet/EIA_types.png", ggplot2::last_plot(),
        units="cm",dpi=600,width=8.7*2,height=8.7)
 
-write.csv(share_eia_size,"Parameters/EIA_carTrucks_share.csv",row.names = F)
+write.csv(share_eia_size,"Parameters/Operation/EIA_carTrucks_share.csv",row.names = F)
 
 ## Join to data to get FE by year of model
 unique(fe$full.name)
@@ -164,7 +164,7 @@ fe_ev$mpge <- 1/(1/fe_ev$mpge+0.67*(1/fe_ev$mpge/0.7-1/fe_ev$mpge))
 fe <- fe_ice %>% mutate(full.name=NULL,unit="gallons") %>% 
   rbind(mutate(fe_ev,unit="kWh"))
 
-write.csv(fe,"Parameters/mpg.csv",row.names = F)
+write.csv(fe,"Parameters/Operation/mpg.csv",row.names = F)
 
 # VMT ------
 vmt <- readxl::read_excel("Inputs/VMT.xlsx",range="C14:G45")
@@ -192,13 +192,13 @@ ggsave("Figures/Fleet/vmt.png",
 
 
 # Fleet ----
-fleet <- read.csv("Parameters/USA_fleet.csv") %>% 
+fleet <- read.csv("Parameters/Operation/USA_fleet.csv") %>% 
   mutate(modelYear=Year-age)
 range(fleet$modelYear)
 fleet %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40, total fleet over time
 
 # divide EV fleet into US States, based on dissagregate EV script
-ev_state_share <- read.csv("Parameters/EV_share_state.csv")
+ev_state_share <- read.csv("Parameters/Operation/EV_share_state.csv")
 head(ev_state_share)
 ev_state_share %>% group_by(period) %>% reframe(x=sum(ev_share))
 
@@ -242,10 +242,10 @@ fleet_type <- consumption %>%
   group_by(Scenario,Year,age,modelYear,vehSize) %>% 
   reframe(fleet=sum(fleet)) %>% ungroup()
 fleet_type %>% group_by(Scenario) %>% reframe(x=sum(fleet)/1e9) # 3.40
-write.csv(fleet_type,"Parameters/USA_fleet_type.csv",row.names = F)
+write.csv(fleet_type,"Parameters/Operation/USA_fleet_type.csv",row.names = F)
 
 # do the same for sales
-sales <- read.csv("Parameters/salesEV.csv")
+sales <- read.csv("Parameters/Operation/salesEV.csv")
 sales %>% group_by(Scenario) %>% reframe(x=sum(Sales)/1e6)  # 353
 # first by state, then by vehicle type
 sales <- sales %>% 
@@ -256,7 +256,7 @@ sales <- sales %>%
   group_by(Scenario,Year,vehSize) %>% 
   reframe(Sales=sum(Sales)) %>% ungroup()
 sales %>% group_by(Scenario) %>% reframe(x=sum(Sales)/1e6)  # 353
-write.csv(sales,"Parameters/salesEV_type.csv",row.names = F)
+write.csv(sales,"Parameters/Operation/salesEV_type.csv",row.names = F)
 
 # LIB replacement
 addLIB <- read.csv("Parameters/LIB_replacement.csv")
@@ -270,6 +270,32 @@ addLIB <- addLIB %>%
   reframe(LIB=sum(LIB)) %>% ungroup()
 addLIB %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 24.2
 write.csv(addLIB,"Parameters/LIB_replacement_type.csv",row.names = F)
+
+# LIB Failure
+LIB_failure <- read.csv("Parameters/LIB_failure.csv")
+LIB_failure %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 97.4
+LIB_failure <- LIB_failure %>% 
+  left_join(ev_state_share,by=c("modelYear"="period")) %>% 
+  mutate(LIB=LIB*ev_share,ev_share=NULL) %>% 
+  left_join(join_size,by=c("State","modelYear"="period","Vehicle")) %>% 
+  mutate(LIB=LIB*share,share=NULL) %>% 
+  group_by(Scenario,Year,age,modelYear,vehSize) %>% 
+  reframe(LIB=sum(LIB)) %>% ungroup()
+LIB_failure %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 97.4
+write.csv(LIB_failure,"Parameters/LIB_failure_type.csv",row.names = F)
+# LIB available
+LIB_available <- read.csv("Parameters/LIB_available.csv")
+LIB_available %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 47.9
+LIB_available <- LIB_available %>% 
+  left_join(ev_state_share,by=c("modelYear"="period")) %>% 
+  mutate(LIB=LIB*ev_share,ev_share=NULL) %>% 
+  left_join(join_size,by=c("State","modelYear"="period","Vehicle")) %>% 
+  mutate(LIB=LIB*share,share=NULL) %>% 
+  group_by(Scenario,Year,age,modelYear,vehSize) %>% 
+  reframe(LIB=sum(LIB)) %>% ungroup()
+LIB_available %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 47.9
+write.csv(LIB_available,"Parameters/LIB_available_type.csv",row.names = F)
+
 
 # END PARENTHESIS
 
@@ -296,7 +322,7 @@ rm(i,aux)
 fe_bev <- fe %>% filter(vehType=="Electric")
 
 # Temperature adjustment factors
-temp_factor <- read.csv("Parameters/TempAdjFactorsState.csv")  
+temp_factor <- read.csv("Parameters/Operation/TempAdjFactorsState.csv")  
 # Need to extrapolate data to missing states, based on temperature profiles 
 # Alaska is closer to North Dakota
 # Hawaii is closer to Florida
@@ -319,7 +345,7 @@ cons <- consumption_ev %>%
   group_by(Scenario,Year,State,vehSize) %>% 
   reframe(total_kwh=sum(total_kwh))
 
-write.csv(cons,"Parameters/EV_kwh_consumption.csv",row.names = F)
+write.csv(cons,"Parameters/Operation/EV_kwh_consumption.csv",row.names = F)
 
 # Same but as the whole fleet was gasoline
 fe_ice <- fe %>% filter(vehType=="Gasoline")
@@ -340,7 +366,7 @@ cons <- consumption_ice %>%
   group_by(Scenario,Year,State,vehSize) %>% 
   reframe(total_gallons=sum(total_gallons))
 
-write.csv(cons,"Parameters/ICE_gasGallons_consumption.csv",row.names = F)
+write.csv(cons,"Parameters/Operation/ICE_gasGallons_consumption.csv",row.names = F)
 
 # Improvement in MPG
 fe_ice <- fe %>% filter(vehType=="Gasoline Improvement")
@@ -360,6 +386,6 @@ cons <- consumption_ice %>%
   group_by(Scenario,Year,State,vehSize) %>% 
   reframe(total_gallons=sum(total_gallons))
 
-write.csv(cons,"Parameters/ICE_gasGallons_consumption_MPGimproved.csv",row.names = F)
+write.csv(cons,"Parameters/Operation/ICE_gasGallons_consumption_MPGimproved.csv",row.names = F)
 
 # EoF

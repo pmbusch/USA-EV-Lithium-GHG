@@ -16,6 +16,6 @@ sales <- sales %>% rename(Year=CY) %>%
   dplyr::select(Scenario,Year,Vehicle,Sales) %>% 
   arrange(Scenario)
 
-write.csv(sales,"Parameters/SalesEV.csv",row.names = F)
+write.csv(sales,"Parameters/Operation/SalesEV.csv",row.names = F)
 
 # EoF

@@ -123,7 +123,7 @@ df <- df %>% group_by(scenario,region,period) %>% mutate(share=value/sum(value))
 df %>% group_by(scenario,region,period) %>% reframe(x=sum(share)) %>% arrange(desc(x))
 
 head(df)
-write.csv(df,"Parameters/EIA_mix.csv",row.names = F)
+write.csv(df,"Parameters/Electricity/EIA_mix.csv",row.names = F)
 
 # Figure -----
 names(df)

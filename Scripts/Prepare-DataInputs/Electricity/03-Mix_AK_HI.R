@@ -147,6 +147,6 @@ ggsave("Figures/Electricity/AK_HI_Mix.png",
 
 
 # save -----
-write.csv(egrid_shares,"Parameters/HI_AK_mix.csv",row.names = F)
+write.csv(egrid_shares,"Parameters/Electricity/HI_AK_mix.csv",row.names = F)
 
 # EoF

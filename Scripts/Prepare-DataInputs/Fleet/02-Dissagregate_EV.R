@@ -154,11 +154,11 @@ ggsave("Figures/Fleet/Sales_EV_dissagregated.png", ggplot2::last_plot(),
 
 # Save share
 df_share <- df_share %>% dplyr::select(period,State,ev_share)
-write.csv(df_share,"Parameters/EV_share_state.csv",row.names = F)
+write.csv(df_share,"Parameters/Operation/EV_share_state.csv",row.names = F)
 
 # sales over time make sense?
 # Only for USA and BEV Cars/Vans
-sales <- read.csv("Parameters/SalesEV.csv")
+sales <- read.csv("Parameters/Operation/SalesEV.csv")
 
 sales <- sales %>%
   filter(Scenario=="Ambitious") %>% 
