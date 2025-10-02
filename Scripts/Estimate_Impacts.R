@@ -281,6 +281,8 @@ ev_usage_total <- ev_usage_total %>%
   reframe(across(-c(State),~ sum(.x))) %>% ungroup() %>% 
   mutate(vehicle_type="EV")
 
+ev_usage_total$total_kwh <- NULL
+
 ev_usage_total %>% 
   group_by(Scenario_Sales,Scenario_Lifetime,Scenario_Grid) %>% 
   reframe(x=sum(kgCO2eq)/1e9) # million tons
@@ -319,6 +321,8 @@ ice_usage_total <- gas_gallons %>%
 ice_usage_total <- ice_usage_total %>% 
   group_by(Scenario_Sales,Scenario_Lifetime,Year,vehSize,Stage,vehicle_type) %>% 
   reframe(across(-c(State),~ sum(.x))) %>% ungroup()
+
+ice_usage_total$total_gallons <- NULL
 
 ice_usage_total %>% 
   group_by(Scenario_Sales,Scenario_Lifetime) %>% 

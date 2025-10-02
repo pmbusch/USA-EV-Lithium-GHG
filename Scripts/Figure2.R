@@ -1,85 +1,10 @@
 ## Analysis of baseline results
-##
+# Barplots for primary energy and co2
 ## PBH Sept 2025
-
-source("Scripts/00-Libraries.R", encoding = "UTF-8")
 
 # LOAD Results -------
 
-veh_prod <- read.csv("Results/veh_prod.csv") # by Sales Scenario
-veh_maintenance <- read.csv("Results/veh_maintenance.csv")  # by Sales and Lifetime Scenario
-lib_prod <- read.csv("Results/lib_prod.csv") # by Sales and Capacity Scenario
-LIB_replacement <- read.csv("Results/LIB_replacement.csv") # by Sales, Capacity and Lifetime Scenario
-ev_usage <- read.csv("Results/ev_usage.csv") # by Sales, Lifetime and Grid Scenario
-ice_usage <- read.csv("Results/ice_usage.csv") # by Sales and Lifetime Scenario
-LIB_recycling <- read.csv("Results/LIB_recycling.csv") # by Sales, Capacity and Lifetime Scenario
-
-amort_total <- read.csv("Results/amort_veh.csv") 
-amort_lib_total <- read.csv("Results/amort_LIB.csv") 
-# kWh
-kwh_total <- read.csv("Results/kwh.csv") 
-kwh_recycling_total <- read.csv("Results/kwh_recyc.csv") 
-
-
-
-# Change names
-(names(veh_prod) <- names(veh_prod) %>% str_remove("vehProd_"))
-(names(veh_maintenance) <- names(veh_maintenance) %>% str_remove("vehMain_"))
-(names(lib_prod) <- names(lib_prod) %>% str_remove("LIB_"))
-(names(LIB_replacement) <- names(LIB_replacement) %>% str_remove("LIB_"))
-# names(ev_usage) <- names(ev_usage) %>% str_remove("") 
-# names(ice_usage) <- names(ice_usage) %>% str_remove("") 
-(names(LIB_recycling) <- names(LIB_recycling) %>% str_remove("LIBRecyc_"))
-(names(amort_total) <- names(amort_total) %>% str_remove("vehProd_"))
-(names(amort_lib_total) <- names(amort_lib_total) %>% str_remove("LIB_"))
-
-
-# Flat them and join them
-f.flat <- function(df){
-  
-  names_scen <- paste0(names(df),collapse = ",") 
-  
-  # add missing scen as "Reference"
-  if(!str_detect(names_scen,"Scenario_Lifetime")){
-    df$Scenario_Lifetime <- "Reference"
-  }
-  
-  if(!str_detect(names_scen,"Scenario_Capacity")){
-    df$Scenario_Capacity <- "Reference"
-  }
-  
-  if(!str_detect(names_scen,"Scenario_Grid")){
-    df$Scenario_Grid <- "ref2025"
-  }
-  
-  if(!str_detect(names_scen,"Scenario_Recycling")){
-    df$Scenario_Recycling <- "Recycling 45%"
-  }
-  
-  
-  df <- df %>% 
-    pivot_longer(-c(Scenario_Sales,Scenario_Lifetime,Scenario_Capacity,Scenario_Recycling,
-                    Scenario_Grid,Year,vehSize,vehicle_type,Stage), 
-                 names_to = "impact", values_to = "value")
-  return(df)
-}
-
-df_all <- rbind(f.flat(veh_prod),
-            f.flat(veh_maintenance),
-            f.flat(lib_prod),
-            f.flat(LIB_replacement),
-            f.flat(ev_usage),
-            f.flat(ice_usage),
-            f.flat(amort_total),
-            f.flat(amort_lib_total),
-            f.flat(LIB_recycling))
-nrow(df_all)/1e6 # below 1M, good
-unique(df_all$Stage)
-
-stage_lvl <- c("LIB Recycling","Driving",
-               "LIB Replacement","LIB production",
-               "Vehicle Maintenance","Vehicle production")
-df_all <- df_all %>% mutate(Stage=factor(Stage,levels=stage_lvl))
+source("Scripts/02-Load_Results.R")
 
 # baseline scenario
 df <- df_all %>% 
@@ -89,20 +14,183 @@ df <- df_all %>%
          Scenario_Recycling=="Recycling 45%",
          Scenario_Grid=="ref2025")
 
+## VMT  ------
+vmt <- read.csv("Results/total_VMT.csv")
+vmt <- vmt %>% 
+  mutate(Scenario_Lifetime=str_extract(Scenario,"Reference|Short|Long"),
+         Scenario_Sales=str_extract(Scenario,"Momentum|Ambitious"),
+         Scenario=NULL) %>% 
+  filter(Scenario_Sales!="Baseline")
+vmt_size <- vmt %>% 
+  group_by(Scenario_Sales,Scenario_Lifetime,vehSize) %>% reframe(vmt=sum(total_vmt))
+
+vmt <- vmt %>% group_by(Scenario_Sales,Scenario_Lifetime,Year) %>% reframe(vmt=sum(total_vmt)/1e6) %>% ungroup()
+
+# 2023, 3.19 trillion miles in USA
+# https://afdc.energy.gov/data/10315
+vmt_total <- vmt %>% group_by(Scenario_Sales,Scenario_Lifetime) %>% reframe(vmt=sum(vmt)*1e6) # total miles 
+vmt_total <- vmt_total %>% 
+  filter(Scenario_Sales=="Ambitious",Scenario_Lifetime=="Reference")
+
+
+
 # Figure -----
+
 unique(df$impact)
 dict <- read_excel("Inputs/Dict_Impacts.xlsx")
+start_year <- 2025
+range(df$Year)
 
 total_df <- df %>% 
   left_join(dict) %>%
   filter(!is.na(Category)) %>% 
-  group_by(Category,Impact_Name,vehicle_type,Stage) %>% 
-  reframe(value=sum(value)/1e6) %>% ungroup() %>% 
-  mutate(Stage=factor(Stage,levels=stage_lvl)) %>% 
+  group_by(Category,Impact_Name,Abbr,vehicle_type,Stage) %>% 
+  reframe(value=sum(value)) %>% ungroup() %>% #   mutate(Stage=factor(Stage,levels=stage_lvl)) %>% 
+  mutate(Impact_Name=Impact_Name %>% str_replace("Crudeoil","Crude oil") %>% 
+           str_replace("Naturalgas","Natural gas") %>% str_replace("Non metal","Other Materials")) %>% 
   mutate(labX=paste0(Impact_Name,"-",vehicle_type))
 
 
-start_year <- 2024
+stage_colors <- viridis::viridis(6, option = "E",direction = -1)
+names(stage_colors) <- stage_lvl
+
+
+## CO2 -----
+total_lab <- total_df %>%
+  filter(Impact_Name=="CO2eq") %>% 
+  mutate(value=value/1e9) %>% # to Mtons
+  group_by(Category,Impact_Name,vehicle_type) %>% 
+  reframe(value=sum(value)) %>% ungroup() %>% 
+  mutate(lab_total=paste0(round(value/1e3),"M")) 
+
+p1 <- total_df %>% 
+  filter(Impact_Name=="CO2eq") %>% 
+  mutate(value=value/1e9) %>% # to Mtons
+  ggplot(aes(vehicle_type,value))+
+  geom_col(aes(fill=Stage),position = position_stack(),
+           col="black",linewidth=0.1)+
+  geom_text(data=total_lab,aes(label=lab_total),size=8*5/14 * 0.8,
+            nudge_y = 1000)+
+  coord_flip()+
+  scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE),
+                     expand = expansion(mult = c(0, 0.05)),
+                     sec.axis = sec_axis(~ . * 1e6*1e6 / vmt_total$vmt*1.61, name = "grams CO2e per km (avg.)"))+
+  scale_fill_manual(values = stage_colors)+
+  labs(x="",y = "Million tons CO2e emissions 2025-2050 (whole fleet)",tag="(b)",title="Climate Change")+
+  guides(fill= guide_legend(reverse = TRUE,nrow = 1))+
+  theme_bw(8)+
+  theme(panel.grid = element_blank(),
+        plot.tag = element_text(face = "bold"),
+        legend.position = "bottom")
+p1
+  
+
+## Energy -----
+
+# order
+energy_levels <- rev(c("Coal","Crude oil","Natural gas","Uranium","Biomass","Hydro","Geothermal","Solar","Wind","Other"))
+comb_lvl <- expand.grid(energy_levels,stage_lvl) %>% mutate(x=paste0(Var1,Var2)) %>% pull(x)
+
+# fuel colors
+energy_colors <- fuel_colors
+names(energy_colors) <- names(energy_colors) %>% str_remove(" Conventional|Wood and Other |power| Photovoltaic") %>% 
+  str_replace("Petroleum","Crude oil") %>% str_replace("Nuclear","Uranium") %>% str_replace("Gas","gas")
+
+data_fig2 <- total_df %>% 
+  filter(Category=="Primary energy detail") %>% 
+  mutate(value=value/3.6/1e6) %>%  # to GWh
+  mutate(lvl=factor(paste0(Impact_Name,Stage),levels=comb_lvl)) %>% 
+  mutate(Impact_Name=factor(Impact_Name,levels=energy_levels)) %>% 
+  mutate(vehicle_type=factor(vehicle_type)) %>% 
+  arrange(lvl) %>% 
+  mutate(abb_lab=if_else(value>2e6,Abbr,""))
+
+data_fig2a <- data_fig2 %>% 
+  group_by(vehicle_type,Stage) %>% 
+  reframe(value=sum(value)) %>% ungroup() %>% 
+  mutate(Stage=factor(Stage,stage_lvl))
+
+total_lab2 <- total_df %>%
+  filter(Category=="Primary energy detail") %>% 
+  mutate(value=value/3.6/1e6) %>%  # to GWh
+  group_by(Category,vehicle_type) %>% 
+  reframe(value=sum(value)) %>% ungroup() %>% 
+  mutate(lab_total=paste0(round(value)," MJ")) 
+
+# Same but with non-renewable
+
+non_renew <- c("Coal","Crude oil","Natural gas","Uranium")
+
+data_fig3 <- data_fig2 %>% filter(Impact_Name %in% non_renew)
+data_fig3a <- data_fig3 %>% 
+  group_by(vehicle_type,Stage) %>% 
+  reframe(value=sum(value)) %>% ungroup() %>% 
+  mutate(Stage=factor(Stage,levels=stage_lvl))
+
+# combine to use same plot: common legend
+lvl_facet <- c("Primary Energy","Non-Renewable Primary Energy")
+data_fig3 <- rbind(mutate(data_fig2,x=lvl_facet[1]),mutate(data_fig3,x=lvl_facet[2])) %>% 
+  mutate(x=factor(x,levels=lvl_facet))
+data_fig3a <- rbind(mutate(data_fig2a,x=lvl_facet[1]),mutate(data_fig3a,x=lvl_facet[2])) %>% 
+  mutate(x=factor(x,levels=lvl_facet))
+
+
+
+p3 <- ggplot(data_fig3,aes(as.numeric(vehicle_type)+0.15,value))+
+  geom_col(data=data_fig3a,aes(fill=Stage),position = position_stack(),
+           col="black",linewidth=0.1,width=0.3)+
+  # geom_text(data=total_lab2,aes(label=lab_total),size=8*5/14 * 0.8,
+  #           nudge_y = 0)+
+  scale_fill_manual(values = stage_colors,guide = "none") +
+  ggnewscale::new_scale_fill() + # trick to avoid a Stage fill legend
+  # by energy
+  geom_col(aes(x=as.numeric(vehicle_type)-0.15,fill=Impact_Name,group = lvl),position = position_stack(),
+           col="black",linewidth=0.1,width=0.3)+
+  geom_text(position = position_stack(vjust = 0.5),size=6*5/14 * 0.8,
+            aes(x=as.numeric(vehicle_type)-0.15,label = abb_lab,group=lvl))+
+  facet_wrap(~x)+
+  coord_flip()+
+  scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE),
+                     expand = expansion(mult = c(0, 0.05)),
+                     sec.axis = sec_axis(~ . *1e6 / vmt_total$vmt*1.61, name = "kWh per km (avg.)"))+
+  scale_fill_manual(values = energy_colors)+
+  scale_x_continuous(breaks=1:2,labels=c("EV","ICEV"))+
+  labs(x="",y = "GWh Non-renewable Primary Energy 2025-2050 (whole fleet)",fill="Energy source",tag="(a)")+
+  guides(fill= guide_legend(reverse = TRUE,nrow = 1))+
+  theme_bw(8)+
+  theme(panel.grid = element_blank(),
+        strip.background = element_rect(fill = NA, color = NA),
+        strip.placement = "outside",
+        strip.text = element_text(size = 10), 
+        axis.title.y.right = element_text(face = "italic"),
+        plot.tag = element_text(face = "bold"),
+        axis.title.x.top = element_text(margin = margin(b = -15)),
+        legend.position = "bottom")
+p3
+
+
+## Merge ----
+
+library(cowplot)
+plot_grid(p3,p1,nrow=2)
+
+ggsave("Figures/Fig2.png", ggplot2::last_plot(),
+       units="cm",dpi=600,width=8.7*3,height=8.7*1.5)
+
+
+
+
+
+
+
+## OLD
+
+
+
+
+
+
+
 ggplot(total_df,aes(labX,value))+
   geom_col(data=filter(total_df,vehicle_type=="EV"),
            aes(fill=Stage),position = position_stack(),
@@ -121,6 +209,12 @@ ggplot(total_df,aes(labX,value))+
   theme(panel.grid = element_blank())
 
 ggsave("Figures/fleet_impacts.png", ggplot2::last_plot(),units="cm",dpi=600,width=8.7,height=8.7)
+
+
+
+
+
+
 
 
 # Common sense checks ----
