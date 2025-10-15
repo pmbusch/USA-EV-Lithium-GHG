@@ -16,9 +16,10 @@ veh_main$fu
 # scale to kerb weight
 veh_main <- veh_main %>% 
   mutate(vehicle_type=if_else(str_detect(Name,"electric"),"EV","ICE")) %>% 
+  relocate(vehicle_type,.before=kgCO2eq) %>% 
   dplyr::select(-sheet,-Name,-Region,-fu) 
   
-names(veh_main)[-(36)] <- paste0("vehMain_",names(veh_main)[-(36)])
+names(veh_main)[-(1)] <- paste0("vehMain_",names(veh_main)[-(1)])
 
 # save
 write.csv(veh_main,"Parameters/Manufacturing/vehMaintenance.csv",row.names = F)

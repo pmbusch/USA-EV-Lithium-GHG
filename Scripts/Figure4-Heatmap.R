@@ -36,6 +36,9 @@ kwh_recycling_total <- read.csv("Results/kwh_recyc.csv")
 (names(amort_lib_total) <- names(amort_lib_total) %>% str_remove("LIB_"))
 
 
+# scenario of grid to include
+scens_grid <- c("ref2025","Cambium","highogs","lowogs")
+
 # Flat them and join them - expanding missing scenarios
 f.flat.exp <- function(df){
   
@@ -62,6 +65,14 @@ f.flat.exp <- function(df){
   
   if(!str_detect(names_scen,"Scenario_Grid")){
     df$Scenario_Grid <- "ref2025"
+    
+    df_aux <- c()
+    for (i in scens_grid){
+      df$Scenario_Grid <- i
+      df_aux <- rbind(df_aux,df)
+    }
+    df <- df_aux
+    
   }
   
   if(!str_detect(names_scen,"Scenario_Recycling")){
@@ -91,7 +102,7 @@ df_all <- rbind(f.flat.exp(veh_prod),
                 # f.flat.exp(amort_lib_total),
                 f.flat.exp(LIB_recycling))
 
-nrow(df_all)/1e6 # 3.5m
+nrow(df_all)/1e6 # 7m
 
 stage_lvl <- c("LIB Recycling","Driving",
                "LIB Replacement","LIB production",
@@ -99,18 +110,21 @@ stage_lvl <- c("LIB Recycling","Driving",
 df_all <- df_all %>% mutate(Stage=factor(Stage,levels=stage_lvl))
 
 
-# EoF
-
-
-
 head(df_all)
 
+unique(df_all$Scenario_Grid)
+
+# Figure -----
+dict_grid <- read.csv("Inputs/Join_EIAScenarios.csv")
 
 df <- df_all %>% 
   filter(impact %in% c("kgCO2eq","kgLithium")) %>% 
-  filter(Scenario_Grid=="ref2025") %>% 
-  group_by(Scenario_Sales,Scenario_Lifetime,Scenario_Capacity,Scenario_Recycling,vehicle_type,impact) %>% 
-  reframe(value=sum(value))
+  filter(Scenario_Grid %in% scens_grid) %>% 
+  filter(Scenario_Sales=="Ambitious") %>% 
+  group_by(Scenario_Grid,Scenario_Sales,Scenario_Lifetime,Scenario_Capacity,Scenario_Recycling,vehicle_type,impact) %>% 
+  reframe(value=sum(value)) %>% 
+  left_join(dict_grid,by=c("Scenario_Grid"="scenario")) %>% 
+  mutate(Scenario_Grid=scenarioDescription,scenarioDescription=NULL)
 
 # get delta
 head(df)
@@ -121,21 +135,22 @@ df <- df %>%
   mutate(metric=-delta_co2/delta_li)
 
 df <- df %>% 
-  mutate(Scenario_Recycling=factor(Scenario_Recycling,levels = c("Recycling 5%","Recycling 25%","Recycling 45%","Recycling 65%","Recycling 85%"))) %>% 
+  mutate(Scenario_Recycling=str_remove(Scenario_Recycling,"Recycling ") %>% 
+           factor(levels = c("5%","25%","45%","65%","85%"))) %>%
   mutate(Scenario_Capacity=Scenario_Capacity %>% str_replace("_capacity"," Capacity") %>% 
            str_to_title() %>% factor(levels=c("Low Capacity","Reference","High Capacity"))) %>% 
   mutate(Scenario_Lifetime=Scenario_Lifetime %>% str_replace("Long","Long Duration") %>% 
-           str_replace("Short","Short Duration") %>% factor(levels=c("Short Duration","Reference","Long Duration")))
+           str_replace("Short","Short Duration") %>% factor(levels=c("Short Duration","Reference","Long Duration"))) %>% 
+  mutate(Scenario_Grid=factor(Scenario_Grid))
 
 
 range_metric <- range(df$metric)
 
-ggplot(df,aes(Scenario_Capacity,Scenario_Recycling,fill=metric))+
+ggplot(df,aes(Scenario_Recycling,Scenario_Grid,fill=metric))+
   geom_tile(color = "grey80") +  
-  facet_grid(Scenario_Sales~Scenario_Lifetime)+
-  
+  facet_grid(Scenario_Capacity~Scenario_Lifetime)+
   scico::scale_fill_scico(palette = "vik",direction = -1)+
-  labs(x="",y="",col="",fill="tons CO2e avoided\nper kg Lithium")+
+  labs(x="Recycling rate",y="",col="",fill="tons CO2e avoided per kg Lithium")+
   theme_minimal(base_size = 9)+
   theme(panel.grid = element_blank(),
         legend.position = "bottom")
@@ -143,4 +158,46 @@ ggplot(df,aes(Scenario_Capacity,Scenario_Recycling,fill=metric))+
 ggsave("Figures/Fig4.png", ggplot2::last_plot(),
        units="cm",dpi=600,width=8.7*2,height=8.7*1.5)
 
+# per kWh, in text
+df_kwh <- df_all %>% 
+  filter(impact %in% c("kgCO2eq")) %>% 
+  filter(Scenario_Grid %in% scens_grid) %>% 
+  filter(Scenario_Sales=="Ambitious") %>% 
+  filter(Scenario_Recycling=="Recycling 5%") %>% 
+  group_by(Scenario_Grid,Scenario_Lifetime,Scenario_Capacity,vehicle_type,impact) %>% 
+  reframe(value=sum(value)) %>% 
+  left_join(dict_grid,by=c("Scenario_Grid"="scenario")) %>% 
+  mutate(Scenario_Grid=scenarioDescription,scenarioDescription=NULL)
 
+
+kwh <- kwh_total %>% 
+  filter(Scenario_Sales=="Ambitious") %>% 
+  group_by(Scenario_Lifetime,Scenario_Capacity,vehicle_type) %>% 
+  reframe(kwh=sum(kwh)) %>% ungroup() 
+
+data_fig2 <- df_kwh %>% 
+  pivot_wider(names_from = c(vehicle_type), values_from = value) %>%
+  left_join(kwh) %>%
+  mutate(delta_co2=(ICE-EV)/1e3) %>%  # to tons
+  mutate(metric=delta_co2/kwh) # tons per kWh
+
+data_fig2 <- data_fig2 %>% 
+  mutate(Scenario_Capacity=Scenario_Capacity %>% str_replace("_capacity"," Capacity") %>% 
+           str_to_title() %>% factor(levels=c("Low Capacity","Reference","High Capacity"))) %>% 
+  mutate(Scenario_Lifetime=Scenario_Lifetime %>% str_replace("Long","Long Duration") %>% 
+           str_replace("Short","Short Duration") %>% factor(levels=c("Short Duration","Reference","Long Duration"))) %>% 
+  mutate(Scenario_Grid=factor(Scenario_Grid))
+
+(range_metric <- range(data_fig2$metric))
+
+ggplot(data_fig2,aes(Scenario_Capacity,Scenario_Grid,fill=metric))+
+  geom_tile(color = "grey80") +  
+  facet_grid(~Scenario_Lifetime)+
+  scico::scale_fill_scico(palette = "vik",direction = -1)+
+  labs(x="",y="",col="",fill="tons CO2e avoided per kWh of Lithium-ion battery produced")+
+  theme_minimal(base_size = 9)+
+  theme(panel.grid = element_blank(),
+        legend.position = "bottom")
+
+ggsave("Figures/Fig4_LIB.png", ggplot2::last_plot(),
+       units="cm",dpi=600,width=8.7*2,height=8.7*1)

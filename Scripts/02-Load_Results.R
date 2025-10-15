@@ -14,6 +14,8 @@ LIB_replacement <- read.csv("Results/LIB_replacement.csv") # by Sales, Capacity 
 ev_usage <- read.csv("Results/ev_usage.csv") # by Sales, Lifetime and Grid Scenario
 ice_usage <- read.csv("Results/ice_usage.csv") # by Sales and Lifetime Scenario
 LIB_recycling <- read.csv("Results/LIB_recycling.csv") # by Sales, Capacity and Lifetime Scenario
+veh_recycling <- read.csv("Results/veh_recycling.csv") # by Sales and Lifetime Scenario
+
 
 amort_total <- read.csv("Results/amort_veh.csv") 
 amort_lib_total <- read.csv("Results/amort_LIB.csv") 
@@ -32,6 +34,7 @@ kwh_recycling_total <- read.csv("Results/kwh_recyc.csv")
 # names(ev_usage) <- names(ev_usage) %>% str_remove("") 
 # names(ice_usage) <- names(ice_usage) %>% str_remove("") 
 (names(LIB_recycling) <- names(LIB_recycling) %>% str_remove("LIBRecyc_"))
+(names(veh_recycling) <- names(veh_recycling) %>% str_remove("VehRecyc_"))
 (names(amort_total) <- names(amort_total) %>% str_remove("vehProd_"))
 (names(amort_lib_total) <- names(amort_lib_total) %>% str_remove("LIB_"))
 
@@ -72,9 +75,10 @@ df_all <- rbind(f.flat(veh_prod),
                 f.flat(LIB_replacement),
                 f.flat(ev_usage),
                 f.flat(ice_usage),
-                f.flat(amort_total),
-                f.flat(amort_lib_total),
-                f.flat(LIB_recycling))
+                # f.flat(amort_total),
+                # f.flat(amort_lib_total),
+                f.flat(LIB_recycling),
+                f.flat(veh_recycling))
 
 nrow(df_all)/1e6 # below 1M, good
 unique(df_all$Stage)

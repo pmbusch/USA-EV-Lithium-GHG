@@ -16,6 +16,7 @@ reuse <- reuse %>%
   mutate(LIB_recycling_vector = str_split(LIB_recycling_vector,"\\|") %>% lapply(as.numeric),
          LIB_Available_vector = str_split(LIB_Available_vector,"\\|") %>% lapply(as.numeric),
          add_LIB_vector = str_split(add_LIB_vector,"\\|") %>% lapply(as.numeric),
+         EV_fail_vector = str_split(EV_fail_vector,"\\|") %>% lapply(as.numeric),
          EV_Stock_vector = str_split(EV_Stock_vector,"\\|") %>% lapply(as.numeric))
 names(reuse)
 
@@ -78,6 +79,17 @@ LIB_available <- reuse %>%
   dplyr::select(Scenario,Year,Vehicle,age,modelYear,LIB) %>% 
   filter(LIB>0)
 write.csv(LIB_available,"Parameters/LIB_available.csv",row.names = F)
+
+# EV Fail
+EV_recyc <- reuse %>%
+  mutate(age = map(EV_fail_vector, seq_along),
+         EV = map(EV_fail_vector, as.numeric)) %>%
+  unnest_longer(c(EV_fail_vector, age, EV)) %>%
+  mutate(age=age-1) %>% 
+  mutate(modelYear=Year-age) %>% 
+  dplyr::select(Scenario,Year,Vehicle,age,modelYear,EV) %>% 
+  filter(EV>0)
+write.csv(EV_recyc,"Parameters/EV_failure.csv",row.names = F)
 
 
 # Figures ------

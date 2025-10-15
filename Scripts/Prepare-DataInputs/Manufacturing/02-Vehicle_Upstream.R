@@ -26,10 +26,11 @@ veh_prod <- veh_prod %>%
   mutate(vehicle_type=if_else(str_detect(Name,"electric"),"EV","ICE")) %>% 
   full_join(weight) %>% 
   dplyr::select(-sheet,-Name,-Region,-fu) %>% 
+  relocate(vehicle_type,vehSize,.before=kgCO2eq) %>% 
   mutate(across(-c(vehSize, vehicle_type, kerbWeight), ~ .x * kerbWeight)) %>% 
   mutate(kerbWeight=NULL)
 
-names(veh_prod)[-(36:37)] <- paste0("vehProd_",names(veh_prod)[-(36:37)])
+names(veh_prod)[-(1:2)] <- paste0("vehProd_",names(veh_prod)[-(1:2)])
 
 # save
 write.csv(veh_prod,"Parameters/Manufacturing/vehProd.csv",row.names = F)

@@ -168,12 +168,14 @@ for (scen in scenarios){
         # get vector of outflows of EV and outflows of LIBs
         ev_need <- rowSums(matrix_ev)
         
+        ev_failed <- colSums(matrix_lib)[-1] + colSums(matrix_both)[-1] + c(rep(0,max_ev_age-1),ev_need[(max_ev_age):30])
         # Above certain age simply no LIB required, THEY DIED
         ev_need[(max_ev_age+1):31] <- 0
         
         # move to the left to allow for delay in other part of the code
         lib_failed <- colSums(matrix_ev)[-1] + colSums(matrix_both)[-1] # LIB ready for end life recycling, when the LIB failed
         lib_available <- colSums(matrix_lib)
+        
         
         # assigning old batteries TO EVs
         lib_to_EV <- lib_available*max_reuse_lib
@@ -239,6 +241,9 @@ for (scen in scenarios){
         sales$LIB_reuse_EV[y-start_year+1] <- round(allocation,0)
         sales$EV_Stock[y-start_year+1] <- round(sum(new_matrix),0)
         sales$EV_Stock_vector[y-start_year+1] <- list(unname(round(rowSums(new_matrix)[-1],0)))
+        # EVs that fail
+        sales$EV_fail[y-start_year+1] <- round(sum(ev_failed),0)
+        sales$EV_fail_vector[y-start_year+1] <- list(round(ev_failed,0))
         
         
         # end for loop, next year

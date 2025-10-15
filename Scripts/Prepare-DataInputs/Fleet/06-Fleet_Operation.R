@@ -297,6 +297,20 @@ LIB_available %>% group_by(Scenario) %>% reframe(x=sum(LIB)/1e6) # 47.9
 write.csv(LIB_available,"Parameters/LIB_available_type.csv",row.names = F)
 
 
+# EV Failure
+EV_failure <- read.csv("Parameters/EV_failure.csv")
+EV_failure %>% group_by(Scenario) %>% reframe(x=sum(EV)/1e6) # 129
+EV_failure <- EV_failure %>% 
+  left_join(ev_state_share,by=c("modelYear"="period")) %>% 
+  mutate(EV=EV*ev_share,ev_share=NULL) %>% 
+  left_join(join_size,by=c("State","modelYear"="period","Vehicle")) %>% 
+  mutate(EV=EV*share,share=NULL) %>% 
+  group_by(Scenario,Year,age,modelYear,vehSize) %>% 
+  reframe(EV=sum(EV,na.rm=T)) %>% ungroup()
+EV_failure %>% group_by(Scenario) %>% reframe(x=sum(EV)/1e6) # 97.4
+write.csv(EV_failure,"Parameters/EV_failure_type.csv",row.names = F)
+
+
 # END PARENTHESIS
 
 # add VMT

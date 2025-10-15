@@ -62,7 +62,10 @@ df <- df %>%
   
 # petrol density ~ 0.74 kg/L
 3.18*0.74 # kg CO2 per liter
-3.18*0.74*3.78541 # kg CO2 per gallon; 1 gallon = 3.78 liters
+3.18*0.74*3.78541 # 8.9 kg CO2 per gallon; 1 gallon = 3.78 liters
+# EPA value: 8.887 kg CO2 per gallon - https://nepis.epa.gov/Exe/ZyPDF.cgi?Dockey=P1017FP5.pdf
+
+
 
 # Embedded fuel consumption - mpg
 (1/1.6)/(mass/0.74/3.78541) # 23.7 mpg
@@ -70,6 +73,20 @@ df <- df %>%
 # Endpoints 
 
 end <- read.csv("Parameters/endpoints.csv")
+
+
+# add GHG indidually - for discounting
+dict_ghg <- read_excel("Inputs/TAWP_AR6.xlsx",sheet="Match_ecoinvent")  
+ghg <- df %>% 
+  mutate(Amount=as.numeric(Amount)) %>% 
+  left_join(dict_ghg,by=c("Flows"="Flow")) %>% 
+  filter(!is.na(Sign)) %>% 
+  mutate(Amount=Amount*Sign) %>% 
+  group_by(sheet,Name,Region,fu,Match) %>% 
+  reframe(Amount=sum(Amount)) %>% 
+  mutate(Match=paste0("kg_",Match)) %>% 
+  pivot_wider(names_from = Match, values_from = Amount)
+
 
 # Add endpoints and estimate impacts for flows
 df <- df %>% rename(Flow=Flows) %>% 
@@ -92,6 +109,8 @@ df <- df %>%
           kgO3eq=sum(Amount*kgO3eq)) %>% 
   ungroup()
 
+df <- df %>% left_join(ghg)
+
 
 # Petrol production ----
 ## add upstream emissions petrol
@@ -113,6 +132,10 @@ petrol$kgSO2eq <- petrol$kgSO2eq+df$kgSO2eq
 petrol$kgCFC11eq <- petrol$kgCFC11eq+df$kgCFC11eq
 petrol$kgPM2.5eq <- petrol$kgPM2.5eq+df$kgPM2.5eq
 petrol$kgO3eq <- petrol$kgO3eq+df$kgO3eq
+petrol$kg_CO2 <- petrol$kg_CO2+df$kg_CO2
+petrol$kg_CH4 <- petrol$kg_CH4+df$kg_CH4
+petrol$kg_N2O <- petrol$kg_N2O+df$kg_N2O
+
 
 write.csv(petrol,"Parameters/Operation/LCI_petrol.csv",row.names = F)
 

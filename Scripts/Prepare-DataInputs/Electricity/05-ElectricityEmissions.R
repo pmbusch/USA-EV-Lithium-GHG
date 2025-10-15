@@ -155,12 +155,18 @@ df_impacts <- df_impacts %>%
          MJ_Other=if_else(is.na(MJ_Other),nat_MJ_Other,MJ_Other),
          MJ_Solar=if_else(is.na(MJ_Solar),nat_MJ_Solar,MJ_Solar),
          MJ_Uranium=if_else(is.na(MJ_Uranium),nat_MJ_Uranium,MJ_Uranium),
-         MJ_Wind=if_else(is.na(MJ_Wind),nat_MJ_Wind,MJ_Wind)) %>% 
+         MJ_Wind=if_else(is.na(MJ_Wind),nat_MJ_Wind,MJ_Wind),
+         kg_CO2=if_else(is.na(kg_CO2),nat_kg_CO2,kg_CO2),
+         kg_CH4=if_else(is.na(kg_CH4),nat_kg_CH4,kg_CH4),
+         kg_N2O=if_else(is.na(kg_N2O),nat_kg_N2O,kg_N2O),
+         kg_PFC116=if_else(is.na(kg_PFC116),nat_kg_PFC116,kg_PFC116),
+         kg_PFC14=if_else(is.na(kg_PFC14),nat_kg_PFC14,kg_PFC14),
+         kg_SF6=if_else(is.na(kg_SF6),nat_kg_SF6,kg_SF6)) %>% 
   dplyr::select(-nat_kgCO2eq,-nat_MJ,-nat_MJ_nonRenewable,-nat_kgSO2eq,
                 -nat_kgCFC11eq,-nat_kgPM2.5eq,-nat_kgO3eq,-nat_MJ_Biomass,
                 -nat_MJ_Coal,-nat_MJ_Crudeoil,-nat_MJ_Geothermal,-nat_MJ_Hydro,
                 -nat_MJ_Naturalgas,-nat_MJ_Other,-nat_MJ_Solar,-nat_MJ_Uranium,
-                -nat_MJ_Wind)
+                -nat_MJ_Wind,-nat_kg_CO2,-nat_kg_CH4,-nat_kg_N2O,-nat_kg_PFC116,-nat_kg_PFC14,-nat_kg_SF6)
                 
 # ALL assigned
 df_impacts %>% filter(is.na(kgCO2eq))
@@ -401,6 +407,7 @@ impacts_material <- impacts_material %>% filter(str_detect(Name,"electricity pro
   mutate(Name=str_remove(Name,"electricity production, "))
 unique(impacts_material$Name)
 unique(df$fuel)
+join_fuel <- read.csv("Inputs/join_fuels.csv")
 impacts_material <- impacts_material %>% rename(ecoinvent_fuel=Name) %>% 
   left_join(join_fuel) %>% 
   rename(fuel=EIA_Fuel)
@@ -439,6 +446,8 @@ df_impacts_mat <- df_impacts_mat %>%
          kgLithium=if_else(is.na(kgLithium),nat_kgLithium,kgLithium),
          kgNickel=if_else(is.na(kgNickel),nat_kgNickel,kgNickel),
          kgREE=if_else(is.na(kgREE),nat_kgREE,kgREE),
+         kgLead=if_else(is.na(kgLead),nat_kgLead,kgLead),
+         kgGold=if_else(is.na(kgGold),nat_kgGold,kgGold),
          kgBarium=if_else(is.na(kgBarium),nat_kgBarium,kgBarium),
          kgCalcium=if_else(is.na(kgCalcium),nat_kgCalcium,kgCalcium),
          kgChromium=if_else(is.na(kgChromium),nat_kgChromium,kgChromium),

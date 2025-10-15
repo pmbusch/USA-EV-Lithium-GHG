@@ -16,6 +16,7 @@ url_file <- "Inputs"
 # vehicle manuf
 # lib prod
 # car maintenance
+# li extraction
 (sheets <- sheets[str_detect(sheets,"up|maintenance")])
 
 # Loop LCI ecoinvent ------------
@@ -64,7 +65,6 @@ for(s in sheets){
      pos_inputs,pos_outputs)
 }
 nrow(ecoinvent)/1e6 #0.03M
-
 unique(ecoinvent$fu)
 
 # Endpoints -----
@@ -102,8 +102,20 @@ energy <- energy %>%
   group_by(sheet,Name,Region,fu,prim_energy) %>% 
   reframe(MJ=sum(MJ)) %>% 
   pivot_wider(names_from = prim_energy, values_from = MJ)
-    
-# estimate impact per kWh
+
+# get GHG emissions detail for discounting
+dict_ghg <- read_excel("Inputs/TAWP_AR6.xlsx",sheet="Match_ecoinvent")  
+ghg <- df %>% 
+  mutate(Amount=as.numeric(Amount)) %>% 
+  left_join(dict_ghg) %>% 
+  filter(!is.na(Sign)) %>% 
+  mutate(Amount=Amount*Sign) %>% 
+  group_by(sheet,Name,Region,fu,Match) %>% 
+  reframe(Amount=sum(Amount)) %>% 
+  mutate(Match=paste0("kg_",Match)) %>% 
+  pivot_wider(names_from = Match, values_from = Amount)
+  
+# estimate impact per FU
 df <- df %>% 
   mutate(Amount=as.numeric(Amount)) %>% 
   group_by(sheet,Name,Region,fu) %>% 
@@ -118,7 +130,8 @@ df <- df %>%
 
 # add detail
 names(energy)
-df <- df %>% left_join(energy)
+df <- df %>% left_join(energy) %>% left_join(ghg)
+
 
 # save
 write.csv(df,"Parameters/Manufacturing/ecoinvent_upstream.csv",row.names = F)

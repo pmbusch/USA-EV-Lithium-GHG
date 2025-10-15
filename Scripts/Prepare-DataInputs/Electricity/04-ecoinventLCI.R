@@ -100,6 +100,19 @@ energy <- energy %>%
   pivot_wider(names_from = prim_energy, values_from = MJ)
 
 
+# get GHG emissions detail for discounting
+dict_ghg <- read_excel("Inputs/TAWP_AR6.xlsx",sheet="Match_ecoinvent")  
+ghg <- df_all %>% 
+  mutate(Amount=as.numeric(Amount)) %>% 
+  left_join(dict_ghg) %>% 
+  filter(!is.na(Sign)) %>% 
+  mutate(Amount=Amount*Sign) %>% 
+  group_by(sheet,Name,Region,Match) %>% 
+  reframe(Amount=sum(Amount)) %>% 
+  mutate(Match=paste0("kg_",Match)) %>% 
+  pivot_wider(names_from = Match, values_from = Amount)
+
+
 # estimate impact per kWh
 df <- df_all %>% 
   mutate(Amount=as.numeric(Amount)) %>% 
@@ -113,7 +126,7 @@ df <- df_all %>%
           kgO3eq=sum(Amount*kgO3eq)) %>% 
   ungroup()
 
-df <- df %>% left_join(energy)
+df <- df %>% left_join(energy) %>% left_join(ghg)
 
 # save
 write.csv(df,"Parameters/Electricity/ecoinvent_electricity.csv",row.names = F)

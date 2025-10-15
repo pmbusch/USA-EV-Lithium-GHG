@@ -196,11 +196,30 @@ kwh_recycling_total <- LIB_recycling %>%
   mutate(Stage="LIB Recycling") %>% 
   mutate(vehicle_type="EV")
 
+## Vehicle recycling -----
+# EV end of life flows
+EV_failure <- read.csv("Parameters/EV_failure_type.csv")
 
-## Subtract -----
-# Remove Lithium upstream impact from battery production
-# TO DO ....
-# Li_avoided = 
+veh_recycling <- EV_failure %>% 
+  filter(Year>=start_year) %>%
+  mutate(Scenario_Lifetime=str_extract(Scenario,"Reference|Short|Long"),
+         Scenario_Sales=str_extract(Scenario,"Momentum|Ambitious"),
+         Scenario=NULL) %>% 
+  filter(Scenario_Sales!="Baseline") %>% 
+  filter(modelYear>2015)
+
+# impacts per vehicle
+veh_recyc_upstream <- read.csv("Parameters/Manufacturing/veh_recyc.csv")
+
+veh_recycling_total <- veh_recycling %>% 
+  group_by(Scenario_Lifetime,Scenario_Sales,Year,vehSize) %>% 
+  reframe(EV=sum(EV)) %>% ungroup() %>% 
+  left_join(veh_recyc_upstream) %>%  
+  mutate(across(starts_with("VehRecyc"), ~ .x * EV)) %>%
+  group_by(Scenario_Sales,Scenario_Lifetime,Year,vehSize,vehicle_type) %>% 
+  reframe(across(starts_with("VehRecyc"), ~ sum(.x))) %>% ungroup() %>% 
+  mutate(Stage="Vehicle production")
+
 
 # USAGE EMISSIONS ---------
 
@@ -336,6 +355,7 @@ names(LIB_replacement_total) # by Sales, Capacity and Lifetime Scenario
 names(ev_usage_total) # by Sales, Lifetime and Grid Scenario
 names(ice_usage_total) # by Sales and Lifetime Scenario
 names(LIB_recycling_total) # by Sales, Capacity and Lifetime Scenario
+names(veh_recycling_total) # by sales, lifetime scenario
 
 write.csv(veh_prod_total,"Results/veh_prod.csv",row.names = F) 
 write.csv(veh_maintenance_total,"Results/veh_maintenance.csv",row.names = F)  
@@ -344,6 +364,8 @@ write.csv(LIB_replacement_total,"Results/LIB_replacement.csv",row.names = F)
 write.csv(ev_usage_total,"Results/ev_usage.csv",row.names = F)
 write.csv(ice_usage_total,"Results/ice_usage.csv",row.names = F)  
 write.csv(LIB_recycling_total,"Results/LIB_recycling.csv",row.names = F) 
+write.csv(veh_recycling_total,"Results/veh_recycling.csv",row.names = F) 
+
 
 # amortization
 write.csv(amort_total,"Results/amort_veh.csv",row.names = F) 
