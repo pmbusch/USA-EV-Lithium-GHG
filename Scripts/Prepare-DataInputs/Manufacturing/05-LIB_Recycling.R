@@ -86,7 +86,7 @@ recovery <- rbind(recovery,
 li_extract <- upstream %>% 
   filter(str_detect(Name,"lithium carbonate"))
 # average 50-50 brine and hard rock, and convert to per kg of lithium
-li_extract <- (li_extract[1,5:47]+li_extract[2,5:47])/2*5.323
+li_extract <- (li_extract[1,5:52]+li_extract[2,5:52])/2*5.323
 
 li_avoided <- recovery %>% 
   filter(Mineral=="Lithium") %>% 
@@ -107,8 +107,8 @@ lib_recyc_upstream2 <- lib_recyc_upstream %>%
 head(lib_recyc_upstream2[,1:4],12)
 head(li_avoided[,1:4])  
 
-lib_recyc_upstream2[1:6,4:46] <- lib_recyc_upstream2[1:6,4:46]-li_avoided[,3:45]
-lib_recyc_upstream2[7:12,4:46] <- lib_recyc_upstream2[7:12,4:46]-li_avoided[,3:45]
+lib_recyc_upstream2[1:6,4:51] <- lib_recyc_upstream2[1:6,4:51]-li_avoided[,3:50]
+lib_recyc_upstream2[7:12,4:51] <- lib_recyc_upstream2[7:12,4:51]-li_avoided[,3:50]
 
 
 # impacts per vehicle

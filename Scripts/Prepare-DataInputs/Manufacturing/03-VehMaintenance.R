@@ -3,7 +3,6 @@
 
 library(tidyverse)
 
-
 upstream <- read.csv("Parameters/Manufacturing/ecoinvent_upstream.csv")
 up_mat <- read.csv("Parameters/Manufacturing/ecoinvent_upstream_material.csv")
 

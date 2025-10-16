@@ -309,16 +309,22 @@ ev_usage_total %>%
 ## Gasoline emissions ----
 # based on fleet operation
 gas_gallons <- read.csv("Parameters/Operation/ICE_gasGallons_consumption.csv")
+gas_gallons_improved <- read.csv("Parameters/Operation/ICE_gasGallons_consumption_MPGimproved.csv")
+
+gas_gallons <- rbind(mutate(gas_gallons,Scenario_mpg="Reference"),
+                     mutate(gas_gallons_improved,Scenario_mpg="Improved"))
+
 gas_gallons <- gas_gallons %>% filter(Year>=start_year) %>% 
   mutate(Scenario_Lifetime=str_extract(Scenario,"Reference|Short|Long"),
          Scenario_Sales=str_extract(Scenario,"Momentum|Ambitious"),
          Scenario=NULL) %>% 
   filter(Scenario_Sales!="Baseline")
 
+
 # 1 oil barrel = 42 gasoline gallons
-gas_gallons %>% group_by(Scenario_Sales,Scenario_Lifetime) %>% reframe(x=sum(total_gallons)/42/1e6) # million oil barrels
+gas_gallons %>% group_by(Scenario_Sales,Scenario_Lifetime,Scenario_mpg) %>% reframe(x=sum(total_gallons)/42/1e6) # million oil barrels
 # 33.7 kWh per gallon, 3.6 MJ in a kwh
-gas_gallons %>% group_by(Scenario_Sales,Scenario_Lifetime) %>% reframe(x=sum(total_gallons)*33.7*3.6/1e9) # trillion MJ
+gas_gallons %>% group_by(Scenario_Sales,Scenario_Lifetime,Scenario_mpg) %>% reframe(x=sum(total_gallons)*33.7*3.6/1e9) # trillion MJ
 
 # including upstream and combustion
 gas <- read.csv("Parameters/Operation/LCI_petrol.csv")
@@ -332,19 +338,19 @@ gas <- gas %>%
 # estimate impacts
 ice_usage_total <- gas_gallons %>% 
   cross_join(gas) %>% 
-  mutate(across(-c(Year,Scenario_Sales,Scenario_Lifetime,Stage,
+  mutate(across(-c(Year,Scenario_Sales,Scenario_Lifetime,Scenario_mpg,Stage,
                    State,vehSize,total_gallons), ~ .x * total_gallons)) %>% 
   mutate(vehicle_type="ICE")
 
 # agg to national level
 ice_usage_total <- ice_usage_total %>% 
-  group_by(Scenario_Sales,Scenario_Lifetime,Year,vehSize,Stage,vehicle_type) %>% 
+  group_by(Scenario_Sales,Scenario_Lifetime,Scenario_mpg,Year,vehSize,Stage,vehicle_type) %>% 
   reframe(across(-c(State),~ sum(.x))) %>% ungroup()
 
 ice_usage_total$total_gallons <- NULL
 
 ice_usage_total %>% 
-  group_by(Scenario_Sales,Scenario_Lifetime) %>% 
+  group_by(Scenario_Sales,Scenario_Lifetime,Scenario_mpg) %>% 
   reframe(x=sum(kgCO2eq)/1e9) # million tons
 
 # Save all -----
@@ -353,7 +359,7 @@ names(veh_maintenance_total) # by Sales and Lifetime Scenario
 names(lib_prod_total) # by Sales and Capacity Scenario
 names(LIB_replacement_total) # by Sales, Capacity and Lifetime Scenario
 names(ev_usage_total) # by Sales, Lifetime and Grid Scenario
-names(ice_usage_total) # by Sales and Lifetime Scenario
+names(ice_usage_total) # by Sales and Lifetime Scenario and MPG
 names(LIB_recycling_total) # by Sales, Capacity and Lifetime Scenario
 names(veh_recycling_total) # by sales, lifetime scenario
 

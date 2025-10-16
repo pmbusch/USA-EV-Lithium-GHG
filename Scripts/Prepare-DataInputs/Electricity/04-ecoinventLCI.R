@@ -57,7 +57,6 @@ nrow(ecoinvent)/1e6 #0.2M
 unique(ecoinvent$Name)
 unique(ecoinvent$Region)
 
-
 # Endpoints -----
 
 end <- read.csv("Parameters/endpoints.csv")
@@ -81,23 +80,34 @@ df_all <- df_all %>% mutate(across(c("kgCO2eq","MJ","kgSO2eq","kgCFC11eq","kgPM2
 # get primary energy consumption detail
 energy <- df_all %>% 
   mutate(Amount=as.numeric(Amount)) %>% 
+  mutate(kg=Amount*case_when(
+    Quantities=="Mass"~1,
+    Quantities=="Standard volume"~0.8, # NG density 0.8 kg/m3
+    Quantities=="Volume"~0, # do not consider wood nor biomass
+    T ~0)) %>% # all others do not require extraction
+  filter(!near(MJ,0)) %>%
   mutate(MJ=Amount*MJ) %>% 
   mutate(prim_energy=case_when(
-    str_detect(Flow,"oil") ~ "MJ_Crudeoil",
-    str_detect(Flow,"Natural gas") ~ "MJ_Naturalgas",
-    str_detect(Flow,"Coal") ~ "MJ_Coal",
-    str_detect(Flow,"wind") ~ "MJ_Wind",
-    str_detect(Flow,"solar") ~ "MJ_Solar",
-    str_detect(Flow,"Biomass") ~ "MJ_Biomass",
-    str_detect(Flow,"hydro") ~ "MJ_Hydro",
-    str_detect(Flow,"geothermal") ~ "MJ_Geothermal",
-    str_detect(Flow,"Uranium") ~ "MJ_Uranium",
-    T ~ "MJ_Other"))
-energy %>% group_by(prim_energy) %>% reframe(x=sum(MJ)) %>% arrange(desc(x))
+    str_detect(Flow,"oil") ~ "Crudeoil",
+    str_detect(Flow,"Natural gas") ~ "Naturalgas",
+    str_detect(Flow,"Coal") ~ "Coal",
+    str_detect(Flow,"wind") ~ "Wind",
+    str_detect(Flow,"solar") ~ "Solar",
+    str_detect(Flow,"Biomass") ~ "Biomass",
+    str_detect(Flow,"hydro") ~ "Hydro",
+    str_detect(Flow,"geothermal") ~ "Geothermal",
+    str_detect(Flow,"Uranium") ~ "Uranium",
+    T ~ "Otherenergy"))
+energy %>% group_by(prim_energy,Quantities,Units) %>% tally()
+energy %>% group_by(prim_energy) %>% reframe(MJ=sum(MJ),kg=sum(kg)) %>% arrange(desc(MJ))
 energy <- energy %>% 
   group_by(sheet,Name,Region,prim_energy) %>% 
-  reframe(MJ=sum(MJ)) %>% 
-  pivot_wider(names_from = prim_energy, values_from = MJ)
+  reframe(MJ=sum(MJ),kg=sum(kg)) %>% 
+  pivot_wider(names_from = prim_energy, values_from = c(MJ,kg))
+
+# remove energy source with 0 material need
+energy$kg_Biomass <- energy$kg_Geothermal <- energy$kg_Hydro <- energy$kg_Solar <- energy$kg_Wind <- NULL
+
 
 
 # get GHG emissions detail for discounting

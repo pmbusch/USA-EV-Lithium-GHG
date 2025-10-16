@@ -57,9 +57,14 @@ f.flat <- function(df){
     df$Scenario_Grid <- "ref2025"
   }
   
+  if(!str_detect(names_scen,"Scenario_mpg")){
+    df$Scenario_Grid <- "Reference"
+  }
+  
   if(!str_detect(names_scen,"Scenario_Recycling")){
     df$Scenario_Recycling <- "Recycling 45%"
   }
+  
   
   
   df <- df %>% 

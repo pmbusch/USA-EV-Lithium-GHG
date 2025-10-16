@@ -152,10 +152,15 @@ df_impacts <- df_impacts %>%
          MJ_Geothermal=if_else(is.na(MJ_Geothermal),nat_MJ_Geothermal,MJ_Geothermal),
          MJ_Hydro=if_else(is.na(MJ_Hydro),nat_MJ_Hydro,MJ_Hydro),
          MJ_Naturalgas=if_else(is.na(MJ_Naturalgas),nat_MJ_Naturalgas,MJ_Naturalgas),
-         MJ_Other=if_else(is.na(MJ_Other),nat_MJ_Other,MJ_Other),
+         MJ_Otherenergy=if_else(is.na(MJ_Otherenergy),nat_MJ_Otherenergy,MJ_Otherenergy),
          MJ_Solar=if_else(is.na(MJ_Solar),nat_MJ_Solar,MJ_Solar),
          MJ_Uranium=if_else(is.na(MJ_Uranium),nat_MJ_Uranium,MJ_Uranium),
          MJ_Wind=if_else(is.na(MJ_Wind),nat_MJ_Wind,MJ_Wind),
+         kg_Coal=if_else(is.na(kg_Coal),nat_kg_Coal,kg_Coal),
+         kg_Crudeoil=if_else(is.na(kg_Crudeoil),nat_kg_Crudeoil,kg_Crudeoil),
+         kg_Naturalgas=if_else(is.na(kg_Naturalgas),nat_kg_Naturalgas,kg_Naturalgas),
+         kg_Otherenergy=if_else(is.na(kg_Otherenergy),nat_kg_Otherenergy,kg_Otherenergy),
+         kg_Uranium=if_else(is.na(kg_Uranium),nat_kg_Uranium,kg_Uranium),
          kg_CO2=if_else(is.na(kg_CO2),nat_kg_CO2,kg_CO2),
          kg_CH4=if_else(is.na(kg_CH4),nat_kg_CH4,kg_CH4),
          kg_N2O=if_else(is.na(kg_N2O),nat_kg_N2O,kg_N2O),
@@ -165,7 +170,8 @@ df_impacts <- df_impacts %>%
   dplyr::select(-nat_kgCO2eq,-nat_MJ,-nat_MJ_nonRenewable,-nat_kgSO2eq,
                 -nat_kgCFC11eq,-nat_kgPM2.5eq,-nat_kgO3eq,-nat_MJ_Biomass,
                 -nat_MJ_Coal,-nat_MJ_Crudeoil,-nat_MJ_Geothermal,-nat_MJ_Hydro,
-                -nat_MJ_Naturalgas,-nat_MJ_Other,-nat_MJ_Solar,-nat_MJ_Uranium,
+                -nat_MJ_Naturalgas,-nat_MJ_Otherenergy,-nat_MJ_Solar,-nat_MJ_Uranium,
+                -nat_kg_Coal,-nat_kg_Crudeoil,-nat_kg_Naturalgas,-nat_kg_Otherenergy,-nat_kg_Uranium,
                 -nat_MJ_Wind,-nat_kg_CO2,-nat_kg_CH4,-nat_kg_N2O,-nat_kg_PFC116,-nat_kg_PFC14,-nat_kg_SF6)
                 
 # ALL assigned

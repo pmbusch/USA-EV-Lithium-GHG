@@ -64,15 +64,21 @@ f.flat.exp <- function(df){
   }
   
   if(!str_detect(names_scen,"Scenario_Grid")){
-    df$Scenario_Grid <- "ref2025"
-    
     df_aux <- c()
     for (i in scens_grid){
       df$Scenario_Grid <- i
       df_aux <- rbind(df_aux,df)
     }
     df <- df_aux
-    
+  }
+  
+  if(!str_detect(names_scen,"Scenario_mpg")){
+    df_aux <- c()
+    for (i in unique(ice_usage$Scenario_mpg)){
+      df$Scenario_mpg <- i
+      df_aux <- rbind(df_aux,df)
+    }
+    df <- df_aux
   }
   
   if(!str_detect(names_scen,"Scenario_Recycling")){
