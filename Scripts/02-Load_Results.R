@@ -58,7 +58,7 @@ f.flat <- function(df){
   }
   
   if(!str_detect(names_scen,"Scenario_mpg")){
-    df$Scenario_Grid <- "Reference"
+    df$Scenario_mpg <- "Reference"
   }
   
   if(!str_detect(names_scen,"Scenario_Recycling")){
@@ -69,7 +69,7 @@ f.flat <- function(df){
   
   df <- df %>% 
     pivot_longer(-c(Scenario_Sales,Scenario_Lifetime,Scenario_Capacity,Scenario_Recycling,
-                    Scenario_Grid,Year,vehSize,vehicle_type,Stage), 
+                    Scenario_Grid,Scenario_mpg,Year,vehSize,vehicle_type,Stage), 
                  names_to = "impact", values_to = "value")
   return(df)
 }

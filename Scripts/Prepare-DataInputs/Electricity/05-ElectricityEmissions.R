@@ -372,23 +372,66 @@ mix %>%
   filter(share>0) %>% 
   reframe(x=sum(share)) %>% arrange(desc(x))
 
+# order 5 rows by 6 columns - orderd by position in Map: https://www.eia.gov/outlooks/aeo/pdf/nerc_map.pdf
+regions_order <- c(
+  # row 1
+  "ASCC Miscellaneous",
+  "ASCC Alaska Grid",
+  "Midcontinent / West",
+  "Midcontinent / East",
+  "NPCC / Upstate New York",
+  "NPCC / New England",
+  # row 2
+  "WECC / Northwest",
+  "SPP / North",
+  "PJM / Commonwealth Edison",
+  "PJM / West",
+  "PJM / East",
+  "NPCC / New York City & Long Island",
+  # row 3
+  "WECC / Basin",
+  "WECC / Rockies",
+  "SPP / Central",
+  "Midcontinent / Central",
+  "SERC / Central",
+  "PJM / Dominion",
+  # row 4
+  "WECC / California North",
+  "WECC / California South",
+  "WECC / Southwest",
+  "SPP / South",
+  "Midcontinent / South",
+  "SERC / East",
+  # row 5
+  "HICC Oahu",
+  "HICC Miscellaneous",
+  "Texas Reliability Entity",
+  "SERC / Southeastern",
+  "Florida RCC",
+  "United States (avg.)")
+  
+
 mix %>% 
-  filter(regionName!="United States") %>% 
+  # filter(regionName!="United States") %>% 
+  filter(period>2024) %>% 
   filter(scenario=="ref2025") %>% 
+  mutate(x=regionName) %>% 
   mutate(regionName=regionName %>% 
            str_replace("Northeast Power Coordinating Council","NPCC") %>% 
            str_replace("Western Electricity Coordinating Council","WECC") %>% 
            str_replace(" Reliability Corporation","") %>% 
            str_replace("Southwest Power Pool","SPP") %>% 
            str_replace("Reliability Coordinating Council","RCC") %>% 
-           str_replace("Power Pool Area","") %>% 
-           str_replace("and Long","& Long")) %>% 
+           str_replace(" Power Pool Area","") %>% 
+           str_replace("and Long","& Long") %>% 
+           str_replace("United States","United States (avg.)")) %>% 
+  mutate(regionName=factor(regionName,levels=regions_order)) %>% 
   complete(regionName, period, fuel, fill = list(share = 0)) %>% 
   ggplot(aes(period,share))+
   # geom_area(aes(fill=fuel,group=fuel))+ # weird spikes for some reasons
   geom_col(aes(fill=fuel,group=fuel),width=1)+
   facet_wrap(~regionName)+
-  coord_cartesian(expand = F)+
+  coord_cartesian(expand = F,ylim = c(0,1))+
   scale_y_continuous(labels=scales::percent)+
   scale_x_continuous(breaks = c(2030, 2040, 2050))+
   scale_fill_manual(values=fuel_colors)+

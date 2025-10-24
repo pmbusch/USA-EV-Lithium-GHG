@@ -45,4 +45,22 @@ bat <- bat %>%
 write.csv(bat,"Parameters/Manufacturing/batsize.csv",row.names = F)
 
 
+# Figure inputs
+bat %>% 
+  filter(Scenario_Capacity=="Reference") %>% 
+  ggplot(aes(vehSize,kwh_veh,fill=LIB_Chem))+
+  geom_col(linewidth=.2,col="black")+
+  coord_flip(expand = F,ylim = c(0,98))+
+  scale_fill_viridis_d(direction = -1)+
+  labs(x="",y="Battery capacity per vehicle [kWh]",fill="Cathode Chemistry",col="")+
+  guides(fill= guide_legend(reverse = TRUE))+
+  theme_bw(8)+
+  theme(panel.grid = element_blank(),
+        legend.position = "bottom")
+
+ggsave("Figures/Fleet/batsize.png", ggplot2::last_plot(),
+       units="cm",dpi=600,width=8.7*1.5,height=8.7)
+
+
+
 # EoF

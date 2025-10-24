@@ -43,7 +43,7 @@ fleet %>% group_by(Scenario,Year) %>% reframe(fleet=sum(fleet)/1e6)
 reuse$EV_Stock/1e6
 
 # Save
-write.csv(fleet,"Parameters/USA_fleet.csv",row.names = F)
+write.csv(fleet,"Parameters/Operation/USA_fleet.csv",row.names = F)
 
 # Additional Batteries ---------
 addLIB <- reuse %>%
@@ -97,16 +97,19 @@ names(reuse)
 url_fig <- "Figures/Fleet/%s.png"
 
 # Sales
-sales <- read.csv("Parameters/salesEV.csv")
+sales <- read.csv("Parameters/Operation/salesEV.csv")
 sales %>% 
   # filter(Scenario=="Ambitious") %>% 
+  filter(Year>2024) %>% 
   mutate(Sales=Sales/1e6) %>% 
   ggplot(aes(Year,Sales))+
   geom_line(aes(col=Scenario,linetype=Vehicle))+
   coord_cartesian(expand = F)+
-  scale_x_continuous(breaks = c(2022, 2030, 2040, 2050))+
+  scale_x_continuous(breaks = c(2025, 2030, 2040, 2050))+
   labs(x="",y="",title="USA BEV Sales [million units]")+
+  theme_bw(8)+
   theme(
+    panel.grid = element_blank(),
     # legend.position = c(0.8,0.2),
         axis.text.x = element_text(hjust = 1))
 
@@ -114,7 +117,9 @@ ggsave(sprintf(url_fig,"sales"),dpi=600,units = "cm",
        width = 12,height=8.7)
 
 # Fleet
+fleet <- read.csv("Parameters/Operation/USA_fleet.csv")
 fleet %>% 
+  filter(Year>2024) %>% 
   filter(Scenario=="Ambitious-Reference") %>% 
   group_by(Year,age) %>% 
   reframe(fleet=sum(fleet)/1e6) %>% ungroup() %>% 
@@ -122,7 +127,7 @@ fleet %>%
   geom_col(col="black",width = 1,linewidth=0.05)+
   # facet_wrap(~Scenario)+
   coord_cartesian(expand = F)+
-  scale_x_continuous(breaks = c(2022, 2030, 2040, 2050))+
+  scale_x_continuous(breaks = c(2025, 2030, 2040, 2050))+
   # scale_fill_gradientn(colors = c("#006837", "#66BD63",  # Green (1-10)
   #                                 "#1C9099", "#67A9CF",  # Blue (11-20)
   #                                 "#D73027", "#A50026"), # Red (21-30)
@@ -132,7 +137,9 @@ fleet %>%
                                   "#D73027", "#A50026"), # Red (16-19)
                        values = scales::rescale(c(0, 5, 6, 10, 11, 15,16,28)),
                        breaks = c(0,5,10,15,20),name = "Vehicle\nAge")+
-  labs(x="",y="",title="USA BEV Fleet [million units]")
+  labs(x="",y="",title="USA Vehicle Fleet [million units]")+
+  theme_bw(8)+
+  theme(panel.grid = element_blank())
 
 ggsave(sprintf(url_fig,"fleet"),dpi=600,units = "cm",
        width = 12,height=8.7)

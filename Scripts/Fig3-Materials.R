@@ -61,12 +61,11 @@ total_df <- total_df %>%
     T ~ Stage))
 unique(total_df$Stage)
 
-
-
-# a) Non-metal vs Metal -----
+# a) Non-metal vs Metal vs Energy -----
 
 data_fig_a <- total_df %>% 
-  filter(Category=="Material consumption") %>%
+  filter(Category %in% c("Material consumption","Energy material")) %>%
+  mutate(Impact_Name=if_else(Category=="Energy material","Energy",Impact_Name)) %>% 
   group_by(vehicle_type,Impact_Name,Stage) %>% 
   reframe(value=sum(value)/1e9) %>% ungroup() # million tons
 
@@ -75,7 +74,7 @@ data_fig_a <- data_fig_a %>%
   pivot_wider(names_from = Impact_Name, values_from = value) %>% 
   mutate(`Non-Metal`=`Other Materials`-Metal) %>% 
   mutate(`Other Materials`=NULL) %>% 
-  pivot_longer(c(Metal,`Non-Metal`), names_to = "Impact_Name", values_to = "value") %>% 
+  pivot_longer(c(Metal,`Non-Metal`,Energy), names_to = "Impact_Name", values_to = "value") %>% 
   mutate(Abbr=Impact_Name) %>% 
   mutate(vehicle_type=factor(vehicle_type)) %>% 
   mutate(abb_lab=if_else(abs(value)>10,Abbr,""))
@@ -106,25 +105,34 @@ data_fig_c <- total_df %>%
   mutate(vehicle_type=factor(vehicle_type)) %>% 
   mutate(abb_lab=if_else(abs(value)>10,Abbr,""))
 
+# d) Energy Extraction ------
+
+data_fig_d <- total_df %>% 
+  filter(Category=="Energy material") %>% 
+  group_by(vehicle_type,Impact_Name,Abbr,Stage) %>% 
+  reframe(value=sum(value)/1e9) %>% ungroup() %>% # million tons
+  mutate(vehicle_type=factor(vehicle_type)) %>% 
+  mutate(abb_lab=if_else(abs(value)>10,Abbr,""))
+
 # Combined -----
 
-mat_levels <- c("Cobalt","Copper","Lithium","Nickel","REE",
+mat_levels <- c("Cobalt","Copper","Lithium","Nickel","REE","Gold","Lead",
                 "Aluminium","Zinc","Barium","Calcium","Chromium","Iron","Magnesium","Manganese",
-                "Phosphorus","Silicon","Sulphur","Non-Metal","Metal")
-mat_colors <- scico::scico(11, palette = "batlow", direction = 1)
+                "Phosphorus","Silicon","Sulphur","Non-Metal","Metal","Energy","Coal","Oil","Natural gas","Uranium","Other")
+mat_colors <- scico::scico(13, palette = "batlow", direction = 1)
 mat_colors <- c("#3B5BA5CC", "#D9883DCC", "#76B7B2CC", "#59A14FCC", "#AF7AA1CC",
-                mat_colors,"#4E79A7CC","#E15759CC")
+                mat_colors,"#4E79A7CC","#E15759CC","#BA8E23",
+                "#8c564b","#9467bd","#CD7F32","#2ca02c","#c5b0d5") # Fuel colors (copy-pasted)
 names(mat_colors) <- mat_levels
-
 
 comb_lvl2 <- expand.grid(stage_lvl,mat_levels) %>% mutate(x=paste0(Var1,Var2)) %>% pull(x)
 
-
 data_fig <- rbind(mutate(data_fig_a,key="Material"),
                   mutate(data_fig_b,key="Metal"),
-                  mutate(data_fig_c,key="Critical minerals")) %>% 
+                  mutate(data_fig_c,key="Critical minerals"),
+                  mutate(data_fig_d,key="Fossil energy")) %>% 
   mutate(lvl=factor(paste0(Stage,Impact_Name),levels=comb_lvl2)) %>% 
-  mutate(key=factor(key,levels=c("Material","Metal","Critical minerals"))) %>% 
+  mutate(key=factor(key,levels=c("Material","Metal","Critical minerals","Fossil energy"))) %>% 
   mutate(Impact_Name=factor(Impact_Name,levels=rev(mat_levels))) %>% 
   mutate(Stage=factor(Stage,levels = rev(stage_lvl))) %>% 
   arrange(lvl)
@@ -140,18 +148,19 @@ total_fig <- data_fig %>%
   mutate(Impact_Name=factor(Impact_Name,levels=(mat_levels))) 
   
 
-stage_text <- filter(data_fig,key=="Material",vehicle_type=="EV",abb_lab=="Metal") %>% arrange(Stage)
+stage_text <- filter(data_fig,key=="Material",vehicle_type=="EV",abb_lab=="Energy") %>% arrange(Stage)
 
 p <- ggplot(total_fig,aes(as.numeric(vehicle_type)-0.2,value))+
   geom_col(data=data_fig,aes(fill=Stage,group=lvl),position = position_stack(),
            col="black",linewidth=0.1,width=0.3,alpha=.7)+
-  geom_text(data=stage_text,position = position_stack(vjust = 0.5),size=7*5/14 * 0.8,angle=c(90,90,0),
+  geom_text(data=stage_text,position = position_stack(vjust = 0.5),size=7*5/14 * 0.8,
+            # angle=c(90,90,0),
             aes(x=as.numeric(vehicle_type)-0.2,label = Stage))+
   geom_col(aes(as.numeric(vehicle_type)+0.2,fill=Impact_Name),position = position_stack(),
            col="black",linewidth=0.1,width=0.5)+
   geom_text(position = position_stack(vjust = 0.5),size=7*5/14 * 0.8,
             aes(x=as.numeric(vehicle_type)+0.2,label = abb_lab,col=col_text,group = Impact_Name))+
-  facet_wrap(~key,scales="free")+
+  facet_wrap(~key,scales="free",ncol=3)+
   scale_y_continuous(labels=function(x) format(x, big.mark = " ", scientific = FALSE),
                      expand = expansion(mult = c(0, 0.05)),
                      sec.axis = sec_axis(~ . * 1e9 / vmt_total$vmt*1.61, name = "kg per km (avg.)"))+

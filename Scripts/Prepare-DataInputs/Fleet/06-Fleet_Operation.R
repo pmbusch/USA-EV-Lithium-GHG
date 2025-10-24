@@ -136,11 +136,12 @@ data_mpg <- fe_ice %>% mutate(full.name=NULL,unit="gallons") %>%
 ggplot(data_mpg,aes(period,mpge,col=type))+
   geom_line(linewidth=0.3)+
   geom_text(data=filter(data_mpg,period==2040),aes(label=type),
-            nudge_y = c(1,-1,1,1,1,1)*5,
+            nudge_y = c(0.8,-1,1,1,1,1)*5,
             size=8*5/14 * 0.8)+
   coord_cartesian(expand=F,ylim = c(0,200))+
   scale_color_manual(values=c("#4daf4a","#e41a1c","#e41a1c90","#377eb8","#984ea3","#984ea390"))+
-  labs(x="",y="",fill="",title="Miles per gallon equivalent",col="")+
+  scale_y_continuous(sec.axis = sec_axis(~ . / 33.7, name = "kWh per mile"))+
+  labs(x="",y="Miles per gallon equivalent (mpge)",fill="",title="",col="")+
   theme_bw(8)+
   theme(panel.grid = element_blank(),
         axis.text.x = element_text(hjust=1),

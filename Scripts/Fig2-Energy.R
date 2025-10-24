@@ -12,6 +12,7 @@ df <- df_all %>%
          Scenario_Lifetime=="Reference",
          Scenario_Capacity=="Reference",
          Scenario_Recycling=="Recycling 45%",
+         Scenario_mpg=="Reference",
          Scenario_Grid=="ref2025")
 
 ## VMT  ------
@@ -31,8 +32,6 @@ vmt <- vmt %>% group_by(Scenario_Sales,Scenario_Lifetime,Year) %>% reframe(vmt=s
 vmt_total <- vmt %>% group_by(Scenario_Sales,Scenario_Lifetime) %>% reframe(vmt=sum(vmt)*1e6) # total miles 
 vmt_total <- vmt_total %>% 
   filter(Scenario_Sales=="Ambitious",Scenario_Lifetime=="Reference")
-
-
 
 # Figure -----
 
