@@ -1,6 +1,5 @@
-# Common scripts to load results into a df, for all scenarios
-
-## PBH Sept 2025
+# 02b - Scenario_Load_Results
+# Load results in repeated format for scenario analysis and comparison
 
 source("Scripts/00-Libraries.R", encoding = "UTF-8")
 source("Scripts/01-CommonVariables.R", encoding = "UTF-8")
@@ -15,7 +14,6 @@ ev_usage <- read.csv("Results/ev_usage.csv") # by Sales, Lifetime and Grid Scena
 ice_usage <- read.csv("Results/ice_usage.csv") # by Sales and Lifetime Scenario
 LIB_recycling <- read.csv("Results/LIB_recycling.csv") # by Sales, Capacity and Lifetime Scenario
 veh_recycling <- read.csv("Results/veh_recycling.csv") # by Sales and Lifetime Scenario
-
 
 amort_total <- read.csv("Results/amort_veh.csv")
 amort_lib_total <- read.csv("Results/amort_LIB.csv")
@@ -38,29 +36,57 @@ kwh_recycling_total <- read.csv("Results/kwh_recyc.csv")
 (names(amort_lib_total) <- names(amort_lib_total) %>% str_remove("LIB_"))
 
 
-# Flat them and join them
-f.flat <- function(df) {
+# scenario of grid to include
+scens_grid <- c("ref2025", "Cambium", "highogs", "lowogs")
+
+# Flat them and join them - expanding missing scenarios
+f.flat.exp <- function(df) {
   names_scen <- paste0(names(df), collapse = ",")
 
-  # add missing scen as "Reference"
+  # EXPAND DF to include all other scenario, no grid...
   if (!str_detect(names_scen, "Scenario_Lifetime")) {
-    df$Scenario_Lifetime <- "Reference"
+    df_aux <- c()
+    for (i in unique(LIB_replacement$Scenario_Lifetime)) {
+      df$Scenario_Lifetime <- i
+      df_aux <- rbind(df_aux, df)
+    }
+    df <- df_aux
   }
 
   if (!str_detect(names_scen, "Scenario_Capacity")) {
-    df$Scenario_Capacity <- "Reference"
+    df_aux <- c()
+    for (i in unique(LIB_replacement$Scenario_Capacity)) {
+      df$Scenario_Capacity <- i
+      df_aux <- rbind(df_aux, df)
+    }
+    df <- df_aux
   }
 
   if (!str_detect(names_scen, "Scenario_Grid")) {
-    df$Scenario_Grid <- "ref2025"
+    df_aux <- c()
+    for (i in scens_grid) {
+      df$Scenario_Grid <- i
+      df_aux <- rbind(df_aux, df)
+    }
+    df <- df_aux
   }
 
   if (!str_detect(names_scen, "Scenario_mpg")) {
-    df$Scenario_mpg <- "Reference"
+    df_aux <- c()
+    for (i in unique(ice_usage$Scenario_mpg)) {
+      df$Scenario_mpg <- i
+      df_aux <- rbind(df_aux, df)
+    }
+    df <- df_aux
   }
 
   if (!str_detect(names_scen, "Scenario_Recycling")) {
-    df$Scenario_Recycling <- "Recycling 0%"
+    df_aux <- c()
+    for (i in unique(LIB_recycling$Scenario_Recycling)) {
+      df$Scenario_Recycling <- i
+      df_aux <- rbind(df_aux, df)
+    }
+    df <- df_aux
   }
 
   df <- df %>%
@@ -83,24 +109,22 @@ f.flat <- function(df) {
   return(df)
 }
 
-df_all <- rbind(
-  f.flat(veh_prod),
-  f.flat(veh_maintenance),
-  f.flat(lib_prod),
-  f.flat(LIB_replacement),
-  f.flat(ev_usage),
-  f.flat(ice_usage),
-  f.flat(amort_total),
-  f.flat(amort_lib_total),
-  f.flat(LIB_recycling),
-  f.flat(veh_recycling)
+df_all_scen <- rbind(
+  f.flat.exp(veh_prod),
+  f.flat.exp(veh_maintenance),
+  f.flat.exp(lib_prod),
+  f.flat.exp(LIB_replacement),
+  f.flat.exp(ev_usage),
+  f.flat.exp(ice_usage),
+  f.flat.exp(amort_total),
+  f.flat.exp(amort_lib_total),
+  f.flat.exp(LIB_recycling),
+  f.flat.exp(veh_recycling)
 )
-
 # fmt: skip
-rm(veh_prod,veh_maintenance,lib_prod,LIB_replacement,ev_usage,ice_usage,amort_total,amort_lib_total,LIB_recycling,veh_recycling)
+rm(veh_prod,veh_maintenance,lib_prod,LIB_replacement,ev_usage,ice_usage,amort_total,amort_lib_total,LIB_recycling)
 
-nrow(df_all) / 1e6 # below 1M, good
-unique(df_all$Stage)
+nrow(df_all_scen) / 1e6 # 7m
 
 stage_lvl <- c(
   "LIB Recycling",
@@ -110,6 +134,8 @@ stage_lvl <- c(
   "Vehicle Maintenance",
   "Vehicle production"
 )
-df_all <- df_all %>% mutate(Stage = factor(Stage, levels = stage_lvl))
+df_all_scen <- df_all_scen %>%
+  mutate(Stage = factor(Stage, levels = stage_lvl)) |>
+  filter(Scenario_Grid %in% scens_grid)
 
 # EoF

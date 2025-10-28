@@ -4,67 +4,87 @@
 
 library(tidyverse)
 library(readxl)
-theme_set(theme_bw(8)+ theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank()))
+theme_set(
+  theme_bw(8) +
+    theme(
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank()
+    )
+)
 
 url_file <- "Inputs"
 
 # propietary data - ecoinvent 3.11
-(sheets <- excel_sheets(paste0(url_file,"/LCI_ecoinvent311.xlsx")))
+(sheets <- excel_sheets(paste0(url_file, "/LCI_ecoinvent311.xlsx")))
 
-# pick only upstream impacts: 
+# pick only upstream impacts:
 # fuel prod
 # vehicle manuf
 # lib prod
 # car maintenance
 # li extraction
-(sheets <- sheets[str_detect(sheets,"up|maintenance")])
+(sheets <- sheets[str_detect(sheets, "up|maintenance")])
 
 # Loop LCI ecoinvent ------------
 ecoinvent <- c()
-for(s in sheets){
-  
+for (s in sheets) {
   # read entire sheet
-  df <- read_excel(paste0(url_file,"/LCI_ecoinvent311.xlsx"),sheet=s,
-                   .name_repair = "unique_quiet")
+  df <- read_excel(
+    paste0(url_file, "/LCI_ecoinvent311.xlsx"),
+    sheet = s,
+    .name_repair = "unique_quiet"
+  )
   # get metadata
-  name <- df[2,3][[1]]
-  cat(name,"\n")
-  region <- df[2,2][[1]]
-  
-  ref_year <- df[min(which(df[,1]=="Reference year")),2][[1]]
-  
+  name <- df[2, 3][[1]]
+  cat(name, "\n")
+  region <- df[2, 2][[1]]
+
+  ref_year <- df[min(which(df[, 1] == "Reference year")), 2][[1]]
+
   # read inputs and outputs
-  pos_inputs <- which(df[,1]=="Inputs")
-  pos_outputs <- which(df[,1]=="Outputs")
-  
-  inputs <- df[(pos_inputs+2):(pos_outputs-1),]
-  colnames(inputs) <- df[(pos_inputs+1),]
-  
-  pos_end <- which(df[,1]=="VF type")
-  outputs <- df[(pos_outputs+2):(pos_end-1),]
-  colnames(outputs) <- df[(pos_outputs+1),]
-  
+  pos_inputs <- which(df[, 1] == "Inputs")
+  pos_outputs <- which(df[, 1] == "Outputs")
+
+  inputs <- df[(pos_inputs + 2):(pos_outputs - 1), ]
+  colnames(inputs) <- df[(pos_inputs + 1), ]
+
+  pos_end <- which(df[, 1] == "VF type")
+  outputs <- df[(pos_outputs + 2):(pos_end - 1), ]
+  colnames(outputs) <- df[(pos_outputs + 1), ]
+
   #join them
   inputs$Type <- "Inputs"
   outputs$Type <- "Outputs"
-  
-  df_aux <- rbind(inputs,outputs) %>% 
-    mutate(Name=name,Region=region,Year=ref_year,sheet=s)
-  
+
+  df_aux <- rbind(inputs, outputs) %>%
+    mutate(Name = name, Region = region, Year = ref_year, sheet = s)
+
   # Functional UNIT
-  FU <- df_aux %>% filter(Type=="Outputs") %>% slice(1) %>% 
-    mutate(FU=paste0(Amount," ",Units)) %>% 
+  FU <- df_aux %>%
+    filter(Type == "Outputs") %>%
+    slice(1) %>%
+    mutate(FU = paste0(Amount, " ", Units)) %>%
     pull(FU)
-  
+
   df_aux$fu <- FU
-  
+
   # join to master
-  ecoinvent <- rbind(ecoinvent,df_aux)
-  
-  rm(df,df_aux,inputs,outputs,name,region,ref_year,pos_end,
-     pos_inputs,pos_outputs)
+  ecoinvent <- rbind(ecoinvent, df_aux)
+
+  rm(
+    df,
+    df_aux,
+    inputs,
+    outputs,
+    name,
+    region,
+    ref_year,
+    pos_end,
+    pos_inputs,
+    pos_outputs
+  )
 }
-nrow(ecoinvent)/1e6 #0.03M
+nrow(ecoinvent) / 1e6 #0.03M
 unique(ecoinvent$fu)
 
 # Endpoints -----
@@ -73,69 +93,92 @@ end <- read.csv("Parameters/endpoints.csv")
 head(end)
 
 # Add endpoints and estimate impacts for flows
-df <- ecoinvent %>% rename(Flow=Flows) %>% 
-  left_join(end,by="Flow")
+df <- ecoinvent %>% rename(Flow = Flows) %>% left_join(end, by = "Flow")
 names(df)
 
 # refill NA as 0
-df <- df %>% mutate(across(c("kgCO2eq","MJ","kgSO2eq","kgCFC11eq","kgPM2.5eq","kgO3eq","MJ_nonRenewable"), ~replace_na(., 0)))
+df <- df %>%
+  mutate(across(
+    c(
+      "kgCO2eq",
+      "MJ",
+      "kgSO2eq",
+      "kgCFC11eq",
+      "kgPM2.5eq",
+      "kgO3eq",
+      "MJ_nonRenewable"
+    ),
+    ~ replace_na(., 0)
+  ))
 
 # get energy consumption detail
-energy <- df %>% 
-  mutate(Amount=as.numeric(Amount)) %>% 
-  mutate(kg=Amount*case_when(
-    Quantities=="Mass"~1,
-    Quantities=="Standard volume"~0.8, # NG density 0.8 kg/m3
-    Quantities=="Volume"~0, # do not consider wood nor biomass
-    T ~0)) %>% 
-  filter(!near(MJ,0)) %>%
-  mutate(MJ=Amount*MJ) %>% 
+energy <- df %>%
+  mutate(Amount = as.numeric(Amount)) %>%
+  mutate(
+    kg = Amount *
+      case_when(
+        Quantities == "Mass" ~ 1,
+        Quantities == "Standard volume" ~ 0.8, # NG density 0.8 kg/m3
+        Quantities == "Volume" ~ 0, # do not consider wood nor biomass
+        T ~ 0
+      )
+  ) %>%
+  filter(!near(MJ, 0)) %>%
+  mutate(MJ = Amount * MJ) %>%
   # filter(str_detect(Flow,"resource")) %>%
-  mutate(prim_energy=case_when(
-    str_detect(Flow,"oil") ~ "Crudeoil",
-    str_detect(Flow,"Natural gas") ~ "Naturalgas",
-    str_detect(Flow,"Coal") ~ "Coal",
-    str_detect(Flow,"wind") ~ "Wind",
-    str_detect(Flow,"solar") ~ "Solar",
-    str_detect(Flow,"Biomass") ~ "Biomass",
-    str_detect(Flow,"hydro") ~ "Hydro",
-    str_detect(Flow,"geothermal") ~ "Geothermal",
-    str_detect(Flow,"Uranium") ~ "Uranium",
-    T ~ "Otherenergy"))
+  mutate(
+    prim_energy = case_when(
+      str_detect(Flow, "oil") ~ "Crudeoil",
+      str_detect(Flow, "Natural gas") ~ "Naturalgas",
+      str_detect(Flow, "Coal") ~ "Coal",
+      str_detect(Flow, "wind") ~ "Wind",
+      str_detect(Flow, "solar") ~ "Solar",
+      str_detect(Flow, "Biomass") ~ "Biomass",
+      str_detect(Flow, "hydro") ~ "Hydro",
+      str_detect(Flow, "geothermal") ~ "Geothermal",
+      str_detect(Flow, "Uranium") ~ "Uranium",
+      T ~ "Otherenergy"
+    )
+  )
 # biomass is in MJ (avoid as it is renewable)
-energy %>% group_by(prim_energy,Quantities,Units) %>% tally()
-energy %>% group_by(prim_energy) %>% reframe(MJ=sum(MJ),kg=sum(kg)) %>% arrange(desc(MJ))
-energy <- energy %>% 
-  group_by(sheet,Name,Region,fu,prim_energy) %>% 
-  reframe(MJ=sum(MJ),kg=sum(kg)) %>% 
-  pivot_wider(names_from = prim_energy, values_from = c(MJ,kg))
+energy %>% group_by(prim_energy, Quantities, Units) %>% tally()
+energy %>%
+  group_by(prim_energy) %>%
+  reframe(MJ = sum(MJ), kg = sum(kg)) %>%
+  arrange(desc(MJ))
+energy <- energy %>%
+  group_by(sheet, Name, Region, fu, prim_energy) %>%
+  reframe(MJ = sum(MJ), kg = sum(kg)) %>%
+  pivot_wider(names_from = prim_energy, values_from = c(MJ, kg))
 
 # remove energy source with 0 material need
 energy$kg_Biomass <- energy$kg_Geothermal <- energy$kg_Hydro <- energy$kg_Solar <- energy$kg_Wind <- NULL
 
 # get GHG emissions detail for discounting
-dict_ghg <- read_excel("Inputs/TAWP_AR6.xlsx",sheet="Match_ecoinvent")  
-ghg <- df %>% 
-  mutate(Amount=as.numeric(Amount)) %>% 
-  left_join(dict_ghg) %>% 
-  filter(!is.na(Sign)) %>% 
-  mutate(Amount=Amount*Sign) %>% 
-  group_by(sheet,Name,Region,fu,Match) %>% 
-  reframe(Amount=sum(Amount)) %>% 
-  mutate(Match=paste0("kg_",Match)) %>% 
+dict_ghg <- read_excel("Inputs/TAWP_AR6.xlsx", sheet = "Match_ecoinvent")
+ghg <- df %>%
+  mutate(Amount = as.numeric(Amount)) %>%
+  left_join(dict_ghg) %>%
+  filter(!is.na(Sign)) %>%
+  mutate(Amount = Amount * Sign) %>%
+  group_by(sheet, Name, Region, fu, Match) %>%
+  reframe(Amount = sum(Amount)) %>%
+  mutate(Match = paste0("kg_", Match)) %>%
   pivot_wider(names_from = Match, values_from = Amount)
-  
+
 # estimate impact per FU
-df <- df %>% 
-  mutate(Amount=as.numeric(Amount)) %>% 
-  group_by(sheet,Name,Region,fu) %>% 
-  reframe(kgCO2eq=sum(Amount*kgCO2eq),
-          MJ=sum(Amount*MJ),
-          MJ_nonRenewable=sum(Amount*MJ_nonRenewable),
-          kgSO2eq=sum(Amount*kgSO2eq),
-          kgCFC11eq=sum(Amount*kgCFC11eq),
-          kgPM2.5eq=sum(Amount*kgPM2.5eq),
-          kgO3eq=sum(Amount*kgO3eq)) %>% 
+df <- df %>%
+  mutate(Amount = as.numeric(Amount)) %>%
+  group_by(sheet, Name, Region, fu) %>%
+  reframe(
+    kgCO2eq = sum(Amount * kgCO2eq),
+    MJ = sum(Amount * MJ),
+    MJ_nonRenewable = sum(Amount * MJ_nonRenewable),
+    kgSO2eq = sum(Amount * kgSO2eq),
+    kgCFC11eq = sum(Amount * kgCFC11eq),
+    kgPM2.5eq = sum(Amount * kgPM2.5eq),
+    kgO3eq = sum(Amount * kgO3eq)
+  ) %>%
   ungroup()
 
 # add detail
@@ -144,77 +187,92 @@ df <- df %>% left_join(energy) %>% left_join(ghg)
 
 
 # save
-write.csv(df,"Parameters/Manufacturing/ecoinvent_upstream.csv",row.names = F)
+write.csv(df, "Parameters/Manufacturing/ecoinvent_upstream.csv", row.names = F)
 
 
 # Get material usage in manufacturing (from Inputs)
-mat <- ecoinvent %>% 
-  filter(Type=="Inputs") %>% 
-  filter(str_detect(Flows,"Non renewable elements")) %>% 
-  mutate(Material=str_remove(Flows," \\[Non renewable elements\\]")) %>% 
-  mutate(Amount=as.numeric(Amount))
+mat <- ecoinvent %>%
+  filter(Type == "Inputs") %>%
+  filter(str_detect(Flows, "Non renewable elements")) %>%
+  mutate(Material = str_remove(Flows, " \\[Non renewable elements\\]")) %>%
+  mutate(Amount = as.numeric(Amount))
 unique(mat$Units)
 
-mat <- mat %>% 
-  group_by(sheet,Name,Region,fu,Material) %>% 
-  reframe(kgMat=sum(Amount)) %>% ungroup()
+mat <- mat %>%
+  group_by(sheet, Name, Region, fu, Material) %>%
+  reframe(kgMat = sum(Amount)) %>%
+  ungroup()
 
 unique(mat$Material)
-mat %>% 
-  filter(str_detect(Name,"battery production|passenger car production")) %>% 
-  group_by(Material) %>% 
-  reframe(kgMat=mean(kgMat)) %>% 
+mat %>%
+  filter(str_detect(Name, "battery production|passenger car production")) %>%
+  group_by(Material) %>%
+  reframe(kgMat = mean(kgMat)) %>%
   arrange(desc(kgMat))
 
 # save endpoints: total mass, total metal mass, and key minerals
-mat_interest <- c("Lithium","Nickel","Cobalt","Copper","Zinc","REE","Aluminium")
+mat_interest <- c(
+  "Lithium",
+  "Nickel",
+  "Cobalt",
+  "Copper",
+  "Zinc",
+  "REE",
+  "Aluminium"
+)
 metals <- read_excel("Inputs/Elements_Metals.xlsx")
 
 # top ones based on content
-top_mats <- metals %>% filter(Highlight=="Yes") %>% pull(Material)
-top_mats <- c(top_mats,"REE")
+top_mats <- metals %>% filter(Highlight == "Yes") %>% pull(Material)
+top_mats <- c(top_mats, "REE")
 
-mat <- mat %>% 
-  left_join(metals) %>% 
-  mutate(Material=if_else(Metal=="Rare earth metal","REE",Material)) %>% 
-  mutate(addMetal=if_else(Metal %in% c("REE","Metal"),1,0)) %>% 
-  mutate(topMat=if_else(Material %in% c("REE",top_mats),1,0))
+mat <- mat %>%
+  left_join(metals) %>%
+  mutate(Material = if_else(Metal == "Rare earth metal", "REE", Material)) %>%
+  mutate(addMetal = if_else(Metal %in% c("REE", "Metal"), 1, 0)) %>%
+  mutate(topMat = if_else(Material %in% c("REE", top_mats), 1, 0))
 
-mat_agg1 <- mat %>% 
-  group_by(sheet,Name,Region,fu) %>% 
-  reframe(kgMetal=sum(kgMat*addMetal),
-          kgMat=sum(kgMat)) %>% ungroup()
+mat_agg1 <- mat %>%
+  group_by(sheet, Name, Region, fu) %>%
+  reframe(kgMetal = sum(kgMat * addMetal), kgMat = sum(kgMat)) %>%
+  ungroup()
 
-mat_agg2 <- mat %>% 
-  # filter(Material %in% mat_interest) %>% 
-  filter(Material %in% top_mats) %>% 
-  group_by(sheet,Name,Region,fu,Material) %>% 
-  reframe(kgMat=sum(kgMat)) %>% ungroup() %>% 
-  mutate(Material=paste0("kg",Material)) %>% 
-  pivot_wider(names_from = Material, values_from = kgMat)
-          
-mat_agg <- left_join(mat_agg1,mat_agg2)
-
-write.csv(mat_agg,"Parameters/Manufacturing/ecoinvent_upstream_material.csv",row.names = F)
-
-
-mat <- mat %>% 
-  mutate(mat_label=if_else(kgMat>0.5,Material,""))
-
-mat %>% 
-  filter(str_detect(fu,"kg")) %>% 
-  filter(kgMat>0.001) %>% 
+mat_agg2 <- mat %>%
   # filter(Material %in% mat_interest) %>%
-  ggplot(aes(Name,kgMat,fill=Material))+
-  geom_col()+
-  geom_text(aes(label=mat_label),position = position_stack(vjust=0.5),
-            size=6*5/14 * 0.8)+
-  coord_flip()+
-  labs(x="",y="kg per kg")+
-  # guides(fill=guide_legend(nrow=4,reverse = T))+
-  guides(fill=guide_legend(ncol=3,reverse=T,byrow=T))+
-  theme(legend.text = element_text(size=5),
-        legend.position = "bottom")
+  filter(Material %in% top_mats) %>%
+  group_by(sheet, Name, Region, fu, Material) %>%
+  reframe(kgMat = sum(kgMat)) %>%
+  ungroup() %>%
+  mutate(Material = paste0("kg", Material)) %>%
+  pivot_wider(names_from = Material, values_from = kgMat)
 
+mat_agg <- left_join(mat_agg1, mat_agg2)
+
+write.csv(
+  mat_agg,
+  "Parameters/Manufacturing/ecoinvent_upstream_material.csv",
+  row.names = F
+)
+
+
+mat <- mat %>%
+  mutate(mat_label = if_else(kgMat > 0.5, Material, ""))
+
+mat %>%
+  filter(str_detect(fu, "kg")) %>%
+  filter(kgMat > 0.001) %>%
+  # filter(Material %in% mat_interest) %>%
+  ggplot(aes(Name, kgMat, fill = Material)) +
+  geom_col() +
+  geom_text(
+    aes(label = mat_label),
+    position = position_stack(vjust = 0.5),
+    size = 6 * 5 / 14 * 0.8
+  ) +
+  coord_flip() +
+  labs(x = "", y = "kg per kg") +
+  # guides(fill=guide_legend(nrow=4,reverse = T))+
+  guides(fill = guide_legend(ncol = 3, reverse = T, byrow = T)) +
+  theme(legend.text = element_text(size = 5), legend.position = "bottom")
 
 # EoF

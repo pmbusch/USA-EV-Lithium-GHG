@@ -12,10 +12,13 @@ df <- df_all %>%
     Scenario_Sales == "Ambitious",
     Scenario_Lifetime == "Reference",
     Scenario_Capacity == "Reference",
-    Scenario_Recycling == "Recycling 45%",
+    Scenario_Recycling == "Recycling 0%",
     Scenario_mpg == "Reference",
     Scenario_Grid == "ref2025"
   )
+
+# fmt: skip
+table(df$Scenario_Sales,df$Scenario_Lifetime,df$Scenario_Capacity,df$Scenario_Grid,df$Scenario_mpg,df$Scenario_Recycling)
 
 
 ## VMT  ------
@@ -43,6 +46,18 @@ dict <- read_excel("Inputs/Dict_Impacts.xlsx")
 start_year <- 2025
 range(df$Year)
 
+# simplified stages
+stage_colors <- viridis::viridis(6, option = "E", direction = -1)
+names(stage_colors) <- stage_lvl
+df <- df %>%
+  mutate(
+    Stage = case_when(
+      str_detect(Stage, "Recycling|Replacement") ~ "LIB production",
+      str_detect(Stage, "Maintenance") ~ "Vehicle production",
+      T ~ Stage
+    )
+  )
+
 total_df <- df %>%
   left_join(dict) %>%
   filter(!is.na(Category)) %>%
@@ -57,9 +72,6 @@ total_df <- df %>%
   ) %>%
   mutate(labX = paste0(Impact_Name, "-", vehicle_type))
 
-
-stage_colors <- viridis::viridis(6, option = "E", direction = -1)
-names(stage_colors) <- stage_lvl
 
 ## Energy -----
 
@@ -136,7 +148,7 @@ p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
   geom_col(data = data_fig3a,aes(fill = Stage),position = position_stack(),
     col = "black", linewidth = 0.1,width = 0.3) +
   geom_text(data = data_fig3a,position = position_stack(vjust = 0.5),
-    size = 8 * 5 / 14 * 0.8,aes(label = abb_lab, group = Stage, col = color_text)) +
+    size = 8.5 * 5 / 14 * 0.8,aes(label = abb_lab, group = Stage, col = color_text)) +
   # geom_text(data=total_lab2,aes(label=lab_total),size=8*5/14 * 0.8,
   #           nudge_y = 0)+
   scale_color_manual(values = c("whit" = "white", "blac" = "black")) +
@@ -147,7 +159,7 @@ p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
   # by energy
   geom_col(aes(x = as.numeric(vehicle_type) - 0.15, fill = Impact_Name, group = lvl),
     position = position_stack(),col = "black",linewidth = 0.1,width = 0.3) +
-  geom_text(position = position_stack(vjust = 0.5),size = 8 * 5 / 14 * 0.8,
+  geom_text(position = position_stack(vjust = 0.5),size = 8.5 * 5 / 14 * 0.8,
     aes(x = as.numeric(vehicle_type) - 0.15, label = abb_lab, group = lvl)) +
   facet_wrap(~x, ncol = 1) +
   coord_flip() +
@@ -160,15 +172,18 @@ p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
   scale_x_continuous(breaks = 1:2, labels = c("EV", "ICEV")) +
   labs(x = "", y = "TWh Non-renewable Primary Energy 2025-2050 (whole fleet)", fill = "Energy source", tag = "") +
   guides(fill = guide_legend(reverse = TRUE, nrow = 1)) +
-  theme_bw(8) +
+  theme_bw(9) +
   theme(
     panel.grid = element_blank(),
     strip.background = element_rect(fill = NA, color = NA),
     strip.placement = "outside",
-    strip.text = element_text(size = 10),
+    strip.text = element_text(size = 10, face = "bold"),
+    plot.title = element_text(face = "bold", hjust = 0.5),
     axis.text.x = element_text(hjust = 1),
     axis.title.y.right = element_text(face = "italic"),
     plot.tag = element_text(face = "bold"),
+    legend.text = element_text(size = 8.5),
+    legend.key.size = unit(0.2, "cm"),
     axis.title.x.top = element_text(margin = margin(b = -22)),
     legend.box = "vertical",
     legend.position = "bottom"
@@ -176,7 +191,20 @@ p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
 
 p3
 
-ggsave("Figures/Fig2.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7 * 3, height = 8.7 * 1.5)
+ggsave("Figures/Fig2.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 18, height = 8.7 * 1.5)
+
+pdf("Figures/PDF/Figure2.pdf", width = 18 / 2.54, height = 12.4 / 2.54)
+ggplot2::last_plot()
+dev.off()
+
+# total energy comparison
+data_fig3 |>
+  group_by(x, vehicle_type) |>
+  reframe(value = sum(value)) |>
+  pivot_wider(names_from = vehicle_type, values_from = value) |>
+  mutate(diff = (EV - ICE) / ICE) |>
+  mutate(EV_km = EV * 1e9 / vmt_total$vmt * 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt * 1.61)
+
 
 # table with numbers
 data_fig3 |>
@@ -187,6 +215,15 @@ data_fig3 |>
 
 # 1 oil barrel: 1700 kWh
 70000 * 1e9 / 1700 / 1e6
+
+# Stage accounting
+data_fig3 |>
+  filter(x == "Primary Energy") |>
+  group_by(Stage, vehicle_type) |>
+  reframe(value = sum(value)) |>
+  pivot_wider(names_from = vehicle_type, values_from = value) |>
+  mutate(perc_EV = EV / sum(EV), perc_ICE = ICE / sum(ICE, na.rm = T))
+
 
 # OLD -----
 
