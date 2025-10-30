@@ -263,7 +263,7 @@ f.makePlot <- function(filter_cond, special = F) {
     scale_y_continuous(
       labels = function(x) format(x, big.mark = " ", scientific = FALSE),
       expand = expansion(mult = c(0, 0.05)),
-      sec.axis = sec_axis(~ . * 1e9 / vmt_total$vmt * 1.61, name = "kg per km")
+      sec.axis = sec_axis(~ . * 1e9 / vmt_total$vmt / 1.61, name = "kg per km")
     ) +
     scale_fill_manual(values = c(stage_colors, mat_colors), breaks = names(mat_colors)[14:18]) +
     scale_color_manual(values = c("special" = "white", "normal" = "black")) +
@@ -311,7 +311,7 @@ p4 <- f.makePlot(key == "Fossil energy") +
   guides(fill = guide_legend(reverse = F, ncol = 1)) +
   theme(legend.position = c(0.25, 0.85))
 p5 <- f.makePlot(key == "80% Recycling") +
-  ggtitle("80% Recycling") +
+  ggtitle("LIB 80% Recycling") +
   coord_cartesian(ylim = c(0, 260)) +
   guides(fill = guide_legend(reverse = F, ncol = 1)) +
   theme(legend.position = "none")
@@ -331,7 +331,7 @@ data_fig |>
   pivot_wider(names_from = vehicle_type, values_from = value) |>
   mutate(diff_ice = (ICE - EV) / EV) |>
   mutate(diff = (EV - ICE) / ICE) |>
-  mutate(EV_km = EV * 1e9 / vmt_total$vmt * 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt * 1.61) |>
+  mutate(EV_km = EV * 1e9 / vmt_total$vmt / 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt / 1.61) |>
   mutate(EV_km_per_kg = 1 / EV_km, ICE_km_per_kg = 1 / ICE_km)
 
 # total energy - in million tons
@@ -350,7 +350,7 @@ data_fig |>
   pivot_wider(names_from = vehicle_type, values_from = value) |>
   mutate(diff_ice = (ICE - EV) / EV) |>
   mutate(diff = (EV - ICE) / ICE) |>
-  mutate(EV_km = EV * 1e9 / vmt_total$vmt * 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt * 1.61) |>
+  mutate(EV_km = EV * 1e9 / vmt_total$vmt / 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt / 1.61) |>
   mutate(EV_km_per_kg = 1 / EV_km, ICE_km_per_kg = 1 / ICE_km)
 
 # kwh

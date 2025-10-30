@@ -166,7 +166,7 @@ p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
   scale_y_continuous(
     labels = function(x) format(x, big.mark = " ", scientific = FALSE),
     expand = expansion(mult = c(0, 0.05)),
-    sec.axis = sec_axis(~ . * 1e9 / vmt_total$vmt * 1.61, name = "kWh per km")
+    sec.axis = sec_axis(~ . * 1e9 / vmt_total$vmt / 1.61, name = "kWh per km")
   ) +
   scale_fill_manual(values = energy_colors) +
   scale_x_continuous(breaks = 1:2, labels = c("EV", "ICEV")) +
@@ -184,7 +184,7 @@ p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
     plot.tag = element_text(face = "bold"),
     legend.text = element_text(size = 8.5),
     legend.key.size = unit(0.2, "cm"),
-    axis.title.x.top = element_text(margin = margin(b = -22)),
+    axis.title.x.top = element_text(margin = margin(b = -20)),
     legend.box = "vertical",
     legend.position = "bottom"
   )
@@ -203,7 +203,7 @@ data_fig3 |>
   reframe(value = sum(value)) |>
   pivot_wider(names_from = vehicle_type, values_from = value) |>
   mutate(diff = (EV - ICE) / ICE) |>
-  mutate(EV_km = EV * 1e9 / vmt_total$vmt * 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt * 1.61)
+  mutate(EV_km = EV * 1e9 / vmt_total$vmt / 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt / 1.61)
 
 
 # table with numbers

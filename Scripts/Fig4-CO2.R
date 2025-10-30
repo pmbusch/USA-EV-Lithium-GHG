@@ -90,7 +90,7 @@ p1 <- total_df %>%
   scale_y_continuous(
     labels = function(x) format(x, big.mark = " ", scientific = FALSE),
     expand = expansion(mult = c(0, 0.05)),
-    sec.axis = sec_axis(~ . * 1e6 * 1e6 / vmt_total$vmt * 1.61, name = expression("grams " ~ CO[2] * e ~ " per km"))
+    sec.axis = sec_axis(~ . * 1e6 * 1e6 / vmt_total$vmt / 1.61, name = expression("grams " ~ CO[2] * e ~ " per km"))
   ) +
   scale_fill_manual(values = stage_colors) +
   labs(
@@ -239,7 +239,7 @@ total_df |>
   reframe(value = sum(value) / 1e9) |>
   pivot_wider(names_from = vehicle_type, values_from = value) |>
   mutate(diff = (EV - ICE) / ICE) |>
-  mutate(EV_km = EV * 1e3 / vmt_total$vmt * 1.61, ICE_km = ICE * 1e3 / vmt_total$vmt * 1.61)
+  mutate(EV_km = EV * 1e12 / vmt_total$vmt / 1.61, ICE_km = ICE * 1e12 / vmt_total$vmt / 1.61)
 
 # Stage accounting
 total_df |>
@@ -385,7 +385,7 @@ ggplot(df1, aes(as.numeric(vehicle_type) + 0.2, metric, fill = Stage)) +
   scale_y_continuous(
     labels = function(x) format(x, big.mark = " ", scientific = FALSE),
     expand = expansion(mult = c(0, 0.05)),
-    sec.axis = sec_axis(~ . * 1e6 * 1e6 / vmt_total$vmt * 1.61, name = expression("grams " ~ CO[2] * e ~ " per km"))
+    sec.axis = sec_axis(~ . * 1e6 * 1e6 / vmt_total$vmt / 1.61, name = expression("grams " ~ CO[2] * e ~ " per km"))
   ) +
   coord_flip() +
   labs(
