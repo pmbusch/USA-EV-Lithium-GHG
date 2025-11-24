@@ -35,7 +35,7 @@ fleet <- fleet %>%
 table(fleet$Scenario_Lifetime, fleet$Scenario_Sales)
 
 # Amortize 2050 stock
-veh_life_amort <- 10 # years, uniform...
+veh_life_amort <- 15 # years, uniform...
 amort <- fleet %>%
   filter(Year == 2050) %>%
   # remaining life fraction

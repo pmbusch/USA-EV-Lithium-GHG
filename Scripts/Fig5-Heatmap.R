@@ -46,15 +46,15 @@ df <- df %>%
   ) %>%
   mutate(
     Scenario_Capacity = Scenario_Capacity %>%
-      str_replace("_capacity", " Capacity") %>%
       str_to_title() %>%
-      factor(levels = c("Low Capacity", "Reference", "High Capacity"))
+      str_replace("_capacity", " LIB Capacity") %>%
+      factor(levels = c("Low LIB Capacity", "Reference", "High LIB Capacity"))
   ) %>%
   mutate(
     Scenario_Lifetime = Scenario_Lifetime %>%
-      str_replace("Long", "Long Duration") %>%
-      str_replace("Short", "Short Duration") %>%
-      factor(levels = c("Short Duration", "Reference", "Long Duration"))
+      str_replace("Long", "Long LIB Duration") %>%
+      str_replace("Short", "Short LIB Duration") %>%
+      factor(levels = c("Short LIB Duration", "Reference", "Long LIB Duration"))
   ) %>%
   mutate(Scenario_Grid = factor(Scenario_Grid)) |>
   mutate(
@@ -78,7 +78,15 @@ df |>
   pull(metric)
 
 # Case no Recyc
-df |> filter(Scenario_Grid == "Reference case", Scenario_Recycling == "0%", Scenario_mpg == "Reference") |> pull(metric)
+(mid1 <- df |>
+  filter(
+    Scenario_Grid == "Reference case",
+    Scenario_Capacity == "Reference",
+    Scenario_Recycling == "0%",
+    Scenario_Lifetime == "Reference",
+    Scenario_mpg == "Reference"
+  ) |>
+  pull(metric))
 
 p_li <- df |>
   filter(Scenario_mpg == "Reference") |> # little change
@@ -86,7 +94,7 @@ p_li <- df |>
   ggplot(aes(Scenario_Capacity, Scenario_Grid, fill = metric)) +
   geom_tile(color = "grey80") +
   facet_grid(Scenario_Recycling ~ Scenario_Lifetime) +
-  scico::scale_fill_scico(palette = "vik", direction = -1, midpoint = 8.976) +
+  scico::scale_fill_scico(palette = "vik", direction = -1, midpoint = mid1) +
   labs(
     y = "Electricity Grid Forecast",
     x = "",
@@ -139,28 +147,29 @@ data_fig2 <- df_kwh %>%
 data_fig2 <- data_fig2 %>%
   mutate(
     Scenario_Capacity = Scenario_Capacity %>%
-      str_replace("_capacity", " Capacity") %>%
       str_to_title() %>%
-      factor(levels = c("Low Capacity", "Reference", "High Capacity"))
+      str_replace("_capacity", " LIB Capacity") %>%
+      factor(levels = c("Low LIB Capacity", "Reference", "High LIB Capacity"))
   ) %>%
   mutate(
     Scenario_Lifetime = Scenario_Lifetime %>%
-      str_replace("Long", "Long Duration") %>%
-      str_replace("Short", "Short Duration") %>%
-      factor(levels = c("Short Duration", "Reference", "Long Duration"))
+      str_replace("Long", "Long LIB Duration") %>%
+      str_replace("Short", "Short LIB Duration") %>%
+      factor(levels = c("Short LIB Duration", "Reference", "Long LIB Duration"))
   ) %>%
   mutate(Scenario_Grid = factor(Scenario_Grid))
 
 (range_metric <- range(data_fig2$metric))
 
 # midpoint
-data_fig2 |>
-  filter(Scenario_Grid == "Reference case", Scenario_Capacity == "Reference", Scenario_Lifetime == "Reference")
+(mid2 <- data_fig2 |>
+  filter(Scenario_Grid == "Reference case", Scenario_Capacity == "Reference", Scenario_Lifetime == "Reference") |>
+  pull(metric))
 
 p_lib <- ggplot(data_fig2, aes(Scenario_Capacity, Scenario_Grid, fill = metric)) +
   geom_tile(color = "grey80") +
   facet_grid(~Scenario_Lifetime) +
-  scico::scale_fill_scico(palette = "broc", direction = -1, midpoint = 0.437) +
+  scico::scale_fill_scico(palette = "broc", direction = -1, midpoint = mid2) +
   # scale_fill_gradient(low = "#fce5d7", high = "#c64b55") +
   labs(x = "", y = "", col = "", fill = "tons CO2e avoided per kWh of Lithium-ion battery produced") +
   labs(
@@ -188,3 +197,5 @@ ggsave("Figures/Fig5.png", ggplot2::last_plot(), units = "cm", dpi = 600, width 
 pdf("Figures/PDF/Figure5.pdf", width = 18 / 2.54, height = 17.4 / 2.54)
 ggplot2::last_plot()
 dev.off()
+
+# EoF

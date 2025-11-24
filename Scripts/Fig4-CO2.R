@@ -209,10 +209,10 @@ p2 <- p1 +
   geom_linerange(
     data = range,
     aes(x = vehicle_type, ymin = minCO2, ymax = maxCO2, col = scen),
-    position = position_dodge(width = 0.5),
+    position = position_dodge(width = 0.8),
     inherit.aes = F
   ) +
-  geom_text(data=range,aes(x=vehicle_type,label=scen,y=maxCO2+1.8e3,col=scen),size = 6 * 5 / 14 * 0.8,position = position_dodge(width = 0.5),inherit.aes = F) +
+  geom_text(data=range,aes(x=vehicle_type,label=scen,y=maxCO2+2.1e3,col=scen),size = 8 * 5 / 14 * 0.8,position = position_dodge(width = 0.8),inherit.aes = F) +
   scale_color_manual(
     values = c(
       "MPG Improvement" = "#1F77B4",
@@ -221,7 +221,7 @@ p2 <- p1 +
       "Electricity Grid" = "#9467BD"
     )
   ) +
-  coord_flip(ylim = c(0, 27.5e3))
+  coord_flip(ylim = c(0, 28e3))
 p2
 
 library(cowplot)

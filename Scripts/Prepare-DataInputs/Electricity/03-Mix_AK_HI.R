@@ -11,20 +11,13 @@ url_file <- "Inputs"
 # 2023 data ------
 
 # data on combined vs conventional cycle, based on unit
-unit <- read_excel(
-  paste0(url_file, "/egrid2023_data_rev1.xlsx"),
-  sheet = "GEN23",
-  skip = 1
-)
+unit <- read_excel(paste0(url_file, "/egrid2023_data_rev1.xlsx"), sheet = "GEN23", skip = 1)
 unit <- unit %>% filter(PSTATEABB %in% c("AK", "HI")) %>% filter(FUELG1 == "NG") # Natural Gas Only
 unique(unit$PRMVR)
 # codes: https://www.epa.gov/egrid/code-lookup
 unit <- unit %>%
   mutate(
-    type_ng = case_when(
-      PRMVR %in% c("CA", "") ~ "Combined Cycle",
-      PRMVR %in% c("CT", "GT", "IC") ~ "Conventional"
-    )
+    type_ng = case_when(PRMVR %in% c("CA", "") ~ "Combined Cycle", PRMVR %in% c("CT", "GT", "IC") ~ "Conventional")
   )
 
 unit <- unit %>%
@@ -36,11 +29,7 @@ unit <- unit %>%
 
 
 # eGrid region
-egrid <- read_excel(
-  paste0(url_file, "/egrid2023_data_rev1.xlsx"),
-  sheet = "SRL23",
-  skip = 1
-)
+egrid <- read_excel(paste0(url_file, "/egrid2023_data_rev1.xlsx"), sheet = "SRL23", skip = 1)
 names(egrid)
 
 egrid <- egrid %>%
@@ -79,8 +68,7 @@ egrid <- egrid %>%
 
 
 # Add natural gas detail
-egrid_ng <- egrid %>%
-  filter(fuel == "Natural Gas Conventional", str_detect(SRNAME, "ASCC"))
+egrid_ng <- egrid %>% filter(fuel == "Natural Gas Conventional", str_detect(SRNAME, "ASCC"))
 # shares based on cap
 unit$value <- unit$PSTATEABB <- NULL
 egrid_ng <- egrid_ng %>%
@@ -89,14 +77,10 @@ egrid_ng <- egrid_ng %>%
   mutate(fuel = paste0("Natural Gas ", type_ng), value = value * share)
 egrid_ng$dummy <- egrid_ng$type_ng <- egrid_ng$share <- NULL
 
-egrid <- egrid %>%
-  filter(fuel != "Natural Gas Conventional" | str_detect(SRNAME, "HICC")) %>%
-  rbind(egrid_ng)
+egrid <- egrid %>% filter(fuel != "Natural Gas Conventional" | str_detect(SRNAME, "HICC")) %>% rbind(egrid_ng)
 
 
-ggplot(egrid, aes(SRNAME, value, fill = fuel)) +
-  geom_col() +
-  coord_flip()
+ggplot(egrid, aes(SRNAME, value, fill = fuel)) + geom_col() + coord_flip()
 
 # Forecast -----
 
@@ -109,16 +93,7 @@ ggplot(egrid, aes(SRNAME, value, fill = fuel)) +
 egrid_hi <- egrid %>%
   filter(str_detect(SRNAME, "HICC")) %>%
   # renewables according to EIA table 56
-  mutate(
-    renewable = fuel %in%
-      c(
-        "Geothermal",
-        "Solar Photovoltaic",
-        "Wind",
-        "Wood and Other Biomass",
-        "Hydropower"
-      )
-  )
+  mutate(renewable = fuel %in% c("Geothermal", "Solar Photovoltaic", "Wind", "Wood and Other Biomass", "Hydropower"))
 # current share
 egrid_hi %>%
   group_by(SRNAME, renewable) %>%
@@ -128,17 +103,13 @@ egrid_hi %>%
   mutate(perc = x / sum(x)) # 12.4% and 34.1%
 
 #
-linear_renewable <- expand.grid(
-  period = 2022:2050,
-  SRNAME = unique(egrid_hi$SRNAME)
-) %>%
+linear_renewable <- expand.grid(period = 2022:2050, SRNAME = unique(egrid_hi$SRNAME)) %>%
   mutate(level2023 = if_else(str_detect(SRNAME, "Oahu"), 0.142, 0.341)) %>%
   # multiplicative factor for renewables
   mutate(
     goal = case_when(
       period < 2024 ~ level2023,
-      period < 2045 ~ level2023 +
-        (period - 2023) * (1 - level2023) / (2045 - 2023),
+      period < 2045 ~ level2023 + (period - 2023) * (1 - level2023) / (2045 - 2023),
       T ~ 1
     )
   ) %>%
@@ -149,9 +120,7 @@ linear_renewable2 <- linear_renewable %>%
   mutate(
     goal = case_when(
       period < 2024 ~ 1 - level2023,
-      period < 2045 ~ 1 -
-        level2023 -
-        (period - 2023) * (1 - level2023) / (2045 - 2023),
+      period < 2045 ~ 1 - level2023 - (period - 2023) * (1 - level2023) / (2045 - 2023),
       T ~ 0
     )
   ) %>%
@@ -185,10 +154,7 @@ egrid_ak <- egrid %>%
 
 egrid_shares <- rbind(egrid_hi, egrid_ak)
 
-egrid_shares %>%
-  group_by(SRNAME, period) %>%
-  reframe(x = sum(share)) %>%
-  arrange(desc(x))
+egrid_shares %>% group_by(SRNAME, period) %>% reframe(x = sum(share)) %>% arrange(desc(x))
 
 ggplot(egrid_shares, aes(period, share, fill = fuel)) +
   geom_col(position = "fill") +

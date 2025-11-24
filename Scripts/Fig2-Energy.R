@@ -179,7 +179,6 @@ p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
     strip.placement = "outside",
     strip.text = element_text(size = 10, face = "bold"),
     plot.title = element_text(face = "bold", hjust = 0.5),
-    axis.text.x = element_text(hjust = 1),
     axis.title.y.right = element_text(face = "italic"),
     plot.tag = element_text(face = "bold"),
     legend.text = element_text(size = 8.5),

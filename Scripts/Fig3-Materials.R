@@ -217,14 +217,21 @@ total_fig <- data_fig %>%
   ungroup() %>% # million ton
   group_by(key) %>%
   mutate(x = value / sum(value)) %>%
-  mutate(abb_lab = if_else(value / sum(value) > 0.01, Abbr, "")) %>%
+  mutate(abb_lab = if_else(value / sum(value) > 0.03, Abbr, "")) %>%
   ungroup() %>%
   mutate(abb_lab2 = if_else(value / sum(value) < 0.01, Abbr, "")) %>%
   mutate(col_text = if_else(Abbr %in% c("Al", "Ba"), "special", "normal")) %>%
   mutate(Impact_Name = factor(Impact_Name, levels = (mat_levels)))
 
 
-stage_text <- filter(data_fig, key == "Material", vehicle_type == "EV", abb_lab == "Energy") %>% arrange(Stage)
+stage_text <- data_fig |>
+  filter(
+    (key == "Material" & vehicle_type == "EV" & abb_lab == "Energy")
+    # (key == "Metal" & vehicle_type == "EV" & abb_lab == "Fe") |
+    # (key == "Fossil energy" & vehicle_type == "EV" & abb_lab == "Oil")
+  ) %>%
+  # mutate(col_text = if_else(Stage == "LIB production", "special", "normal")) |>
+  arrange(Stage)
 
 f.makePlot <- function(filter_cond, special = F) {
   total_fig_plot <- total_fig |> filter(!!rlang::enquo(filter_cond))
@@ -342,7 +349,7 @@ data_fig_d |>
   mutate(diff = (EV - ICE) / ICE)
 # NG density 0.8 kg/m3
 
-# Critical minerals
+# Critical minerals - million tons
 data_fig |>
   filter(Impact_Name %in% c("Lithium", "Copper", "Nickel", "Cobalt")) |>
   group_by(key, Impact_Name, vehicle_type) |>

@@ -24,15 +24,12 @@ bat <- read.csv("Parameters/Manufacturing/batsize.csv")
 bat_dens <- read_excel("Inputs/CellChemistries.xlsx", range = "A5:B12")
 names(bat_dens) <- c("LIB_Chem", "Wh_kg")
 
-
 # Load economic allocation GREET
-allocation <- read_excel("Inputs/GREET_EconomicAllocation_Recycling.xlsx")
-
+# allocation <- read_excel("Inputs/GREET_EconomicAllocation_Recycling.xlsx")
 # filter only lithium carbonate
-allocation <- allocation %>%
-  filter(str_detect(Product, "Lithium")) %>%
-  pivot_longer(c(-Process, -Product), names_to = "LIB_Chem", values_to = "allocation")
-
+# allocation <- allocation %>%
+#   filter(str_detect(Product, "Lithium")) %>%
+#   pivot_longer(c(-Process, -Product), names_to = "LIB_Chem", values_to = "allocation")
 
 # use average of battery size and chem
 bat_agg <- bat %>%
@@ -85,7 +82,10 @@ recovery <- rbind(
 # avoided impacts (only prevented lithium extraction)
 li_extract <- upstream %>% filter(str_detect(Name, "lithium carbonate"))
 # average 50-50 brine and hard rock, and convert to per kg of lithium
+names(li_extract)
 li_extract <- (li_extract[1, 5:52] + li_extract[2, 5:52]) / 2 * 5.323
+# do not double count material recovery
+li_extract[33:52] <- 0
 
 li_avoided <- recovery %>%
   filter(Mineral == "Lithium") %>%
