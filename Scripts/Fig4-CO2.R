@@ -240,15 +240,16 @@ total_df |>
   group_by(vehicle_type) |>
   reframe(value = sum(value) / 1e9) |>
   pivot_wider(names_from = vehicle_type, values_from = value) |>
-  mutate(diff = (EV - ICE) / ICE) |>
-  mutate(EV_km = EV * 1e12 / vmt_total$vmt / 1.61, ICE_km = ICE * 1e12 / vmt_total$vmt / 1.61)
+  mutate(diff = (EV - ICEV) / ICEV) |>
+  mutate(EV_km = EV * 1e12 / vmt_total$vmt / 1.61, ICE_km = ICEV * 1e12 / vmt_total$vmt / 1.61)
+.Last.value %>% write.table('clipboard', sep = '\t', row.names = FALSE)
 
 # Stage accounting
 total_df |>
   group_by(Stage, vehicle_type) |>
   reframe(value = sum(value, na.rm = T) / 1e9) |>
   pivot_wider(names_from = vehicle_type, values_from = value) |>
-  mutate(perc_EV = EV / sum(EV), perc_ICE = ICE / sum(ICE, na.rm = T))
+  mutate(perc_EV = EV / sum(EV), perc_ICE = ICEV / sum(ICEV, na.rm = T))
 
 
 # Discounting --------------

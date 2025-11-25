@@ -212,6 +212,8 @@ data_fig3 |>
   reframe(value = sum(value)) |>
   pivot_wider(names_from = vehicle_type, values_from = value)
 
+.Last.value %>% write.table('clipboard', sep = '\t', row.names = FALSE)
+
 # 1 oil barrel: 1700 kWh
 70000 * 1e9 / 1700 / 1e6
 

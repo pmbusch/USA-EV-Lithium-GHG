@@ -341,6 +341,8 @@ data_fig |>
   mutate(EV_km = EV * 1e9 / vmt_total$vmt / 1.61, ICE_km = ICE * 1e9 / vmt_total$vmt / 1.61) |>
   mutate(EV_km_per_kg = 1 / EV_km, ICE_km_per_kg = 1 / ICE_km)
 
+.Last.value %>% write.table('clipboard', sep = '\t', row.names = FALSE)
+
 # total energy - in million tons
 data_fig_d |>
   group_by(vehicle_type, Impact_Name) |>
