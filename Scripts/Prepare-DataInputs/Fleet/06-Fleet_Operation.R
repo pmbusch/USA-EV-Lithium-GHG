@@ -48,12 +48,7 @@ share_eia_ev <- share_eia %>%
   filter(units > 1) %>%
   group_by(period) %>%
   mutate(share = units / sum(units)) %>%
-  mutate(
-    seriesName = str_remove_all(
-      seriesName,
-      "Light-Duty Vehicle Sales : |Alternative-Fuel |Conventional "
-    )
-  ) %>%
+  mutate(seriesName = str_remove_all(seriesName, "Light-Duty Vehicle Sales : |Alternative-Fuel |Conventional ")) %>%
   mutate(vehSize = str_extract(seriesName, "Car|Light Truck")) %>%
   group_by(period, vehSize) %>% # share by size
   mutate(share_size = units / sum(units))
@@ -83,12 +78,7 @@ share_eia_size <- share_eia %>%
   filter(units > 1) %>%
   group_by(period, regionName) %>%
   mutate(share = units / sum(units)) %>%
-  mutate(
-    seriesName = str_remove_all(
-      seriesName,
-      "Light-Duty Vehicle Sales : |Total New "
-    )
-  ) %>%
+  mutate(seriesName = str_remove_all(seriesName, "Light-Duty Vehicle Sales : |Total New ")) %>%
   mutate(vehSize = if_else(seriesName == "Truck", "Light Truck", "Car"))
 unique(share_eia_size$seriesName)
 
@@ -101,46 +91,25 @@ ggplot(share_eia_size, aes(period, share, fill = vehSize)) +
   labs(x = "", y = "", fill = "", title = "Share of new sales USA") +
   theme_bw(8)
 
-ggsave(
-  "Figures/Fleet/EIA_types.png",
-  ggplot2::last_plot(),
-  units = "cm",
-  dpi = 600,
-  width = 8.7 * 2,
-  height = 8.7
-)
+ggsave("Figures/Fleet/EIA_types.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7 * 2, height = 8.7)
 
-write.csv(
-  share_eia_size,
-  "Parameters/Operation/EIA_carTrucks_share.csv",
-  row.names = F
-)
+write.csv(share_eia_size, "Parameters/Operation/EIA_carTrucks_share.csv", row.names = F)
 
 ## Join to data to get FE by year of model
 unique(fe$full.name)
 unique(share_eia_ev$seriesName)
 
 fe <- fe %>%
-  mutate(
-    vehSize = str_extract(full.name, "Car|Light Truck"),
-    vehType = str_extract(full.name, "Gasoline|Electric")
-  )
+  mutate(vehSize = str_extract(full.name, "Car|Light Truck"), vehType = str_extract(full.name, "Gasoline|Electric"))
 
 fe_ice <- fe %>% filter(vehType == "Gasoline")
 
 # 15% improvement towards 2040 (linear)
-improv <- fe_ice %>%
-  filter(period == 2040) %>%
-  mutate(add_mpge = mpge * 0.15) %>%
-  dplyr::select(vehSize, add_mpge)
+improv <- fe_ice %>% filter(period == 2040) %>% mutate(add_mpge = mpge * 0.15) %>% dplyr::select(vehSize, add_mpge)
 fe_ice_improv <- fe_ice %>%
   left_join(improv) %>%
   mutate(
-    mpge = case_when(
-      period < 2025 ~ mpge,
-      period <= 2040 ~ mpge + add_mpge / 15 * (period - 2025),
-      T ~ mpge + add_mpge
-    )
+    mpge = case_when(period < 2025 ~ mpge, period <= 2040 ~ mpge + add_mpge / 15 * (period - 2025), T ~ mpge + add_mpge)
   ) %>%
   mutate(add_mpge = NULL) %>%
   mutate(vehType = "Gasoline Improvement")
@@ -150,10 +119,7 @@ fe_ice <- rbind(fe_ice, fe_ice_improv)
 fe_ev <- fe %>%
   filter(vehType == "Electric") %>%
   mutate(
-    seriesName = str_remove_all(
-      full.name,
-      "Light-Duty Fuel Economy: Alternative-Fuel |: Reference case"
-    ) %>%
+    seriesName = str_remove_all(full.name, "Light-Duty Fuel Economy: Alternative-Fuel |: Reference case") %>%
       str_replace("Cars:", "Cars :") %>%
       str_replace("Trucks:", "Trucks :")
   ) %>%
@@ -181,38 +147,12 @@ ggplot(data_mpg, aes(period, mpge, col = type)) +
     size = 8 * 5 / 14 * 0.8
   ) +
   coord_cartesian(expand = F, ylim = c(0, 200)) +
-  scale_color_manual(
-    values = c(
-      "#4daf4a",
-      "#e41a1c",
-      "#e41a1c90",
-      "#377eb8",
-      "#984ea3",
-      "#984ea390"
-    )
-  ) +
+  scale_color_manual(values = c("#4daf4a", "#e41a1c", "#e41a1c90", "#377eb8", "#984ea3", "#984ea390")) +
   scale_y_continuous(sec.axis = sec_axis(~ . / 33.7, name = "kWh per mile")) +
-  labs(
-    x = "",
-    y = "Miles per gallon equivalent (mpge)",
-    fill = "",
-    title = "",
-    col = ""
-  ) +
+  labs(x = "", y = "Miles per gallon equivalent (mpge)", fill = "", title = "", col = "") +
   theme_bw(8) +
-  theme(
-    panel.grid = element_blank(),
-    axis.text.x = element_text(hjust = 1),
-    legend.position = "none"
-  )
-ggsave(
-  "Figures/Fleet/mpge.png",
-  ggplot2::last_plot(),
-  units = "cm",
-  dpi = 600,
-  width = 8.7 * 1.5,
-  height = 8.7
-)
+  theme(panel.grid = element_blank(), axis.text.x = element_text(hjust = 1), legend.position = "none")
+ggsave("Figures/Fleet/mpge.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7 * 1.5, height = 8.7)
 
 
 # convert to kWh based on EPA assumption of 33.7 kWh per gallon https://www.epa.gov/greenvehicles/fuel-economy-and-ev-range-testing
@@ -224,13 +164,10 @@ fe_ice$mpge <- 1 / (0.00187 + 1.134 / fe_ice$mpge)
 
 # Adjustment from 2-cycle to aggressive driving, no temperature yet
 # Equations for city
-fe_ev$mpge <- 1 /
-  (1 / fe_ev$mpge + 0.67 * (1 / fe_ev$mpge / 0.7 - 1 / fe_ev$mpge))
+fe_ev$mpge <- 1 / (1 / fe_ev$mpge + 0.67 * (1 / fe_ev$mpge / 0.7 - 1 / fe_ev$mpge))
 
 # join them
-fe <- fe_ice %>%
-  mutate(full.name = NULL, unit = "gallons") %>%
-  rbind(mutate(fe_ev, unit = "kWh"))
+fe <- fe_ice %>% mutate(full.name = NULL, unit = "gallons") %>% rbind(mutate(fe_ev, unit = "kWh"))
 
 write.csv(fe, "Parameters/Operation/mpg.csv", row.names = F)
 
@@ -238,12 +175,11 @@ write.csv(fe, "Parameters/Operation/mpg.csv", row.names = F)
 vmt <- readxl::read_excel("Inputs/VMT.xlsx", range = "C14:G45")
 vmt[, c(2, 4)] <- NULL
 names(vmt) <- c("age", "Car", "Light Truck")
-vmt <- vmt %>%
-  pivot_longer(c(-age), names_to = "vehSize", values_to = "vmt")
+vmt <- vmt %>% pivot_longer(c(-age), names_to = "vehSize", values_to = "vmt")
 (tot <- vmt %>%
   group_by(vehSize) %>%
   reframe(vmt = sum(vmt)) %>%
-  mutate(labe = paste0("", round(vmt / 1e3, 0), " thousand miles")))
+  mutate(labe = paste0("", round(vmt / 1e3, 0), " thousand miles\n", round(vmt / 1e3 * 1.61, 0), " thousand kms")))
 
 ggplot(vmt, aes(age, vmt, fill = vehSize)) +
   geom_col(position = "dodge", col = "black", linewidth = 0.1) +
@@ -256,32 +192,21 @@ ggplot(vmt, aes(age, vmt, fill = vehSize)) +
   ) +
   facet_wrap(~vehSize) +
   coord_cartesian(expand = F) +
-  labs(
-    x = "Vehicle Age",
-    y = "",
-    fill = "",
-    title = "Annual miles traveled",
-    col = ""
+  labs(x = "Vehicle Age", fill = "", y = "Annual miles traveled", col = "") +
+  scale_y_continuous(
+    labels = function(x) {
+      format(x, big.mark = " ", scientific = FALSE)
+    },
+    sec.axis = sec_axis(~ . * 1.61, name = "Annual kilometers traveled")
   ) +
-  scale_y_continuous(labels = function(x) {
-    format(x, big.mark = " ", scientific = FALSE)
-  }) +
   theme_bw(8) +
   theme(panel.grid = element_blank(), legend.position = "none")
 
-ggsave(
-  "Figures/Fleet/vmt.png",
-  ggplot2::last_plot(),
-  units = "cm",
-  dpi = 600,
-  width = 8.7 * 1.5,
-  height = 8.7
-)
+ggsave("Figures/Fleet/vmt.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7 * 1.5, height = 8.7)
 
 
 # Fleet ----
-fleet <- read.csv("Parameters/Operation/USA_fleet.csv") %>%
-  mutate(modelYear = Year - age)
+fleet <- read.csv("Parameters/Operation/USA_fleet.csv") %>% mutate(modelYear = Year - age)
 range(fleet$modelYear)
 fleet %>% group_by(Scenario) %>% reframe(x = sum(fleet) / 1e9) # 3.40, total fleet over time
 
@@ -293,9 +218,7 @@ ev_state_share %>% group_by(period) %>% reframe(x = sum(ev_share))
 # divide fleet into states based on modelYear
 # Key assumption: No Trade between states across the fleet
 
-consumption <- fleet %>%
-  left_join(ev_state_share, by = c("modelYear" = "period")) %>%
-  mutate(fleet = fleet * ev_share)
+consumption <- fleet %>% left_join(ev_state_share, by = c("modelYear" = "period")) %>% mutate(fleet = fleet * ev_share)
 consumption %>% group_by(Scenario) %>% reframe(x = sum(fleet) / 1e9) # 3.40
 
 # add VMT, but first divide fleet into cars-light trucks at each modelyear based on national EIA projections
@@ -316,11 +239,7 @@ rm(i, aux)
 # Assume all Vans (light commercial vehicles) are light trucks
 join_size <- rbind(
   mutate(join_size, Vehicle = "Cars"),
-  mutate(
-    filter(join_size, vehSize == "Light Truck"),
-    Vehicle = "Vans",
-    share = 1
-  )
+  mutate(filter(join_size, vehSize == "Light Truck"), Vehicle = "Vans", share = 1)
 )
 
 consumption <- consumption %>%
@@ -415,9 +334,7 @@ write.csv(EV_failure, "Parameters/EV_failure_type.csv", row.names = F)
 
 # add VMT
 head(vmt)
-consumption <- consumption %>%
-  left_join(vmt) %>%
-  mutate(total_vmt = vmt * fleet)
+consumption <- consumption %>% left_join(vmt) %>% mutate(total_vmt = vmt * fleet)
 consumption %>% group_by(Scenario) %>% reframe(x = sum(fleet) / 1e9) # 3.40
 
 write.csv(consumption, "Results/total_VMT.csv", row.names = F)
@@ -458,9 +375,7 @@ consumption_ev %>% group_by(Scenario) %>% reframe(x = sum(total_kwh) / 1e9) # 19
 
 # aggregate at state level
 head(consumption_ev)
-cons <- consumption_ev %>%
-  group_by(Scenario, Year, State, vehSize) %>%
-  reframe(total_kwh = sum(total_kwh))
+cons <- consumption_ev %>% group_by(Scenario, Year, State, vehSize) %>% reframe(total_kwh = sum(total_kwh))
 
 write.csv(cons, "Parameters/Operation/EV_kwh_consumption.csv", row.names = F)
 
@@ -479,15 +394,9 @@ consumption_ice %>% group_by(Scenario) %>% reframe(x = sum(total_gallons) / 1e9)
 
 # aggregate at state level
 head(consumption_ice)
-cons <- consumption_ice %>%
-  group_by(Scenario, Year, State, vehSize) %>%
-  reframe(total_gallons = sum(total_gallons))
+cons <- consumption_ice %>% group_by(Scenario, Year, State, vehSize) %>% reframe(total_gallons = sum(total_gallons))
 
-write.csv(
-  cons,
-  "Parameters/Operation/ICE_gasGallons_consumption.csv",
-  row.names = F
-)
+write.csv(cons, "Parameters/Operation/ICE_gasGallons_consumption.csv", row.names = F)
 
 # Improvement in MPG
 fe_ice <- fe %>% filter(vehType == "Gasoline Improvement")
@@ -503,14 +412,8 @@ consumption_ice %>% group_by(Scenario) %>% reframe(x = sum(total_gallons) / 1e9)
 
 # aggregate at state level
 head(consumption_ice)
-cons <- consumption_ice %>%
-  group_by(Scenario, Year, State, vehSize) %>%
-  reframe(total_gallons = sum(total_gallons))
+cons <- consumption_ice %>% group_by(Scenario, Year, State, vehSize) %>% reframe(total_gallons = sum(total_gallons))
 
-write.csv(
-  cons,
-  "Parameters/Operation/ICE_gasGallons_consumption_MPGimproved.csv",
-  row.names = F
-)
+write.csv(cons, "Parameters/Operation/ICE_gasGallons_consumption_MPGimproved.csv", row.names = F)
 
 # EoF

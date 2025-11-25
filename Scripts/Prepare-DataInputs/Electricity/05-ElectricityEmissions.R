@@ -334,7 +334,7 @@ ggsave(
 # shp_state$NAME %>% unique()
 
 data_fig <- electricity %>%
-  filter(period %in% c(2024, 2050)) %>%
+  filter(period %in% c(2025, 2050)) %>%
   filter(scenario == "ref2025") %>%
   mutate(kgCO2eq = kgCO2eq * 1000) %>% # kg per MWh
   mutate(STATEFP = paste0(if_else(str_length(STATEFP) == 1, "0", ""), STATEFP)) %>%

@@ -1,7 +1,7 @@
 # Time series of total carbon emissions
 # PBH OCt 2025
 
-source("Scripts/02-Load_Results.R")
+source("Scripts/03-Load_Results.R")
 
 ## baseline scenario
 df <- df_all %>%
@@ -164,7 +164,7 @@ p <- ggplot(data_fig, aes(Year, metric, fill = Stage)) +
 
 # Scenarios -------
 
-source("Scripts/02b-Scenario_Load_Results.R")
+source("Scripts/03b-Scenario_Load_Results.R")
 
 df_scen <- df_all_scen %>%
   filter(impact == "kgCO2eq") %>%
