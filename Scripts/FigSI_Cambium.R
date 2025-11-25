@@ -112,6 +112,7 @@ names(stage_colors) <- stage_lvl
 
 data_fig |>
   # filter(Stage != "Driving") |>
+  mutate(vehicle_type = if_else(vehicle_type == "ICE", "ICEV", vehicle_type)) |>
   ggplot(aes(Model, tonsCO2e, fill = Stage)) +
   geom_col(col="black",linewidth = 0.1) +
   ggh4x::facet_grid2(vehicle_type ~ ., scales = "free_y", axes = "all", space = "free_y") +

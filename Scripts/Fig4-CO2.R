@@ -53,6 +53,7 @@ df <- df %>%
     )
   )
 
+df <- df |> mutate(vehicle_type = if_else(vehicle_type == "ICE", "ICEV", vehicle_type))
 
 total_df <- df %>%
   filter(impact == "kgCO2eq") %>%
@@ -169,12 +170,13 @@ source("Scripts/03b-Scenario_Load_Results.R")
 df_scen <- df_all_scen %>%
   filter(impact == "kgCO2eq") %>%
   filter(Scenario_Sales == "Ambitious", Scenario_Recycling == "Recycling 0%") |>
+  mutate(vehicle_type = if_else(vehicle_type == "ICE", "ICEV", vehicle_type)) |>
   group_by(vehicle_type, Scenario_Capacity, Scenario_Lifetime, Scenario_Grid, Scenario_mpg) %>%
   reframe(value = sum(value) / 1e9) # to million tons
 
 # Ranges for ICE
 range_ice <- df_scen |>
-  filter(vehicle_type == "ICE") |>
+  filter(vehicle_type == "ICEV") |>
   filter(Scenario_Grid == "ref2025", Scenario_Capacity == "Reference", Scenario_Lifetime == "Reference") |>
   group_by(vehicle_type) |>
   reframe(minCO2 = min(value), maxCO2 = max(value)) |>

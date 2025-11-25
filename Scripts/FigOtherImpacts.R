@@ -63,7 +63,9 @@ total_df <- df %>%
   ungroup() |>
   mutate(labX = paste0(Category, " (million tons ", Impact_Name, ")"))
 
-ggplot(total_df, aes(vehicle_type, value)) +
+total_df |>
+  mutate(vehicle_type = if_else(vehicle_type == "ICE", "ICEV", vehicle_type)) |>
+  ggplot(aes(vehicle_type, value)) +
   geom_col(
     aes(fill = Stage),
     position = position_stack(),
