@@ -23,7 +23,7 @@ Data used to support the findings of this study were retrieved from the followin
 
 # Instructions
 
-The repository is ~15Mb fully unzipped. Downloading and unzipping everything should take less than 5 minutes on a normal computer.
+The repository is ~10Mb fully unzipped. Downloading and unzipping everything should take less than 5 minutes on a normal computer.
 
 Users can run all the code for replication using the "USA-EV-Lithium-GHG.Rproj" file, or by setting their own working directory and running scripts independently.
 
