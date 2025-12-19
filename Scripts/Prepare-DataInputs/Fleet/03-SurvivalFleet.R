@@ -1,3 +1,4 @@
+# Stock, inflow and outflow model based on vehicles sales and survival curves, using the product-component framework.
 # Based on lithium supply project
 # Original script: https://github.com/pmbusch/Lithium-Supply/blob/main/Scripts/Demand%20Model/Prepare_Data/08-SurvivalCurve_Simulation.R
 # PBH May 2025
@@ -9,22 +10,13 @@ library(tidyverse)
 # vehicle and battery starting age
 # Discretized by year using Normal Distribution
 # n vehicles: vehicles currently on stock,
-f.getOutflows <- function(
-  n_veh = 1,
-  EV_age,
-  LIB_age,
-  maxEV_age = 30,
-  maxLIB_age = 30,
-  dist.Age = "Logistic"
-) {
+f.getOutflows <- function(n_veh = 1, EV_age, LIB_age, maxEV_age = 30, maxLIB_age = 30, dist.Age = "Logistic") {
   # get fraction year to year of survival, based on CDF ratios
   # represent proportion that survives year to year
 
   if (dist.Age == "Normal") {
-    y1 = (1 - pnorm(EV_age + 1, mean = mean_ev, sd = sd_ev)) /
-      (1 - pnorm(EV_age, mean = mean_ev, sd = sd_ev))
-    y2 = (1 - pnorm(LIB_age + 1, mean = mean_lib, sd = sd_lib)) /
-      (1 - pnorm(LIB_age, mean = mean_lib, sd = sd_lib))
+    y1 = (1 - pnorm(EV_age + 1, mean = mean_ev, sd = sd_ev)) / (1 - pnorm(EV_age, mean = mean_ev, sd = sd_ev))
+    y2 = (1 - pnorm(LIB_age + 1, mean = mean_lib, sd = sd_lib)) / (1 - pnorm(LIB_age, mean = mean_lib, sd = sd_lib))
   } else {
     # Logistic
     y1 = (1 - plogis(EV_age + 1, mean_ev, sd_ev * sqrt(3) / pi)) / # CONVERT SCALE TO Stand Dev.
@@ -78,10 +70,7 @@ sales <- read.csv("Parameters/Operation/SalesEV.csv")
 # According to EV Volumes, almost no historical sales of Vans, so no stock prior
 historical_ev <- read.csv("Parameters/historical_evSales.csv")
 historical_ev$Vehicle = "Cars"
-historical_ev <- rbind(
-  historical_ev,
-  tibble(period = 2016:2023, Vehicle = "Vans", sales = 0)
-)
+historical_ev <- rbind(historical_ev, tibble(period = 2016:2023, Vehicle = "Vans", sales = 0))
 
 # add historical sales
 historical_ev <- historical_ev %>% rename(Year = period, Sales = sales)
@@ -92,11 +81,7 @@ for (i in unique(sales$Scenario)) {
 }
 historical_ev <- aux
 rm(i, aux)
-sales <- sales %>%
-  filter(Year > 2023) %>%
-  rbind(historical_ev) %>%
-  arrange(Year) %>%
-  arrange(Scenario)
+sales <- sales %>% filter(Year > 2023) %>% rbind(historical_ev) %>% arrange(Year) %>% arrange(Scenario)
 
 ## Loop ------
 scenarios <- unique(sales$Scenario)
@@ -113,9 +98,7 @@ for (scen in scenarios) {
 
   for (veh in unique(sales_orig$Vehicle)) {
     # Filters
-    sales <- sales_orig %>%
-      filter(Scenario == scen) %>%
-      filter(Vehicle == veh)
+    sales <- sales_orig %>% filter(Scenario == scen) %>% filter(Vehicle == veh)
 
     for (lif in lifetime_scen) {
       # LIB lifetime
@@ -153,11 +136,7 @@ for (scen in scenarios) {
         matrix_data[matrix_data < 10] <- 0
 
         # Get new matrix of EV stock with ages, LIBs in good use
-        new_matrix <- matrix_ev <- matrix_lib <- matrix_both <- matrix(
-          0,
-          nrow = 31,
-          ncol = 31
-        )
+        new_matrix <- matrix_ev <- matrix_lib <- matrix_both <- matrix(0, nrow = 31, ncol = 31)
         rownames(new_matrix) <- paste0("EV_", 0:30) # ROWS are EV
         colnames(new_matrix) <- paste0("LIB_", 0:30) # COLS are Battery
 
@@ -220,8 +199,7 @@ for (scen in scenarios) {
 
         # update new_matrix with stock of EVs and old batteries
         for (i in 1:(31 - ev_age_newLib)) {
-          new_matrix[i + ev_age_newLib, i] <- new_matrix[i + ev_age_newLib, i] +
-            allocation[i]
+          new_matrix[i + ev_age_newLib, i] <- new_matrix[i + ev_age_newLib, i] + allocation[i]
         }
 
         allocation <- sum(allocation)
@@ -259,22 +237,13 @@ for (scen in scenarios) {
         sales$add_LIB_vector[y - start_year + 1] <- list(round(ev_need[-1], 0))
         # LIBs in good condition for SSPS or recycling
         sales$LIB_Available[y - start_year + 1] <- round(sum(lib_available), 0)
-        sales$LIB_Available_vector[y - start_year + 1] <- list(round(
-          lib_available[-1],
-          0
-        ))
+        sales$LIB_Available_vector[y - start_year + 1] <- list(round(lib_available[-1], 0))
         # LIBs that failed but available to recycle
         sales$LIB_recycling[y - start_year + 1] <- round(sum(lib_failed), 0)
-        sales$LIB_recycling_vector[y - start_year + 1] <- list(round(
-          lib_failed,
-          0
-        ))
+        sales$LIB_recycling_vector[y - start_year + 1] <- list(round(lib_failed, 0))
         sales$LIB_reuse_EV[y - start_year + 1] <- round(allocation, 0)
         sales$EV_Stock[y - start_year + 1] <- round(sum(new_matrix), 0)
-        sales$EV_Stock_vector[y - start_year + 1] <- list(unname(round(
-          rowSums(new_matrix)[-1],
-          0
-        )))
+        sales$EV_Stock_vector[y - start_year + 1] <- list(unname(round(rowSums(new_matrix)[-1], 0)))
         # EVs that fail
         sales$EV_fail[y - start_year + 1] <- round(sum(ev_failed), 0)
         sales$EV_fail_vector[y - start_year + 1] <- list(round(ev_failed, 0))
@@ -284,16 +253,7 @@ for (scen in scenarios) {
 
         # keep balance of removed EV Sales from stock
 
-        rm(
-          new_matrix,
-          matrix_ev,
-          matrix_lib,
-          lib_to_EV,
-          lib_available,
-          allocated,
-          allocation,
-          start_bat
-        )
+        rm(new_matrix, matrix_ev, matrix_lib, lib_to_EV, lib_available, allocated, allocation, start_bat)
       }
       rm(i, j)
       # save data
@@ -322,9 +282,7 @@ sales <- sales %>%
 sales
 
 # Save vector variables as strings
-sales <- sales %>%
-  rowwise() %>%
-  mutate_if(is.list, ~ paste(unlist(.), collapse = '|'))
+sales <- sales %>% rowwise() %>% mutate_if(is.list, ~ paste(unlist(.), collapse = '|'))
 
 write.csv(sales, "Parameters/outflows_LIB.csv", row.names = F)
 

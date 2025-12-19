@@ -1,7 +1,7 @@
-# Time series of total carbon emissions
+# Carbon emissions
 # PBH OCt 2025
 
-source("Scripts/03-Load_Results.R")
+source("Scripts/02-Load_Results.R")
 
 ## baseline scenario
 df <- df_all %>%
@@ -72,6 +72,9 @@ total_lab <- total_df %>%
   ungroup() %>%
   mutate(lab_total = paste0(round(value / 1e3), "M"))
 
+# Save Figure Data
+write.csv(total_df, "Results/Data Figures/Fig4b.csv", row.names = FALSE)
+
 p1 <- total_df %>%
   mutate(value = value / 1e9) %>% # to Mtons
   ggplot(aes(vehicle_type, value)) +
@@ -140,6 +143,10 @@ data_fig <- df %>%
 stage_colors <- viridis::viridis(6, option = "E", direction = -1)
 names(stage_colors) <- stage_lvl
 
+# Save Figure Data
+write.csv(data_fig, "Results/Data Figures/Fig4a.csv", row.names = FALSE)
+
+
 p <- ggplot(data_fig, aes(Year, metric, fill = Stage)) +
   geom_col(col = "black", linewidth = 0.1) +
   facet_wrap(~vehicle_type) +
@@ -165,7 +172,7 @@ p <- ggplot(data_fig, aes(Year, metric, fill = Stage)) +
 
 # Scenarios -------
 
-source("Scripts/03b-Scenario_Load_Results.R")
+source("Scripts/02b-Scenario_Load_Results.R")
 
 df_scen <- df_all_scen %>%
   filter(impact == "kgCO2eq") %>%
@@ -207,6 +214,11 @@ range_grid <- df_scen |>
   mutate(scen = "Electricity Grid")
 
 range <- rbind(range_ice, range_life, range_cap, range_grid)
+
+# Save Figure Data
+write.csv(range, "Results/Data Figures/Fig4b_range.csv", row.names = FALSE)
+
+
 p2 <- p1 +
   geom_linerange(
     data = range,

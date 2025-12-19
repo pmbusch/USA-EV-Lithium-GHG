@@ -1,4 +1,4 @@
-# LIB Recycling  emissions
+# LIB Recycling  impacts
 # Only displaces Lithium production
 # Source: ecoinvent 3.11
 

@@ -1,4 +1,4 @@
-# Dissagregate EVs based on 2023 registrations and population
+# Dissagregate EVs at US level into state level based on 2023 registrations and population
 # PBH March 2025
 # https://afdc.energy.gov/data/10962
 
@@ -8,10 +8,7 @@ library(tidyverse)
 
 # Sales 2023 = EV Registration 2023 - EV Registration 2022
 # only BEVs included, for 2023
-ev <- readxl::read_excel(
-  "Inputs/10962-ev-registration-counts-by-state_9-06-24.xlsx",
-  sheet = "CompiledData"
-)
+ev <- readxl::read_excel("Inputs/10962-ev-registration-counts-by-state_9-06-24.xlsx", sheet = "CompiledData")
 names(ev)
 # get new sales as difference in registration
 ev <- ev %>%
@@ -54,9 +51,7 @@ ev <- ev %>% left_join(dict_reg, by = c("State" = "NAME"))
 
 # get population by state, from census data (need to generate census file beforehand)
 census <- read.csv("Parameters/census_joins.csv")
-census <- census %>%
-  group_by(State, Region_Transport) %>%
-  reframe(pop = sum(pop))
+census <- census %>% group_by(State, Region_Transport) %>% reframe(pop = sum(pop))
 sum(census$pop) / 1e6 # 334M
 
 # add pop
@@ -77,11 +72,7 @@ st_code <- read.csv("Inputs/Join_StateCode.csv")
 ev_share %>%
   left_join(st_code) %>%
   rename(Population = pop, `EV Registration` = ev) %>%
-  pivot_longer(
-    c(Population, `EV Registration`),
-    names_to = "key",
-    values_to = "value"
-  ) %>%
+  pivot_longer(c(Population, `EV Registration`), names_to = "key", values_to = "value") %>%
   mutate(State_code = if_else(value > 0.02, State_code, "")) %>%
   ggplot(aes(key, value, fill = State)) +
   geom_col(col = "black", linewidth = 0.05) +
@@ -98,23 +89,10 @@ ev_share %>%
   # scale_fill_viridis_d()+
   labs(x = "", y = "State share within EIA Transport Region") +
   theme_bw(8) +
-  scale_fill_manual(
-    values = scico::scico(51, palette = "batlow", direction = 1)
-  ) +
-  theme(
-    legend.position = "none",
-    panel.grid = element_blank(),
-    strip.text = element_text(size = 6)
-  )
+  scale_fill_manual(values = scico::scico(51, palette = "batlow", direction = 1)) +
+  theme(legend.position = "none", panel.grid = element_blank(), strip.text = element_text(size = 6))
 
-ggsave(
-  "Figures/Fleet/EV_reg_share.png",
-  ggplot2::last_plot(),
-  units = "cm",
-  dpi = 600,
-  width = 8.7 * 1.5,
-  height = 14
-)
+ggsave("Figures/Fleet/EV_reg_share.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7 * 1.5, height = 14)
 
 
 # Dissaggregate based on goals and starting point ------
@@ -130,9 +108,7 @@ ggplot(adoption, aes(period, ev_sales_adoption)) + geom_line() + theme_bw(8)
 
 # Simple model: linear interpolation between EV 2023 Sales Share and Population Share
 
-df_share <- ev_share %>%
-  dplyr::select(State, pop, ev) %>%
-  mutate(linearStep = (pop - ev) / 12) # 2023 to 2035
+df_share <- ev_share %>% dplyr::select(State, pop, ev) %>% mutate(linearStep = (pop - ev) / 12) # 2023 to 2035
 
 df_share <- expand.grid(period = 2023:2050, State = unique(df_share$State)) %>%
   left_join(df_share) %>%
@@ -146,16 +122,7 @@ df_share <- expand.grid(period = 2023:2050, State = unique(df_share$State)) %>%
 
 # add historical EV sales share by state
 ev_share_historical <- ev %>%
-  dplyr::select(
-    State,
-    sales_2016,
-    sales_2017,
-    sales_2018,
-    sales_2019,
-    sales_2020,
-    sales_2021,
-    sales_2022
-  ) %>%
+  dplyr::select(State, sales_2016, sales_2017, sales_2018, sales_2019, sales_2020, sales_2021, sales_2022) %>%
   pivot_longer(c(-State), names_to = "period", values_to = "unit") %>%
   mutate(period = as.integer(str_remove(period, "sales_"))) %>%
   mutate(unit = if_else(unit > 0, unit, 0)) %>% # avoid negative cases for some states
@@ -184,28 +151,15 @@ ggplot(df_share, aes(period, ev_share, fill = State)) +
     position = position_stack(vjust = .5)
   ) +
   geom_vline(xintercept = 2022, linetype = "dashed", linewidth = 0.2) +
-  annotate(
-    "text",
-    x = 2021.5,
-    y = 0.1,
-    label = "Historical",
-    angle = 90,
-    size = 8 * 5 / 14 * 0.8
-  ) +
+  annotate("text", x = 2021.5, y = 0.1, label = "Historical", angle = 90, size = 8 * 5 / 14 * 0.8) +
   coord_cartesian(expand = F, xlim = c(2016, 2051)) +
   scale_y_continuous(
     labels = scales::percent,
-    sec.axis = sec_axis(
-      ~.,
-      labels = scales::percent,
-      name = "Based on Population"
-    )
+    sec.axis = sec_axis(~., labels = scales::percent, name = "Based on Population")
   ) +
   labs(x = "", y = "Based on EV Registration Records", fill = "Region") +
   # scale_fill_viridis_d()+scale_color_viridis_d()+
-  scale_fill_manual(
-    values = scico::scico(51, palette = "batlow", direction = 1)
-  ) +
+  scale_fill_manual(values = scico::scico(51, palette = "batlow", direction = 1)) +
   theme_bw(8) +
   theme(panel.grid = element_blank(), legend.position = "none")
 
@@ -226,9 +180,7 @@ write.csv(df_share, "Parameters/Operation/EV_share_state.csv", row.names = F)
 # Only for USA and BEV Cars/Vans
 sales <- read.csv("Parameters/Operation/SalesEV.csv")
 
-sales <- sales %>%
-  filter(Scenario == "Ambitious") %>%
-  rename(period = Year)
+sales <- sales %>% filter(Scenario == "Ambitious") %>% rename(period = Year)
 
 # always positive and increasing
 sales <- df_share %>% left_join(sales) %>% mutate(ev_sales = Sales * ev_share)

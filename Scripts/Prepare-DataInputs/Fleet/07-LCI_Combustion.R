@@ -6,13 +6,7 @@
 
 library(tidyverse)
 library(readxl)
-theme_set(
-  theme_bw(8) +
-    theme(
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank()
-    )
-)
+theme_set(theme_bw(8) + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()))
 
 url_file <- "Inputs"
 
@@ -21,11 +15,7 @@ url_file <- "Inputs"
 # Combustion -----
 
 # read entire sheet
-df <- read_excel(
-  paste0(url_file, "/LCI_ecoinvent311.xlsx"),
-  sheet = "u-so car",
-  .name_repair = "unique_quiet"
-)
+df <- read_excel(paste0(url_file, "/LCI_ecoinvent311.xlsx"), sheet = "u-so car", .name_repair = "unique_quiet")
 # get metadata
 name <- df[2, 3][[1]] # large size EURO 5
 cat(name, "\n")
@@ -48,27 +38,18 @@ colnames(outputs) <- df[(pos_outputs + 1), ]
 inputs$Type <- "Inputs"
 outputs$Type <- "Outputs"
 
-df <- rbind(inputs, outputs) %>%
-  mutate(Name = name, Region = region, Year = ref_year, sheet = "u-so car")
+df <- rbind(inputs, outputs) %>% mutate(Name = name, Region = region, Year = ref_year, sheet = "u-so car")
 
 # Functional UNIT
-FU <- df %>%
-  filter(Type == "Outputs") %>%
-  slice(1) %>%
-  mutate(FU = paste0(Amount, " ", Units)) %>%
-  pull(FU)
+FU <- df %>% filter(Type == "Outputs") %>% slice(1) %>% mutate(FU = paste0(Amount, " ", Units)) %>% pull(FU)
 
 df$fu <- FU # 1km
 
 # convert flows to per kg of fuel petrol, low sulfur (combustion)
-(mass <- df %>%
-  filter(Type == "Inputs") %>%
-  filter(str_detect(Flows, "petrol, low")))
+(mass <- df %>% filter(Type == "Inputs") %>% filter(str_detect(Flows, "petrol, low")))
 mass <- sum(as.numeric(mass$Amount))
 
-df <- df %>%
-  mutate(fu = "1 kg") %>%
-  mutate(Amount = as.numeric(Amount) / mass)
+df <- df %>% mutate(fu = "1 kg") %>% mutate(Amount = as.numeric(Amount) / mass)
 
 # 3.18 kg CO2 per kg of petrol
 
@@ -103,15 +84,7 @@ df <- df %>% rename(Flow = Flows) %>% left_join(end, by = "Flow")
 # refill NA as 0
 df <- df %>%
   mutate(across(
-    c(
-      "kgCO2eq",
-      "MJ",
-      "kgSO2eq",
-      "kgCFC11eq",
-      "kgPM2.5eq",
-      "kgO3eq",
-      "MJ_nonRenewable"
-    ),
+    c("kgCO2eq", "MJ", "kgSO2eq", "kgCFC11eq", "kgPM2.5eq", "kgO3eq", "MJ_nonRenewable"),
     ~ replace_na(., 0)
   ))
 
@@ -143,8 +116,7 @@ up_mat <- read.csv("Parameters/Manufacturing/ecoinvent_upstream_material.csv")
 
 upstream <- upstream %>% left_join(up_mat)
 
-petrol <- upstream %>%
-  filter(str_detect(Name, "petrol production"))
+petrol <- upstream %>% filter(str_detect(Name, "petrol production"))
 
 ## add combustion to petrol
 names(df)

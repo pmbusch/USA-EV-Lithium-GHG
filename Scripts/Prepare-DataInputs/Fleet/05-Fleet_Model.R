@@ -1,5 +1,5 @@
+# EV Fleet Model - Compiles results for projection of fleet level at US state.
 # GHG Calculation
-# EV Fleet Model
 # PBH Nov 2024
 
 source("Scripts/00-Libraries.R", encoding = "UTF-8")
@@ -13,10 +13,8 @@ reuse <- read.csv("Parameters/outflows_LIB.csv", stringsAsFactors = FALSE)
 # Convert strings to vectors by year - Process the list column back into a list
 reuse <- reuse %>%
   mutate(
-    LIB_recycling_vector = str_split(LIB_recycling_vector, "\\|") %>%
-      lapply(as.numeric),
-    LIB_Available_vector = str_split(LIB_Available_vector, "\\|") %>%
-      lapply(as.numeric),
+    LIB_recycling_vector = str_split(LIB_recycling_vector, "\\|") %>% lapply(as.numeric),
+    LIB_Available_vector = str_split(LIB_Available_vector, "\\|") %>% lapply(as.numeric),
     add_LIB_vector = str_split(add_LIB_vector, "\\|") %>% lapply(as.numeric),
     EV_fail_vector = str_split(EV_fail_vector, "\\|") %>% lapply(as.numeric),
     EV_Stock_vector = str_split(EV_Stock_vector, "\\|") %>% lapply(as.numeric)
@@ -25,19 +23,13 @@ names(reuse)
 
 
 # Fleet at 2050 ------------
-(x <- reuse %>%
-  filter(Year == 2050, Scenario == "Ambitious-Reference") %>%
-  pull(EV_Stock) /
-  1e6)
+(x <- reuse %>% filter(Year == 2050, Scenario == "Ambitious-Reference") %>% pull(EV_Stock) / 1e6)
 x / 335 # car ownership 0.69 (cars+vans)
 
 
 # Get EV stock by calendar year, model year and vehicle age, for US
 fleet <- reuse %>%
-  mutate(
-    age = map(EV_Stock_vector, seq_along),
-    fleet = map(EV_Stock_vector, as.numeric)
-  ) %>%
+  mutate(age = map(EV_Stock_vector, seq_along), fleet = map(EV_Stock_vector, as.numeric)) %>%
   unnest_longer(c(EV_Stock_vector, age, fleet)) %>%
   mutate(age = age - 1) %>%
   dplyr::select(Scenario, Year, Vehicle, age, fleet) %>%
@@ -53,10 +45,7 @@ write.csv(fleet, "Parameters/Operation/USA_fleet.csv", row.names = F)
 
 # Additional Batteries ---------
 addLIB <- reuse %>%
-  mutate(
-    age = map(add_LIB_vector, seq_along),
-    LIB = map(add_LIB_vector, as.numeric)
-  ) %>%
+  mutate(age = map(add_LIB_vector, seq_along), LIB = map(add_LIB_vector, as.numeric)) %>%
   unnest_longer(c(add_LIB_vector, age, LIB)) %>%
   mutate(age = age - 1) %>%
   mutate(modelYear = Year - age) %>%
@@ -68,10 +57,7 @@ write.csv(addLIB, "Parameters/LIB_replacement.csv", row.names = F)
 
 # LIBS that failed and can be used to recycle
 LIB_recyc <- reuse %>%
-  mutate(
-    age = map(LIB_recycling_vector, seq_along),
-    LIB = map(LIB_recycling_vector, as.numeric)
-  ) %>%
+  mutate(age = map(LIB_recycling_vector, seq_along), LIB = map(LIB_recycling_vector, as.numeric)) %>%
   unnest_longer(c(LIB_recycling_vector, age, LIB)) %>%
   mutate(age = age - 1) %>%
   mutate(modelYear = Year - age) %>%
@@ -81,10 +67,7 @@ write.csv(LIB_recyc, "Parameters/LIB_failure.csv", row.names = F)
 
 # LIBS in good condition available to recycle or SSPS
 LIB_available <- reuse %>%
-  mutate(
-    age = map(LIB_Available_vector, seq_along),
-    LIB = map(LIB_Available_vector, as.numeric)
-  ) %>%
+  mutate(age = map(LIB_Available_vector, seq_along), LIB = map(LIB_Available_vector, as.numeric)) %>%
   unnest_longer(c(LIB_Available_vector, age, LIB)) %>%
   mutate(age = age - 1) %>%
   mutate(modelYear = Year - age) %>%
@@ -94,10 +77,7 @@ write.csv(LIB_available, "Parameters/LIB_available.csv", row.names = F)
 
 # EV Fail
 EV_recyc <- reuse %>%
-  mutate(
-    age = map(EV_fail_vector, seq_along),
-    EV = map(EV_fail_vector, as.numeric)
-  ) %>%
+  mutate(age = map(EV_fail_vector, seq_along), EV = map(EV_fail_vector, as.numeric)) %>%
   unnest_longer(c(EV_fail_vector, age, EV)) %>%
   mutate(age = age - 1) %>%
   mutate(modelYear = Year - age) %>%
@@ -128,13 +108,7 @@ sales %>%
     axis.text.x = element_text(hjust = 1)
   )
 
-ggsave(
-  sprintf(url_fig, "sales"),
-  dpi = 600,
-  units = "cm",
-  width = 12,
-  height = 8.7
-)
+ggsave(sprintf(url_fig, "sales"), dpi = 600, units = "cm", width = 12, height = 8.7)
 
 # Fleet
 fleet <- read.csv("Parameters/Operation/USA_fleet.csv")
@@ -171,13 +145,7 @@ fleet %>%
   theme_bw(8) +
   theme(panel.grid = element_blank())
 
-ggsave(
-  sprintf(url_fig, "fleet"),
-  dpi = 600,
-  units = "cm",
-  width = 12,
-  height = 8.7
-)
+ggsave(sprintf(url_fig, "fleet"), dpi = 600, units = "cm", width = 12, height = 8.7)
 
 
 addLIB %>%
@@ -206,13 +174,7 @@ addLIB %>%
   ) +
   labs(x = "", y = "", title = "USA LIB Replacement [million units]")
 
-ggsave(
-  sprintf(url_fig, "addLIB"),
-  dpi = 600,
-  units = "cm",
-  width = 12,
-  height = 8.7
-)
+ggsave(sprintf(url_fig, "addLIB"), dpi = 600, units = "cm", width = 12, height = 8.7)
 
 LIB_recyc %>%
   mutate(lifetime = str_extract(Scenario, "Reference|Long|Short")) %>%
@@ -243,13 +205,7 @@ LIB_recyc %>%
   labs(x = "", y = "", title = "USA LIB Recycling [million units]") +
   theme(panel.spacing = unit(0.7, "cm"))
 
-ggsave(
-  sprintf(url_fig, "LIBrecyc"),
-  dpi = 600,
-  units = "cm",
-  width = 18,
-  height = 8.7
-)
+ggsave(sprintf(url_fig, "LIBrecyc"), dpi = 600, units = "cm", width = 18, height = 8.7)
 
 
 LIB_available %>%
@@ -282,12 +238,6 @@ LIB_available %>%
   theme(panel.spacing = unit(0.7, "cm"))
 
 
-ggsave(
-  sprintf(url_fig, "LIBavailable"),
-  dpi = 600,
-  units = "cm",
-  width = 18,
-  height = 8.7
-)
+ggsave(sprintf(url_fig, "LIBavailable"), dpi = 600, units = "cm", width = 18, height = 8.7)
 
 # EoF

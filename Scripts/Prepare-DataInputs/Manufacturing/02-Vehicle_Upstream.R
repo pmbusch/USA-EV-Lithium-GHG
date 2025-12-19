@@ -1,4 +1,4 @@
-# Vehicle Upstream production emissions
+# Vehicle Upstream production impacts
 # Source: ecoinvent 3.11
 
 library(tidyverse)
@@ -9,9 +9,7 @@ up_mat <- read.csv("Parameters/Manufacturing/ecoinvent_upstream_material.csv")
 
 upstream <- upstream %>% left_join(up_mat)
 
-veh_prod <- upstream %>%
-  filter(str_detect(Name, "passenger car production")) %>%
-  filter(!str_detect(Name, "diesel"))
+veh_prod <- upstream %>% filter(str_detect(Name, "passenger car production")) %>% filter(!str_detect(Name, "diesel"))
 
 # kerb weight - GREET (see excel for detail)
 # year 2025, EV 300MILE range

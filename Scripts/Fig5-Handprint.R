@@ -1,7 +1,8 @@
+# Handprint (avoided emissions) for lithium-ion batteries and lithium
 # Heatmap for key sensitivity
 # PBH OCt 2025
 
-source("Scripts/03b-Scenario_Load_Results.R")
+source("Scripts/02b-Scenario_Load_Results.R")
 
 head(df_all_scen)
 unique(df_all_scen$Scenario_Grid)
@@ -88,6 +89,9 @@ df |>
   ) |>
   pull(metric))
 
+# Save Figure Data
+write.csv(df, "Results/Data Figures/Fig5b.csv", row.names = FALSE)
+
 p_li <- df |>
   filter(Scenario_mpg == "Reference") |> # little change
   filter(Scenario_Recycling %in% c("0%", "40%", "80%")) |>
@@ -165,6 +169,9 @@ data_fig2 <- data_fig2 %>%
 (mid2 <- data_fig2 |>
   filter(Scenario_Grid == "Reference case", Scenario_Capacity == "Reference", Scenario_Lifetime == "Reference") |>
   pull(metric))
+
+# Save Figure Data
+write.csv(data_fig2, "Results/Data Figures/Fig5a.csv", row.names = FALSE)
 
 p_lib <- ggplot(data_fig2, aes(Scenario_Capacity, Scenario_Grid, fill = metric)) +
   geom_tile(color = "grey80") +

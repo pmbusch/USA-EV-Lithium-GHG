@@ -18,11 +18,7 @@ bat <- bat %>%
   ungroup()
 
 # scenario based on 95 qtls of bat size - EV Vol 2025
-bat_scen <- tibble(
-  Type = c("CAR", "PUT"),
-  low_capacity = c(68, 83),
-  high_capacity = c(100, 100)
-)
+bat_scen <- tibble(Type = c("CAR", "PUT"), low_capacity = c(68, 83), high_capacity = c(100, 100))
 
 # scale bat chemistry proportionally - equivalent to constant chem shares
 bat <- bat %>%
@@ -30,29 +26,16 @@ bat <- bat %>%
   mutate(total = sum(kwh_veh)) %>%
   ungroup() %>%
   left_join(bat_scen) %>%
-  mutate(
-    scale_low = low_capacity / total,
-    scale_high = high_capacity / total
-  ) %>%
-  mutate(
-    low_capacity = kwh_veh * scale_low,
-    high_capacity = kwh_veh * scale_high
-  ) %>%
+  mutate(scale_low = low_capacity / total, scale_high = high_capacity / total) %>%
+  mutate(low_capacity = kwh_veh * scale_low, high_capacity = kwh_veh * scale_high) %>%
   rename(Reference = kwh_veh) %>%
   dplyr::select(-total, -scale_low, -scale_high)
 
-bat <- bat %>%
-  rename(vehSize = Type) %>%
-  mutate(vehSize = if_else(vehSize == "CAR", "Car", "Light Truck"))
+bat <- bat %>% rename(vehSize = Type) %>% mutate(vehSize = if_else(vehSize == "CAR", "Car", "Light Truck"))
 
 
 # convert to scenario
-bat <- bat %>%
-  pivot_longer(
-    c(-vehSize, -LIB_Chem),
-    names_to = "Scenario_Capacity",
-    values_to = "kwh_veh"
-  )
+bat <- bat %>% pivot_longer(c(-vehSize, -LIB_Chem), names_to = "Scenario_Capacity", values_to = "kwh_veh")
 
 write.csv(bat, "Parameters/Manufacturing/batsize.csv", row.names = F)
 
@@ -64,23 +47,11 @@ bat %>%
   geom_col(linewidth = .2, col = "black") +
   coord_flip(expand = F, ylim = c(0, 98)) +
   scale_fill_viridis_d(direction = -1) +
-  labs(
-    x = "",
-    y = "Battery capacity per vehicle [kWh]",
-    fill = "Cathode Chemistry",
-    col = ""
-  ) +
+  labs(x = "", y = "Battery capacity per vehicle [kWh]", fill = "Cathode Chemistry", col = "") +
   guides(fill = guide_legend(reverse = TRUE)) +
   theme_bw(8) +
   theme(panel.grid = element_blank(), legend.position = "bottom")
 
-ggsave(
-  "Figures/Fleet/batsize.png",
-  ggplot2::last_plot(),
-  units = "cm",
-  dpi = 600,
-  width = 8.7 * 1.5,
-  height = 8.7
-)
+ggsave("Figures/Fleet/batsize.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7 * 1.5, height = 8.7)
 
 # EoF

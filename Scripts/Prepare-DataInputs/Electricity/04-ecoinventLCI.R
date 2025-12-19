@@ -18,11 +18,7 @@ sheets <- str_subset(sheets, "Sheet")
 ecoinvent <- c()
 for (s in sheets) {
   # read entire sheet
-  df <- read_excel(
-    paste0(url_file, "/LCI_ecoinvent311.xlsx"),
-    sheet = s,
-    .name_repair = "unique_quiet"
-  )
+  df <- read_excel(paste0(url_file, "/LCI_ecoinvent311.xlsx"), sheet = s, .name_repair = "unique_quiet")
   # get metadata
   name <- df[2, 3][[1]]
   cat(name, "\n")
@@ -45,24 +41,12 @@ for (s in sheets) {
   inputs$Type <- "Inputs"
   outputs$Type <- "Outputs"
 
-  df_aux <- rbind(inputs, outputs) %>%
-    mutate(Name = name, Region = region, Year = ref_year, sheet = s)
+  df_aux <- rbind(inputs, outputs) %>% mutate(Name = name, Region = region, Year = ref_year, sheet = s)
 
   # join to master
   ecoinvent <- rbind(ecoinvent, df_aux)
 
-  rm(
-    df,
-    df_aux,
-    inputs,
-    outputs,
-    name,
-    region,
-    ref_year,
-    pos_end,
-    pos_inputs,
-    pos_outputs
-  )
+  rm(df, df_aux, inputs, outputs, name, region, ref_year, pos_end, pos_inputs, pos_outputs)
 }
 nrow(ecoinvent) / 1e6 #0.2M
 
@@ -75,12 +59,7 @@ end <- read.csv("Parameters/endpoints.csv")
 head(end)
 
 # Functional Unit - per kWh (or 3.6 MJ)
-ecoinvent %>%
-  filter(Type == "Outputs") %>%
-  group_by(sheet, Name) %>%
-  slice(1) %>%
-  pull(Units) %>%
-  unique()
+ecoinvent %>% filter(Type == "Outputs") %>% group_by(sheet, Name) %>% slice(1) %>% pull(Units) %>% unique()
 # pull(Amount) %>% unique()
 
 # Add endpoints and estimate impacts for flows
@@ -90,15 +69,7 @@ names(df_all)
 # refill NA as 0
 df_all <- df_all %>%
   mutate(across(
-    c(
-      "kgCO2eq",
-      "MJ",
-      "kgSO2eq",
-      "kgCFC11eq",
-      "kgPM2.5eq",
-      "kgO3eq",
-      "MJ_nonRenewable"
-    ),
+    c("kgCO2eq", "MJ", "kgSO2eq", "kgCFC11eq", "kgPM2.5eq", "kgO3eq", "MJ_nonRenewable"),
     ~ replace_na(., 0)
   ))
 
@@ -131,10 +102,7 @@ energy <- df_all %>%
     )
   )
 energy %>% group_by(prim_energy, Quantities, Units) %>% tally()
-energy %>%
-  group_by(prim_energy) %>%
-  reframe(MJ = sum(MJ), kg = sum(kg)) %>%
-  arrange(desc(MJ))
+energy %>% group_by(prim_energy) %>% reframe(MJ = sum(MJ), kg = sum(kg)) %>% arrange(desc(MJ))
 energy <- energy %>%
   group_by(sheet, Name, Region, prim_energy) %>%
   reframe(MJ = sum(MJ), kg = sum(kg)) %>%
@@ -192,11 +160,7 @@ data_fig <- df %>%
   ) %>%
   filter(!str_detect(Name, "import|voltage"))
 
-order_name <- data_fig %>%
-  group_by(Name) %>%
-  reframe(x = mean(kgCO2eq)) %>%
-  arrange((x)) %>%
-  pull(Name)
+order_name <- data_fig %>% group_by(Name) %>% reframe(x = mean(kgCO2eq)) %>% arrange((x)) %>% pull(Name)
 data_fig <- data_fig %>% mutate(Name = factor(Name, levels = order_name))
 
 ggplot(data_fig, aes(Name, kgCO2eq)) +
@@ -205,11 +169,7 @@ ggplot(data_fig, aes(Name, kgCO2eq)) +
   guides(fill = guide_legend(ncol = 2, reverse = T)) +
   labs(y = "kg CO2e per kWh Electricity", x = "") +
   theme_bw(8) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    legend.position = c(0.7, 0.3)
-  )
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.7, 0.3))
 
 ggsave(
   "Figures/Electricity/ecoinvent.png",
@@ -236,12 +196,7 @@ data_fig <- data_fig %>%
   pivot_longer(c(-Name, -Region), names_to = "impact", values_to = "value") %>%
   mutate(
     impact = case_when(
-      impact == "kgPM2.5eq" ~ paste0(
-        "Human Health Particulate Air",
-        " ",
-        impact,
-        "/kWh"
-      ),
+      impact == "kgPM2.5eq" ~ paste0("Human Health Particulate Air", " ", impact, "/kWh"),
       impact == "kgCFC11eq" ~ paste0("Ozone depletion", " ", impact, "/kWh"),
       impact == "kgSO2eq" ~ paste0("Acidification", " ", impact, "/kWh"),
       impact == "kgO3eq" ~ paste0("Smog formation", " ", impact, "/kWh"),
@@ -249,11 +204,7 @@ data_fig <- data_fig %>%
     )
   )
 
-order_name <- data_fig %>%
-  group_by(Name) %>%
-  reframe(x = mean(value)) %>%
-  arrange((x)) %>%
-  pull(Name)
+order_name <- data_fig %>% group_by(Name) %>% reframe(x = mean(value)) %>% arrange((x)) %>% pull(Name)
 data_fig <- data_fig %>% mutate(Name = factor(Name, levels = order_name))
 
 ggplot(data_fig, aes(Name, value)) +
@@ -263,11 +214,7 @@ ggplot(data_fig, aes(Name, value)) +
   guides(fill = guide_legend(ncol = 2, reverse = T)) +
   labs(y = "kg per kWh Electricity", x = "") +
   theme_bw(8) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    legend.position = c(0.7, 0.2)
-  )
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.7, 0.2))
 
 ggsave(
   "Figures/Electricity/ecoinventOtherImpacts.png",
@@ -313,34 +260,20 @@ data_fig <- data_fig %>%
     )
   )
 
-data_fig <- data_fig %>%
-  mutate(Flow = str_replace(Flow, "\\[.*", "") %>% str_trim())
+data_fig <- data_fig %>% mutate(Flow = str_replace(Flow, "\\[.*", "") %>% str_trim())
 
-order_name <- data_fig %>%
-  group_by(Name) %>%
-  reframe(x = mean(value)) %>%
-  arrange((x)) %>%
-  pull(Name)
+order_name <- data_fig %>% group_by(Name) %>% reframe(x = mean(value)) %>% arrange((x)) %>% pull(Name)
 data_fig <- data_fig %>% mutate(Name = factor(Name, levels = order_name))
 
 ggplot(data_fig, aes(Name, value)) +
   geom_col(aes(fill = Flow)) +
   facet_wrap(~impact) +
   coord_flip(expand = F) +
-  scale_y_continuous(
-    sec.axis = sec_axis(
-      ~ . / 3.6,
-      name = "Net Primary Energy [kWh per kWh Electricity]"
-    )
-  ) +
+  scale_y_continuous(sec.axis = sec_axis(~ . / 3.6, name = "Net Primary Energy [kWh per kWh Electricity]")) +
   labs(y = "Net Primary Energy [MJ per kWh Electricity]", x = "", fill = "") +
   guides(fill = guide_legend(nrow = 4, reverse = T)) +
   theme_bw(8) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    legend.position = "bottom"
-  )
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "bottom")
 
 ggsave(
   "Figures/Electricity/ecoinventNetEnergy.png",
@@ -360,21 +293,10 @@ mat <- ecoinvent %>%
   mutate(Amount = as.numeric(Amount))
 unique(mat$Units)
 
-mat <- mat %>%
-  group_by(sheet, Name, Region, Material) %>%
-  reframe(kgMat = sum(Amount)) %>%
-  ungroup()
+mat <- mat %>% group_by(sheet, Name, Region, Material) %>% reframe(kgMat = sum(Amount)) %>% ungroup()
 
 # save endpoints: total mass, total metal mass, and key minerals
-mat_interest <- c(
-  "Lithium",
-  "Nickel",
-  "Cobalt",
-  "Copper",
-  "Zinc",
-  "REE",
-  "Aluminium"
-)
+mat_interest <- c("Lithium", "Nickel", "Cobalt", "Copper", "Zinc", "REE", "Aluminium")
 metals <- read_excel("Inputs/Elements_Metals.xlsx")
 
 # top ones based on content
@@ -405,11 +327,7 @@ mat_agg2 <- mat %>%
 mat_agg <- left_join(mat_agg1, mat_agg2)
 
 # save
-write.csv(
-  mat_agg,
-  "Parameters/Electricity/ecoinvent_electricity_material.csv",
-  row.names = F
-)
+write.csv(mat_agg, "Parameters/Electricity/ecoinvent_electricity_material.csv", row.names = F)
 
 
 ## Figure ----
@@ -425,32 +343,15 @@ data_fig <- mat_agg %>%
 
 data_fig <- data_fig %>%
   mutate(kgMat = kgMat - kgMetal) %>%
-  pivot_longer(
-    c(-sheet, -Name, -Region),
-    names_to = "key",
-    values_to = "kg"
-  ) %>%
-  mutate(
-    cat = if_else(
-      key %in% c("kgMat", "kgMetal"),
-      "All Materials",
-      "Highlight Materials"
-    )
-  ) %>%
+  pivot_longer(c(-sheet, -Name, -Region), names_to = "key", values_to = "kg") %>%
+  mutate(cat = if_else(key %in% c("kgMat", "kgMetal"), "All Materials", "Highlight Materials")) %>%
   mutate(key = str_remove(key, "kg") %>% str_replace("Mat", "Non-Metal"))
 
 # average by region
-data_fig <- data_fig %>%
-  group_by(Name, cat, key) %>%
-  reframe(kg = mean(kg)) %>%
-  ungroup()
+data_fig <- data_fig %>% group_by(Name, cat, key) %>% reframe(kg = mean(kg)) %>% ungroup()
 
 
-order_name <- data_fig %>%
-  group_by(Name) %>%
-  reframe(x = mean(kg)) %>%
-  arrange((x)) %>%
-  pull(Name)
+order_name <- data_fig %>% group_by(Name) %>% reframe(x = mean(kg)) %>% arrange((x)) %>% pull(Name)
 data_fig <- data_fig %>% mutate(Name = factor(Name, levels = order_name))
 
 data_fig$kg <- data_fig$kg * 1e3
@@ -468,11 +369,7 @@ p1 <- ggplot(filter(data_fig, cat == "All Materials"), aes(Name, kg)) +
   guides(fill = guide_legend(nrow = 2, reverse = T)) +
   scale_fill_manual(values = mats) +
   theme_bw(8) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    legend.position = c(0.8, 0.2)
-  )
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.8, 0.2))
 p1
 
 p2 <- ggplot(filter(data_fig, cat != "All Materials"), aes(Name, kg)) +
@@ -484,11 +381,7 @@ p2 <- ggplot(filter(data_fig, cat != "All Materials"), aes(Name, kg)) +
   scale_fill_manual(values = mats) +
   scale_x_discrete(labels = NULL) +
   theme_bw(8) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    legend.position = c(0.6, 0.2)
-  )
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.6, 0.2))
 p2
 
 cowplot::plot_grid(p1, p2, ncol = 2)
@@ -516,12 +409,7 @@ fossils <- end %>% filter(renewable == 0, MJ > 0) %>% pull(Flow) %>% unique()
 
 df_fossil <- ecoinvent %>%
   rename(Flow = Flows) %>%
-  mutate(
-    fossilFuel = str_extract(
-      Flow,
-      "Coal|Crude oil|Natural gas|Uranium|Sulphur|Peat"
-    )
-  ) %>%
+  mutate(fossilFuel = str_extract(Flow, "Coal|Crude oil|Natural gas|Uranium|Sulphur|Peat")) %>%
   filter(Flow %in% fossils) %>%
   filter(!is.na(Amount))
 df_fossil %>% group_by(Flow, fossilFuel, Units) %>% tally() # all in kg, except gas in Nm3
@@ -538,11 +426,7 @@ df_fossil <- df_fossil %>%
   mutate(value = value * cf)
 
 # save
-write.csv(
-  df_fossil,
-  "Parameters/Electricity/ecoinvent_fossil_electricity.csv",
-  row.names = F
-)
+write.csv(df_fossil, "Parameters/Electricity/ecoinvent_fossil_electricity.csv", row.names = F)
 
 df_fossil <- df_fossil %>%
   mutate(
@@ -553,16 +437,9 @@ df_fossil <- df_fossil %>%
   ) %>%
   filter(!str_detect(Name, "import|voltage"))
 
-df_fossil <- df_fossil %>%
-  group_by(Name, fossilFuel) %>%
-  reframe(value = mean(value)) %>%
-  ungroup()
+df_fossil <- df_fossil %>% group_by(Name, fossilFuel) %>% reframe(value = mean(value)) %>% ungroup()
 
-order_name <- df_fossil %>%
-  group_by(Name) %>%
-  reframe(x = mean(value)) %>%
-  arrange((x)) %>%
-  pull(Name)
+order_name <- df_fossil %>% group_by(Name) %>% reframe(x = mean(value)) %>% arrange((x)) %>% pull(Name)
 df_fossil <- df_fossil %>% mutate(Name = factor(Name, levels = order_name))
 
 
@@ -572,11 +449,7 @@ ggplot(df_fossil, aes(Name, value)) +
   guides(fill = guide_legend(nrow = 2, reverse = T)) +
   labs(y = "kg of fossil fuel per kWh Electricity", x = "", fill = "") +
   theme_bw(8) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    legend.position = c(0.7, 0.3)
-  )
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = c(0.7, 0.3))
 
 ggsave(
   "Figures/Electricity/ecoinventFossilFuels.png",

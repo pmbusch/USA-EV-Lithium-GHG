@@ -1,10 +1,11 @@
+# Figure 2 - Primary energy consumption
 ## Analysis of baseline results
 # Barplots for primary energy and co2
 ## PBH Sept 2025
 
 # LOAD Results -------
 
-source("Scripts/03-Load_Results.R")
+source("Scripts/02-Load_Results.R")
 
 # baseline scenario
 df <- df_all %>%
@@ -144,6 +145,9 @@ data_fig3a <- rbind(mutate(data_fig2a, x = lvl_facet[1]), mutate(data_fig3a, x =
 # data_fig3 <- data_fig3 |> filter(x == "Primary Energy")
 # data_fig3a <- data_fig3a |> filter(x == "Primary Energy")
 
+# Save Figure Data
+write.csv(data_fig3, "Results/Data Figures/Fig2.csv", row.names = FALSE)
+
 p3 <- ggplot(data_fig3, aes(as.numeric(vehicle_type) + 0.15, value)) +
   geom_col(data = data_fig3a,aes(fill = Stage),position = position_stack(),
     col = "black", linewidth = 0.1,width = 0.3) +
@@ -225,232 +229,4 @@ data_fig3 |>
   pivot_wider(names_from = vehicle_type, values_from = value) |>
   mutate(perc_EV = EV / sum(EV), perc_ICE = ICE / sum(ICE, na.rm = T))
 
-
-# OLD -----
-
-ggplot(total_df, aes(labX, value)) +
-  geom_col(data = filter(total_df, vehicle_type == "EV"),
-    aes(fill = Stage),
-    position = position_stack(),
-    col = "black",
-    linewidth = 0.1,
-    width = 0.3
-  ) +
-  geom_col(
-    data = filter(total_df, vehicle_type == "ICE"),
-    aes(fill = Stage),
-    position = position_stack(),
-    col = "black",
-    linewidth = 0.1,
-    width = 0.3
-  ) +
-  # geom_text(data=total_type_p,aes(label=lab_total),size=8*5/14 * 0.8,
-  #           nudge_y = 1000)+
-  facet_wrap(~Category, scales = "free") +
-  coord_flip() +
-  scale_y_continuous(labels = function(x) {
-    format(x, big.mark = " ", scientific = FALSE)
-  }) +
-  scale_fill_viridis_d(direction = -1, option = "E") +
-  labs(x = "", y = "", title = paste0("All in tons or TJ", start_year, "-2050")) +
-  theme_bw(8) +
-  theme(panel.grid = element_blank())
-
-ggsave("Figures/fleet_impacts.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7, height = 8.7)
-
-
-# Common sense checks ----
-
-unique(df$impact)
-
-## Total emissions by year -----
-df %>%
-  filter(Year %in% c(2030, 2040, 2050)) %>%
-  filter(impact == "kgCO2eq") %>%
-  group_by(vehicle_type, Year) %>%
-  reframe(mtons = sum(value) / 1e9) %>%
-  pivot_wider(names_from = Year, values_from = mtons)
-
-# For reference, US entire transport sector emissions in 2022: 1800 Mtons CO2e
-# source: https://cfpub.epa.gov/ghgdata/inventoryexplorer/#transportation/entiresector/allgas/category/current
-
-# by vmt
-vmt <- read.csv("Results/total_VMT.csv")
-vmt <- vmt %>%
-  mutate(
-    Scenario_Lifetime = str_extract(Scenario, "Reference|Short|Long"),
-    Scenario_Sales = str_extract(Scenario, "Momentum|Ambitious"),
-    Scenario = NULL
-  ) %>%
-  filter(Scenario_Sales != "Baseline")
-vmt_size <- vmt %>% group_by(Scenario_Sales, Scenario_Lifetime, vehSize) %>% reframe(vmt = sum(total_vmt))
-
-vmt <- vmt %>% group_by(Scenario_Sales, Scenario_Lifetime, Year) %>% reframe(vmt = sum(total_vmt) / 1e6) %>% ungroup()
-
-
-vmt[2, 4] / 1e6 # trillion
-vmt[22, 4] / 1e6 # trillion
-
-# 2023, 3.19 trillion miles in USA
-# https://afdc.energy.gov/data/10315
-vmt_total <- vmt %>% group_by(Scenario_Sales, Scenario_Lifetime) %>% reframe(vmt = sum(vmt) * 1e6) # total miles
-vmt_total <- vmt_total %>% filter(Scenario_Sales == "Ambitious", Scenario_Lifetime == "Reference")
-
-
-## GHG intensity (gr CO2 per mile) ----
-df %>%
-  filter(impact == "kgCO2eq") %>%
-  group_by(Scenario_Sales, Scenario_Lifetime, vehicle_type) %>%
-  reframe(CI = sum(value) * 1e3) %>%
-  ungroup() %>% # to grams
-  left_join(vmt_total) %>%
-  mutate(CI = CI / vmt, CI_km = CI / 1.609)
-# 163 g/mile for EV, 310 for ICE , same ballpark as https://www.nature.com/articles/s41598-024-51697-1
-
-# by size
-df %>%
-  group_by(Scenario_Sales, Scenario_Lifetime, vehicle_type, vehSize) %>%
-  reframe(CI = sum(tonsCO2e) * 1e3) %>%
-  ungroup() %>% # to grams
-  left_join(vmt_size) %>%
-  mutate(CI = CI / vmt, CI_km = CI / 1.609)
-
-
-##  By kg lithium ------
-total_type <- df %>%
-  group_by(Scenario, vehicle_type) %>%
-  reframe(tonsCO2e = sum(tonsCO2e) / 1e6) %>%
-  ungroup() %>%
-  mutate(lab_total = paste0(round(tonsCO2e, 0), " Mtons"))
-
-# load lithium
-mineral_demand <- read.csv("Results/MineralDemand.csv")
-mineral_demand <- mineral_demand %>% filter(Year >= start_year)
-
-lithium_demand <- mineral_demand %>%
-  filter(Mineral == "Lithium", scen_recyc == "Recycling 5%") %>%
-  group_by(Scenario) %>%
-  reframe(mtons = sum(Mineral_tons) / 1e6) %>%
-  ungroup()
-
-# reduction in ton CO2e per ton of lithium
-li_red <- total_type %>%
-  dplyr::select(-lab_total) %>%
-  pivot_wider(names_from = vehicle_type, values_from = tonsCO2e) %>%
-  mutate(red = ICE - EV) %>%
-  left_join(lithium_demand) %>%
-  mutate(red_pkgLithium = red / mtons)
-li_red
-# ~4.1 tons CO2e avoided per kg of lithium
-# why allocate everything to lithium????
-ggplot(li_red, aes(red, mtons)) + geom_point()
-
-# based on value by content
-(li_value <- read.csv("Results/MineralValue.csv"))
-li_red %>% mutate(red_pkgLithium = red_pkgLithium * li_value[4, 4])
-# ~145 kg CO2e per kg Lithium extracted
-
-## By kWh battery pack -----
-# Reduction by kWh of battery pack - units are in MWh
-total_kwh <- mineral_demand %>%
-  filter(Mineral == "kWh", scen_recyc == "Recycling 5%") %>%
-  group_by(Scenario) %>%
-  reframe(kWh = sum(Mineral_tons) * 1e3) %>%
-  ungroup()
-
-kwh_red <- total_type %>%
-  dplyr::select(-lab_total) %>%
-  pivot_wider(names_from = vehicle_type, values_from = tonsCO2e) %>%
-  mutate(red = ICE - EV) %>%
-  left_join(total_kwh) %>%
-  mutate(red_pkWh = red * 1e9 / kWh) #from mtons to kg
-kwh_red
-# ~400 kg CO2 per kWh
-
-## by kg Mineral ------
-# Reduction per kg of critical Mineral - Li,Ni,Co,Graphite,Cu
-total_mineral <- mineral_demand %>%
-  filter(Mineral != "kWh", scen_recyc == "Recycling 5%") %>%
-  group_by(Scenario) %>%
-  reframe(mtons = sum(Mineral_tons) / 1e6)
-
-min_red <- total_type %>%
-  dplyr::select(-lab_total) %>%
-  pivot_wider(names_from = vehicle_type, values_from = tonsCO2e) %>%
-  mutate(red = ICE - EV) %>%
-  left_join(total_mineral) %>%
-  mutate(red_kg_per_kg = red / mtons)
-min_red
-# ~200 kg per kg of critical mineral (Li,Ni,Cu,Co,Graphite)
-
-## FIGURE million tons -----
-total_df <- df %>%
-  filter(impact == "kgCO2eq") %>%
-  group_by(vehicle_type, Stage) %>%
-  reframe(tonsCO2e = sum(value) / 1e9) %>%
-  ungroup() %>%
-  mutate(Stage = factor(Stage, levels = stage_lvl))
-
-total_type_p <- total_type %>% filter(Scenario %in% c("Ambitious", "Ambitious-Reference"))
-
-start_year <- 2024
-ggplot(total_df, aes(vehicle_type, tonsCO2e)) +
-  geom_col(aes(fill = Stage), position = position_stack(), col = "black", linewidth = 0.1) +
-  # geom_text(data=total_type_p,aes(label=lab_total),size=8*5/14 * 0.8,
-  #           nudge_y = 1000)+
-  # facet_wrap(~Scenario)+
-  scale_y_continuous(labels = function(x) {
-    format(x, big.mark = " ", scientific = FALSE)
-  }) +
-  scale_fill_viridis_d(direction = -1, option = "E") +
-  labs(x = "", y = "", title = paste0("Million tons CO2e emissions, ", start_year, "-2050")) +
-  theme_bw(8) +
-  theme(panel.grid = element_blank())
-
-ggsave("Figures/GHG_fleet.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7, height = 8.7)
-
-# over time
-df %>%
-  group_by(Scenario, Year, vehicle_type, Stage) %>%
-  reframe(tonsCO2e = sum(tonsCO2e)) %>%
-  ungroup() %>%
-  mutate(tonsCO2e = tonsCO2e / 1e6) %>%
-  ggplot(aes(Year, tonsCO2e, fill = Stage)) +
-  geom_area() +
-  facet_grid(vehicle_type ~ Scenario) +
-  coord_cartesian(expand = F) +
-  scale_y_continuous(labels = function(x) {
-    format(x, big.mark = " ", scientific = FALSE)
-  }) +
-  scale_fill_viridis_d(direction = -1, option = "E") +
-  scale_x_continuous(breaks = c(2024, 2030, 2040, 2050)) +
-  labs(x = "", y = "", title = "Million tons CO2e emissions") +
-  theme_bw(8) +
-  theme(panel.grid = element_blank(), panel.spacing = unit(1, "cm"))
-
-ggsave("Figures/GHG_fleet_time.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7 * 2, height = 8.7)
-
-# By stage and vehicle size
-stage_lvl2 <- expand.grid(stage_lvl, c("Car", "Light Truck")) %>% mutate(x = paste0(Var2, "-", Var1)) %>% pull(x)
-
-# million tons
-total_df <- df %>%
-  filter(Scenario == "Ambitious") %>%
-  group_by(Scenario, vehicle_type, Stage, vehSize) %>%
-  reframe(tonsCO2e = sum(tonsCO2e) / 1e6) %>%
-  ungroup() %>%
-  mutate(Stage = paste0(vehSize, "-", Stage), Stage = factor(Stage, levels = stage_lvl2))
-
-ggplot(total_df, aes(vehicle_type, tonsCO2e)) +
-  geom_col(aes(fill = Stage), position = position_stack(), col = "black", linewidth = 0.1) +
-  geom_text(data = total_type_p, aes(label = lab_total), size = 8 * 5 / 14 * 0.8, nudge_y = 1000) +
-  # facet_wrap(~Scenario)+
-  scale_y_continuous(labels = function(x) {
-    format(x, big.mark = " ", scientific = FALSE)
-  }) +
-  scale_fill_viridis_d(direction = -1, option = "E") +
-  labs(x = "", y = "", title = paste0("Million tons CO2e emissions, ", start_year, "-2050")) +
-  theme_bw(8) +
-  theme(panel.grid = element_blank())
-
-ggsave("Figures/GHG_fleet_type.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 8.7, height = 8.7)
+# EoF

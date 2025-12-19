@@ -64,10 +64,7 @@ df <- df %>%
   )
 
 # aggregate to new categorues
-df <- df %>%
-  group_by(gea, t, type) %>%
-  reframe(MWh = sum(MWh)) %>%
-  ungroup()
+df <- df %>% group_by(gea, t, type) %>% reframe(MWh = sum(MWh)) %>% ungroup()
 
 df %>%
   filter(t == 2035) %>%
@@ -117,11 +114,7 @@ ggsave(
   height = 9.7
 )
 
-data_agg <- data_fig %>%
-  group_by(t, type) %>%
-  reframe(value = sum(value)) %>%
-  ungroup() %>%
-  mutate(gea = "USA")
+data_agg <- data_fig %>% group_by(t, type) %>% reframe(value = sum(value)) %>% ungroup() %>% mutate(gea = "USA")
 p1 %+% data_agg
 
 # MIX
@@ -133,12 +126,7 @@ p1 <- ggplot(data_fig, aes(t, value)) +
   coord_cartesian(expand = F) +
   scale_y_continuous(labels = scales::percent) +
   scale_fill_manual(values = fuel_colors) +
-  labs(
-    x = "",
-    y = "",
-    title = "Share of Electricity Generation [%]",
-    fill = ""
-  ) +
+  labs(x = "", y = "", title = "Share of Electricity Generation [%]", fill = "") +
   theme_bw(7) +
   guides(fill = guide_legend(nrow = 6)) +
   theme(
@@ -152,14 +140,7 @@ p1 <- ggplot(data_fig, aes(t, value)) +
   )
 p1
 
-ggsave(
-  "Figures/Electricity/Cambium_Mix.png",
-  ggplot2::last_plot(),
-  units = "cm",
-  dpi = 600,
-  width = 18.5,
-  height = 9.7
-)
+ggsave("Figures/Electricity/Cambium_Mix.png", ggplot2::last_plot(), units = "cm", dpi = 600, width = 18.5, height = 9.7)
 
 
 # add linear interpolation every 5 years
@@ -188,16 +169,7 @@ df <- read.csv("Inputs/Cambium/Cambium24_allScenarios_annual_gea.csv", skip = 5)
 lme <- df %>%
   filter(scenario == "MidCase") %>%
   # combustion + precombustion
-  dplyr::select(
-    gea,
-    t,
-    "lrmer_co2_c",
-    "lrmer_ch4_c",
-    "lrmer_n2o_c",
-    "lrmer_co2_p",
-    "lrmer_ch4_p",
-    "lrmer_n2o_p"
-  )
+  dplyr::select(gea, t, "lrmer_co2_c", "lrmer_ch4_c", "lrmer_n2o_c", "lrmer_co2_p", "lrmer_ch4_p", "lrmer_n2o_p")
 
 lme <- lme %>%
   pivot_longer(c(-gea, -t), names_to = "pollutant", values_to = "kg_MWh") %>%
@@ -231,30 +203,18 @@ cambium_join <- cambium_join %>%
     Cambium.GEA = "SPP_North"
   ))
 
-cambium_join <- census_join %>%
-  left_join(
-    cambium_join,
-    by = c("STATEFP" = "State.FIPS", "COUNTYFP" = "County.FIPS")
-  )
+cambium_join <- census_join %>% left_join(cambium_join, by = c("STATEFP" = "State.FIPS", "COUNTYFP" = "County.FIPS"))
 
 cambium_join <- cambium_join %>%
-  mutate(
-    Cambium.GEA = if_else(
-      is.na(Cambium.GEA) & Region_EMM == "ISNE",
-      "ISONE",
-      Cambium.GEA
-    )
-  )
+  mutate(Cambium.GEA = if_else(is.na(Cambium.GEA) & Region_EMM == "ISNE", "ISONE", Cambium.GEA))
 
 # Filter Hawai and Alaska
-cambium_join <- cambium_join %>%
-  filter(!(STATEFP %in% c(2, 15)))
+cambium_join <- cambium_join %>% filter(!(STATEFP %in% c(2, 15)))
 
 cambium_join %>% filter(is.na(Cambium.GEA))
 
 # add emission factor
-df_cambium <- cambium_join %>%
-  left_join(lme, by = c("Cambium.GEA" = "gea"))
+df_cambium <- cambium_join %>% left_join(lme, by = c("Cambium.GEA" = "gea"))
 
 # by state
 lme_state <- df_cambium %>%
@@ -263,10 +223,6 @@ lme_state <- df_cambium %>%
   reframe(kg_MWh = weighted.mean(kg_MWh, pop)) %>%
   ungroup()
 
-write.csv(
-  lme_state,
-  "Parameters/Electricity/cambium_LongMarginal.csv",
-  row.names = F
-)
+write.csv(lme_state, "Parameters/Electricity/cambium_LongMarginal.csv", row.names = F)
 
 # EoF

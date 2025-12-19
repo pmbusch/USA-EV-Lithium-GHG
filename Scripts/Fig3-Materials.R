@@ -1,10 +1,11 @@
+# Materials requirements
 ## Analysis of baseline results
 #  Barplots for materials
 ## PBH Sept 2025
 
 # LOAD Results -------
 
-source("Scripts/03-Load_Results.R")
+source("Scripts/02-Load_Results.R")
 
 # baseline scenario
 df <- df_all %>%
@@ -232,6 +233,9 @@ stage_text <- data_fig |>
   ) %>%
   # mutate(col_text = if_else(Stage == "LIB production", "special", "normal")) |>
   arrange(Stage)
+
+# Save Figure Data
+write.csv(total_fig, "Results/Data Figures/Fig3.csv", row.names = FALSE)
 
 f.makePlot <- function(filter_cond, special = F) {
   total_fig_plot <- total_fig |> filter(!!rlang::enquo(filter_cond))

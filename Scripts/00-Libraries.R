@@ -43,12 +43,7 @@ theme_set(
 
 # Functions -----
 # load all required functions automatically
-file.sources = list.files(
-  "Scripts/00-Functions",
-  pattern = "*.R$",
-  full.names = TRUE,
-  ignore.case = TRUE
-)
+file.sources = list.files("Scripts/00-Functions", pattern = "*.R$", full.names = TRUE, ignore.case = TRUE)
 sapply(file.sources, source, .GlobalEnv)
 rm(file.sources)
 

@@ -1,4 +1,4 @@
-# Vehicle Recycling  emissions (low)
+# Vehicle Recycling  impact
 # No displacement of any production, just less materials
 # Source: ecoinvent 3.11
 
@@ -14,8 +14,7 @@ upstream <- upstream %>% left_join(up_mat)
 
 # per kg of LIB treated
 # need to work economic allocation, and LCE amount recovered
-veh_recyc_upstream <- upstream %>%
-  filter(str_detect(Name, "treatment of used light"))
+veh_recyc_upstream <- upstream %>% filter(str_detect(Name, "treatment of used light"))
 veh_recyc_upstream$fu
 
 veh_recyc_upstream$sheet <- veh_recyc_upstream$Region <- veh_recyc_upstream$Name <- veh_recyc_upstream$fu <- NULL
@@ -24,19 +23,12 @@ veh_recyc_upstream$sheet <- veh_recyc_upstream$Region <- veh_recyc_upstream$Name
 names(veh_recyc_upstream) <- paste0("VehRecyc_", names(veh_recyc_upstream))
 
 # same recycle per vehicle
-veh_recyc_upstream <- expand.grid(
-  vehicle_type = c("EV", "ICE"),
-  vehSize = c("Car", "Light Truck")
-) %>%
+veh_recyc_upstream <- expand.grid(vehicle_type = c("EV", "ICE"), vehSize = c("Car", "Light Truck")) %>%
   cbind(veh_recyc_upstream)
 
 # Substract material requirements
 veh_upstream <- read.csv("Parameters/Manufacturing/Vehprod.csv") %>%
-  pivot_longer(
-    -c(vehicle_type, vehSize),
-    names_to = "key",
-    values_to = "subst"
-  ) %>%
+  pivot_longer(-c(vehicle_type, vehSize), names_to = "key", values_to = "subst") %>%
   mutate(key = str_replace(key, "vehProd_", "VehRecyc_"))
 
 
@@ -59,34 +51,19 @@ recovery <- veh_upstream %>%
   mutate(subst = subst * recov_rate, recov_rate = NULL, Mineral = NULL)
 
 # substract all materials and metals as well
-tot <- recovery %>%
-  group_by(vehicle_type, vehSize) %>%
-  reframe(subst = sum(subst)) %>%
-  ungroup()
-recovery <- rbind(
-  recovery,
-  mutate(tot, key = "VehRecyc_kgMat"),
-  mutate(tot, key = "VehRecyc_kgMetal")
-)
+tot <- recovery %>% group_by(vehicle_type, vehSize) %>% reframe(subst = sum(subst)) %>% ungroup()
+recovery <- rbind(recovery, mutate(tot, key = "VehRecyc_kgMat"), mutate(tot, key = "VehRecyc_kgMetal"))
 
 # substract recovered materials
 veh_recyc_upstream2 <- veh_recyc_upstream %>%
-  pivot_longer(
-    c(-vehicle_type, -vehSize),
-    names_to = "key",
-    values_to = "value"
-  ) %>%
+  pivot_longer(c(-vehicle_type, -vehSize), names_to = "key", values_to = "value") %>%
   left_join(recovery) %>%
   mutate(value = if_else(!is.na(subst), value - subst, value), subst = NULL) %>%
   pivot_wider(names_from = key, values_from = value)
 
 
 # impacts per vehicle
-write.csv(
-  veh_recyc_upstream2,
-  "Parameters/Manufacturing/Veh_recyc.csv",
-  row.names = F
-)
+write.csv(veh_recyc_upstream2, "Parameters/Manufacturing/Veh_recyc.csv", row.names = F)
 
 
 ## GREET ----
@@ -105,8 +82,4 @@ lib_recyc_upstream <- lib_recyc_upstream %>%
   mutate(tonsCO2e = tonsCO2e * share)
 lib_recyc_upstream <- sum(lib_recyc_upstream$tonsCO2e, na.rm = T)
 
-write.csv(
-  lib_recyc_upstream,
-  "Parameters/Manufacturing/GREET_LIB_recyc.csv",
-  row.names = F
-)
+write.csv(lib_recyc_upstream, "Parameters/Manufacturing/GREET_LIB_recyc.csv", row.names = F)

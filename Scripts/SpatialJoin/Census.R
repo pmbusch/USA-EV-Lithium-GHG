@@ -9,8 +9,7 @@ url_file <- "Inputs/Spatial"
 
 # State codes----
 state <- read_csv(paste0(url_file, "/Census/State_Codes.csv"), col_types = "cc")
-state <- state %>%
-  mutate(State = str_to_title(State) %>% str_replace("Of Colum", "of Colum"))
+state <- state %>% mutate(State = str_to_title(State) %>% str_replace("Of Colum", "of Colum"))
 state_list <- paste(state$State, collapse = "|")
 
 # Census Pop data -------
@@ -32,9 +31,7 @@ census <- census %>%
   mutate(County = map_chr(str_split(County, ","), ~ .x[1])) %>%
   mutate(County = substr(County, 2, str_length(County)))
 head(census)
-census <- census %>%
-  rename(NAMELSAD = County) %>%
-  dplyr::select(State, NAMELSAD, pop)
+census <- census %>% rename(NAMELSAD = County) %>% dplyr::select(State, NAMELSAD, pop)
 
 
 # Shapefile ----
@@ -80,8 +77,7 @@ ggplot(shp_sf) +
 # Transport regions (by state) ----------
 
 # load transport region EIA - State equivalency
-dict_EIA <- read.csv("Inputs/Join_TransportEIA_State.csv") %>%
-  rename(State = NAME)
+dict_EIA <- read.csv("Inputs/Join_TransportEIA_State.csv") %>% rename(State = NAME)
 
 # add Region transport to each county, based on state
 shp <- merge(shp, dict_EIA, by = c("State"), all.x = TRUE)
@@ -126,10 +122,7 @@ intersections$propArea <- intersections$area / intersections$areaCounty
 ggplot(intersections, aes(propArea)) + geom_histogram()
 
 # get repeated elements
-intersections <- intersections %>%
-  group_by(State, NAMELSAD) %>%
-  mutate(n = n()) %>%
-  ungroup()
+intersections <- intersections %>% group_by(State, NAMELSAD) %>% mutate(n = n()) %>% ungroup()
 
 # less than 50% of area but with a unique intersection - keep as they are on border
 intersections %>% filter(n == 1, propArea < 0.5) %>% nrow()
@@ -151,30 +144,20 @@ result <- intersections %>%
   filter(propArea == maxOverlap)
 
 names(result)
-result <- result %>%
-  dplyr::select(State, NAMELSAD, eGrid_Reg, Region_Electricity)
+result <- result %>% dplyr::select(State, NAMELSAD, eGrid_Reg, Region_Electricity)
 
 # join to shp
 shp <- merge(shp, result, by = c("State", "NAMELSAD"), all.x = TRUE)
 nrow(shp)
 
 # check failed joins - Alaska and Hawai are not part of EIA-EMM data
-as.data.frame(shp) %>%
-  filter(is.na(eGrid_Reg)) %>%
-  filter(!State %in% c("Alaska", "Hawaii"))
+as.data.frame(shp) %>% filter(is.na(eGrid_Reg)) %>% filter(!State %in% c("Alaska", "Hawaii"))
 # both in Massachusetts, due to different map resolution, check region
-as.data.frame(shp) %>%
-  filter(State == "Massachusetts") %>%
-  group_by(eGrid_Reg, Region_Electricity) %>%
-  tally()
+as.data.frame(shp) %>% filter(State == "Massachusetts") %>% group_by(eGrid_Reg, Region_Electricity) %>% tally()
 # simply use this region, as both counties are on the coast
 aux <- as.data.frame(shp) %>%
   mutate(
-    eGrid_Reg = if_else(
-      State == "Massachusetts" & is.na(eGrid_Reg),
-      "ISNE",
-      eGrid_Reg
-    ),
+    eGrid_Reg = if_else(State == "Massachusetts" & is.na(eGrid_Reg), "ISNE", eGrid_Reg),
     Region_Electricity = if_else(
       State == "Massachusetts" & is.na(Region_Electricity),
       "Northeast Power Coordinating Council / New England",
@@ -215,10 +198,7 @@ intersections$propArea <- intersections$area / intersections$areaCounty
 ggplot(intersections, aes(propArea)) + geom_histogram()
 
 # get repeated elements
-intersections <- intersections %>%
-  group_by(State, NAMELSAD) %>%
-  mutate(n = n()) %>%
-  ungroup()
+intersections <- intersections %>% group_by(State, NAMELSAD) %>% mutate(n = n()) %>% ungroup()
 
 # less than 50% of area but with a unique intersection - keep
 intersections %>% filter(n == 1, propArea < 0.5) %>% nrow()
@@ -257,26 +237,10 @@ as.data.frame(shp) %>%
 # simply use this region, as both counties are on the coast
 aux <- as.data.frame(shp) %>%
   mutate(
-    fullName = if_else(
-      State == "Massachusetts" & is.na(fullName),
-      "NPCC New England",
-      fullName
-    ),
-    fullName = if_else(
-      State == "Hawaii" & is.na(fullName),
-      "HICC Miscellaneous",
-      fullName
-    ),
-    fullName = if_else(
-      State == "Washington" & is.na(fullName),
-      "WECC Northwest",
-      fullName
-    ),
-    Region = if_else(
-      State == "Massachusetts" & is.na(Region),
-      "US-NPCC",
-      Region
-    ),
+    fullName = if_else(State == "Massachusetts" & is.na(fullName), "NPCC New England", fullName),
+    fullName = if_else(State == "Hawaii" & is.na(fullName), "HICC Miscellaneous", fullName),
+    fullName = if_else(State == "Washington" & is.na(fullName), "WECC Northwest", fullName),
+    Region = if_else(State == "Massachusetts" & is.na(Region), "US-NPCC", Region),
     Region = if_else(State == "Hawaii" & is.na(Region), "US-HICC", Region),
     Region = if_else(State == "Washington" & is.na(Region), "US-WECC", Region)
   )

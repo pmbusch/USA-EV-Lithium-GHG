@@ -7,10 +7,7 @@ library(terra)
 
 # Energy Regions -------
 url_file <- "Inputs/Spatial"
-shp_emm <- vect(paste0(
-  url_file,
-  "/EMM_GIS_shapefile/25_EMM_Regions_Final_20200115.shp"
-))
+shp_emm <- vect(paste0(url_file, "/EMM_GIS_shapefile/25_EMM_Regions_Final_20200115.shp"))
 # terra::plot(shp_emm)
 as.data.frame(shp_emm) %>% head()
 unique(shp_emm$eGrid_Reg) # Note that name is misleading
@@ -34,10 +31,7 @@ unique(shp_ecoinvent$fullName)
 
 dict_ecoinvent <- tibble(fullName = unique(shp_ecoinvent$fullName)) %>%
   mutate(
-    Region = paste0(
-      "US-",
-      str_extract(fullName, "WECC|NPCC|ASCC|SERC|RFC|HICC|MRO|ERCOT|FRCC|SPP")
-    ) %>%
+    Region = paste0("US-", str_extract(fullName, "WECC|NPCC|ASCC|SERC|RFC|HICC|MRO|ERCOT|FRCC|SPP")) %>%
       str_replace("ERCOT", "TRE") %>% # Texas case
       str_replace("FRCC", "SERC") %>% # Florida does not have ecoinvent - use SERC (old maps)
       str_replace("SPP", "MRO")
@@ -46,12 +40,7 @@ dict_ecoinvent <- tibble(fullName = unique(shp_ecoinvent$fullName)) %>%
 dict_ecoinvent
 
 # add to shp
-shp_ecoinvent <- merge(
-  shp_ecoinvent,
-  dict_ecoinvent,
-  by = c("fullName"),
-  all.x = TRUE
-)
+shp_ecoinvent <- merge(shp_ecoinvent, dict_ecoinvent, by = c("fullName"), all.x = TRUE)
 nrow(shp_ecoinvent) # no duplicates
 
 # remove NA - states and grid for Puerto Rico

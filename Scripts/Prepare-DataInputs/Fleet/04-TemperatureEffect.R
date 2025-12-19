@@ -24,19 +24,7 @@ tempAdj <- read.csv("Inputs/Temperature_Adjustments.csv")
 # Key idea: Use 3 results to estimate delta T1 and delta 2
 # Result is not exact, but close
 library(stats)
-solve_eq <- function(
-  R1,
-  R2,
-  R3,
-  a_low1,
-  a_low2,
-  a_low3,
-  a_high1,
-  a_high2,
-  a_high3,
-  T1_start = 25,
-  T2_start = 12
-) {
+solve_eq <- function(R1, R2, R3, a_low1, a_low2, a_low3, a_high1, a_high2, a_high3, T1_start = 25, T2_start = 12) {
   # get as close as obtained value - Min Sum of Squares
   eq_func <- function(x) {
     (a_low1 * (x[1] - 23.9) + a_high1 * (15.5 - x[2]) - R1)^2 +
@@ -89,20 +77,13 @@ range(tempAdj$T1) # >23.9
 range(tempAdj$T2) # <15.5
 
 # With T1 and T2 estimates we can calculate Temp adjustment for PHEV
-tempAdj <- tempAdj %>%
-  mutate(PHEVs = 1 + alpha[3, 2] * (T1 - 23.9) + alpha[3, 3] * (15.5 - T2))
+tempAdj <- tempAdj %>% mutate(PHEVs = 1 + alpha[3, 2] * (T1 - 23.9) + alpha[3, 3] * (15.5 - T2))
 
 # Load census data to do weighted average
 census <- read.csv("Parameters/census_joins.csv") %>%
   # 0 before code
   mutate(state0 = if_else(str_length(STATEFP) == 1, "0", "")) %>%
-  mutate(
-    county0 = case_when(
-      str_length(COUNTYFP) == 1 ~ "00",
-      str_length(COUNTYFP) == 2 ~ "0",
-      T ~ ""
-    )
-  ) %>%
+  mutate(county0 = case_when(str_length(COUNTYFP) == 1 ~ "00", str_length(COUNTYFP) == 2 ~ "0", T ~ "")) %>%
   mutate(FIPS = as.character(paste0(state0, STATEFP, county0, COUNTYFP)))
 
 # Connecticut is weird, manual join by looking at the map
@@ -153,10 +134,6 @@ df_state <- df %>%
     BEVs = weighted.mean(BEVs, pop)
   )
 
-write.csv(
-  df_state,
-  "Parameters/Operation/TempAdjFactorsState.csv",
-  row.names = F
-)
+write.csv(df_state, "Parameters/Operation/TempAdjFactorsState.csv", row.names = F)
 
 # EoF

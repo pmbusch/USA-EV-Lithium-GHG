@@ -4,13 +4,7 @@
 
 library(tidyverse)
 library(readxl)
-theme_set(
-  theme_bw(8) +
-    theme(
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank()
-    )
-)
+theme_set(theme_bw(8) + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()))
 
 url_file <- "Inputs"
 
@@ -29,11 +23,7 @@ url_file <- "Inputs"
 ecoinvent <- c()
 for (s in sheets) {
   # read entire sheet
-  df <- read_excel(
-    paste0(url_file, "/LCI_ecoinvent311.xlsx"),
-    sheet = s,
-    .name_repair = "unique_quiet"
-  )
+  df <- read_excel(paste0(url_file, "/LCI_ecoinvent311.xlsx"), sheet = s, .name_repair = "unique_quiet")
   # get metadata
   name <- df[2, 3][[1]]
   cat(name, "\n")
@@ -56,33 +46,17 @@ for (s in sheets) {
   inputs$Type <- "Inputs"
   outputs$Type <- "Outputs"
 
-  df_aux <- rbind(inputs, outputs) %>%
-    mutate(Name = name, Region = region, Year = ref_year, sheet = s)
+  df_aux <- rbind(inputs, outputs) %>% mutate(Name = name, Region = region, Year = ref_year, sheet = s)
 
   # Functional UNIT
-  FU <- df_aux %>%
-    filter(Type == "Outputs") %>%
-    slice(1) %>%
-    mutate(FU = paste0(Amount, " ", Units)) %>%
-    pull(FU)
+  FU <- df_aux %>% filter(Type == "Outputs") %>% slice(1) %>% mutate(FU = paste0(Amount, " ", Units)) %>% pull(FU)
 
   df_aux$fu <- FU
 
   # join to master
   ecoinvent <- rbind(ecoinvent, df_aux)
 
-  rm(
-    df,
-    df_aux,
-    inputs,
-    outputs,
-    name,
-    region,
-    ref_year,
-    pos_end,
-    pos_inputs,
-    pos_outputs
-  )
+  rm(df, df_aux, inputs, outputs, name, region, ref_year, pos_end, pos_inputs, pos_outputs)
 }
 nrow(ecoinvent) / 1e6 #0.03M
 unique(ecoinvent$fu)
@@ -99,15 +73,7 @@ names(df)
 # refill NA as 0
 df <- df %>%
   mutate(across(
-    c(
-      "kgCO2eq",
-      "MJ",
-      "kgSO2eq",
-      "kgCFC11eq",
-      "kgPM2.5eq",
-      "kgO3eq",
-      "MJ_nonRenewable"
-    ),
+    c("kgCO2eq", "MJ", "kgSO2eq", "kgCFC11eq", "kgPM2.5eq", "kgO3eq", "MJ_nonRenewable"),
     ~ replace_na(., 0)
   ))
 
@@ -142,10 +108,7 @@ energy <- df %>%
   )
 # biomass is in MJ (avoid as it is renewable)
 energy %>% group_by(prim_energy, Quantities, Units) %>% tally()
-energy %>%
-  group_by(prim_energy) %>%
-  reframe(MJ = sum(MJ), kg = sum(kg)) %>%
-  arrange(desc(MJ))
+energy %>% group_by(prim_energy) %>% reframe(MJ = sum(MJ), kg = sum(kg)) %>% arrange(desc(MJ))
 energy <- energy %>%
   group_by(sheet, Name, Region, fu, prim_energy) %>%
   reframe(MJ = sum(MJ), kg = sum(kg)) %>%
@@ -198,10 +161,7 @@ mat <- ecoinvent %>%
   mutate(Amount = as.numeric(Amount))
 unique(mat$Units)
 
-mat <- mat %>%
-  group_by(sheet, Name, Region, fu, Material) %>%
-  reframe(kgMat = sum(Amount)) %>%
-  ungroup()
+mat <- mat %>% group_by(sheet, Name, Region, fu, Material) %>% reframe(kgMat = sum(Amount)) %>% ungroup()
 
 unique(mat$Material)
 mat %>%
@@ -211,15 +171,7 @@ mat %>%
   arrange(desc(kgMat))
 
 # save endpoints: total mass, total metal mass, and key minerals
-mat_interest <- c(
-  "Lithium",
-  "Nickel",
-  "Cobalt",
-  "Copper",
-  "Zinc",
-  "REE",
-  "Aluminium"
-)
+mat_interest <- c("Lithium", "Nickel", "Cobalt", "Copper", "Zinc", "REE", "Aluminium")
 metals <- read_excel("Inputs/Elements_Metals.xlsx")
 
 # top ones based on content
@@ -248,15 +200,10 @@ mat_agg2 <- mat %>%
 
 mat_agg <- left_join(mat_agg1, mat_agg2)
 
-write.csv(
-  mat_agg,
-  "Parameters/Manufacturing/ecoinvent_upstream_material.csv",
-  row.names = F
-)
+write.csv(mat_agg, "Parameters/Manufacturing/ecoinvent_upstream_material.csv", row.names = F)
 
 
-mat <- mat %>%
-  mutate(mat_label = if_else(kgMat > 0.5, Material, ""))
+mat <- mat %>% mutate(mat_label = if_else(kgMat > 0.5, Material, ""))
 
 mat %>%
   filter(str_detect(fu, "kg")) %>%
