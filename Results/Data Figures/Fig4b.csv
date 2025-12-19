@@ -1,0 +1,6 @@
+"vehicle_type","Stage","value","labX"
+"EV","Driving",3286577470740.53,"CO2eq-EV"
+"EV","LIB production",3028170009792.42,"CO2eq-EV"
+"EV","Vehicle production",3375680676176.54,"CO2eq-EV"
+"ICEV","Driving",21201292989013,"CO2eq-ICEV"
+"ICEV","Vehicle production",3691634879940.26,"CO2eq-ICEV"
