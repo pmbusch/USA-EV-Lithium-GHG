@@ -1,0 +1,3 @@
+# The energy, material and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
+
+Data used to support the findings of this study were retrieved from the following resources available in the public domain: [GREET](https://greet.anl.gov/publications), [EIA Annual Energy Outlook 2025](https://www.eia.gov/outlooks/aeo/tables_ref.php), [NREL Cambium](https://www.nrel.gov/analysis/cambium) and [TEDB](https://tedb.ornl.gov/). Other data used to support the findings of this study are subject to third-party restrictions: ICCT roadmap, EV Volumes and ecoinvent 3.11. 

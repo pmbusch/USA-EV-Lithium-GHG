@@ -1,0 +1,14 @@
+scenario,scenarioDescription
+aeo2023ref,AEO2023 Reference case
+alttrnp,Alternative Transportation
+highZTC,High Zero-Carbon Technology Cost
+highogs,High Oil and Gas Supply
+highprice,High Oil Price
+hm2025,High Economic Growth
+lm2025,Low Economic Growth
+lowZTC,Low Zero-Carbon Technology Cost
+lowogs,Low Oil and Gas Supply
+lowprice,Low Oil Price
+nocaa111,Alternative Electricity
+ref2025,Reference case
+Cambium,Cambium NREL
