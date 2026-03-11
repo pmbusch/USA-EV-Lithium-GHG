@@ -105,7 +105,7 @@ p_li <- df |>
     col = "",
     fill = expression("tons " ~ CO[2] * e ~ " avoided per kg Lithium"),
     tag = "(b)",
-    title = "Handprint of Lithium"
+    title = "Carbon Handprint of Lithium"
   ) +
   scale_y_discrete(sec.axis = dup_axis(name = "Lithium Recycling rate")) +
   theme_minimal(base_size = 9) +
@@ -185,7 +185,7 @@ p_lib <- ggplot(data_fig2, aes(Scenario_Capacity, Scenario_Grid, fill = metric))
     col = "",
     fill = expression("tons " ~ CO[2] * e ~ " avoided per kWh of Lithium-ion battery produced"),
     tag = "(a)",
-    title = "Handprint of Lithium-ion Batteries"
+    title = "Carbon Handprint of Lithium-ion Batteries"
   ) +
   theme_minimal(base_size = 9) +
   theme(

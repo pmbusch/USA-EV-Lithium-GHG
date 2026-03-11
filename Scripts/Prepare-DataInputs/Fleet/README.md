@@ -1,4 +1,4 @@
-# The energy, material and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
+# Life cycle performance and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
 
 Estimate vehicle fleet, battery requirements and battery flows for recycling using survival curves and vehicle sales forecast. Then it estimates total energy (kWh or gasoline gallons) use from the vehicle fleet and average consumption.
 

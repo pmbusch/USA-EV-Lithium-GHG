@@ -1,4 +1,4 @@
-# The energy, material and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
+# Life cycle performance and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
 
 
 Scripts usually load raw data to stored it in a processed format in the folder 'Inputs'. The processed data inputs are latter used for the Life Cycle Assessment Model.

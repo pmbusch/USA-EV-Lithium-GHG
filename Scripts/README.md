@@ -1,4 +1,4 @@
-# The energy, material and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
+# Life cycle performance and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
 
 Folders:
 

@@ -159,6 +159,7 @@ mat <- ecoinvent %>%
   filter(str_detect(Flows, "Non renewable elements")) %>%
   mutate(Material = str_remove(Flows, " \\[Non renewable elements\\]")) %>%
   mutate(Amount = as.numeric(Amount))
+unique(mat$Material)
 unique(mat$Units)
 
 mat <- mat %>% group_by(sheet, Name, Region, fu, Material) %>% reframe(kgMat = sum(Amount)) %>% ungroup()

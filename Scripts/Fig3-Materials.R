@@ -88,7 +88,7 @@ unique(total_df$Stage)
 data_fig_a <- total_df %>%
   filter(Scenario_Recycling == "Recycling 0%") |>
   filter(Category %in% c("Material consumption", "Energy material")) %>%
-  mutate(Impact_Name = if_else(Category == "Energy material", "Energy", Impact_Name)) %>%
+  mutate(Impact_Name = if_else(Category == "Energy material", "Fossil\nFuels", Impact_Name)) %>%
   group_by(vehicle_type, Impact_Name, Stage) %>%
   reframe(value = sum(value) / 1e9) %>%
   ungroup() # million tons
@@ -98,7 +98,7 @@ data_fig_a <- data_fig_a %>%
   pivot_wider(names_from = Impact_Name, values_from = value) %>%
   mutate(`Non-Metal` = `Other Materials` - Metal) %>%
   mutate(`Other Materials` = NULL) %>%
-  pivot_longer(c(Metal, `Non-Metal`, Energy), names_to = "Impact_Name", values_to = "value") %>%
+  pivot_longer(c(Metal, `Non-Metal`, `Fossil\nFuels`), names_to = "Impact_Name", values_to = "value") %>%
   mutate(Abbr = Impact_Name) %>%
   mutate(vehicle_type = factor(vehicle_type)) %>%
   mutate(abb_lab = if_else(abs(value) > 10, Abbr, ""))
@@ -182,12 +182,12 @@ mat_colors <- c(
   "Zinc" = "#215F61",
   "Gold" = "#001959",
   "Calcium" = "#5D7843",
-  "Iron" = "#AA8C2C",
+  "Iron" = "#F56455FF",
   "Phosphorus" = "#FCBBCA",
   "Sulphur" = "#F9CCF9",
   "Non-Metal" = "#4E79A7CC",
   "Metal" = "#E15759CC",
-  "Energy" = "#BA8E23",
+  "Fossil\nFuels" = "#BA8E23",
   "Coal" = "#8c564b",
   "Oil" = "#9467bd",
   "Natural gas" = "#CD7F32",
@@ -202,12 +202,12 @@ comb_lvl2 <- expand.grid(stage_lvl, mat_levels) %>% mutate(x = paste0(Var1, Var2
 data_fig <- rbind(
   mutate(data_fig_a, key = "Material"),
   mutate(data_fig_b, key = "Metal"),
-  mutate(data_fig_c, key = "Critical minerals"),
-  mutate(data_fig_d, key = "Fossil energy"),
+  mutate(data_fig_c, key = "Critical Minerals"),
+  mutate(data_fig_d, key = "Fossil Fuels"),
   mutate(data_fig_e, key = "80% Recycling")
 ) %>%
   mutate(lvl = factor(paste0(Stage, Impact_Name), levels = comb_lvl2)) %>%
-  mutate(key = factor(key, levels = c("Material", "Metal", "Critical minerals", "Fossil energy", "80% Recycling"))) %>%
+  mutate(key = factor(key, levels = c("Material", "Metal", "Critical Minerals", "Fossil Fuels", "80% Recycling"))) %>%
   mutate(Impact_Name = factor(Impact_Name, levels = rev(mat_levels))) %>%
   mutate(Stage = factor(Stage, levels = rev(stage_lvl))) %>%
   arrange(lvl)
@@ -221,17 +221,17 @@ total_fig <- data_fig %>%
   mutate(abb_lab = if_else(value / sum(value) > 0.03, Abbr, "")) %>%
   ungroup() %>%
   mutate(abb_lab2 = if_else(value / sum(value) < 0.01, Abbr, "")) %>%
-  mutate(col_text = if_else(Abbr %in% c("Al", "Ba"), "special", "normal")) %>%
+  mutate(col_text = if_else(Abbr %in% c("Al", "Ba", "Zn", "Fossil\nFuels"), "special", "normal")) %>%
   mutate(Impact_Name = factor(Impact_Name, levels = (mat_levels)))
 
 
 stage_text <- data_fig |>
   filter(
-    (key == "Material" & vehicle_type == "EV" & abb_lab == "Energy")
+    (key == "Material" & vehicle_type == "EV" & abb_lab == "Fossil\nFuels")
     # (key == "Metal" & vehicle_type == "EV" & abb_lab == "Fe") |
     # (key == "Fossil energy" & vehicle_type == "EV" & abb_lab == "Oil")
   ) %>%
-  # mutate(col_text = if_else(Stage == "LIB production", "special", "normal")) |>
+  mutate(col_text = if_else(Stage == "LIB production", "special", "normal")) |>
   arrange(Stage)
 
 # Save Figure Data
@@ -251,7 +251,7 @@ f.makePlot <- function(filter_cond, special = F) {
       geom_text(data = stage_text_plot,position = position_stack(vjust = 0.5),
         size = 7 * 5 / 14 * 0.8,
         angle=c(90,90,90),
-        aes(x = as.numeric(vehicle_type) - 0.2, label = Stage)) +
+        aes(x = as.numeric(vehicle_type) - 0.2, label = Stage,col=col_text)) +
       scale_fill_manual(values = stage_colors, labels = c("Vehicle\nproduction", "LIB\nproduction", "Driving")) +
       guides(fill = guide_legend(reverse = TRUE, ncol = 1), color = "none") +
       ggnewscale::new_scale_fill() # trick to avoid a Stage fill legend
@@ -310,14 +310,14 @@ p2 <- f.makePlot(key == "Metal") +
   labs(fill = NULL) +
   guides(fill = guide_legend(reverse = F, ncol = 1)) +
   theme(legend.position = c(0.78, 0.8))
-p3 <- f.makePlot(key == "Critical minerals") +
-  ggtitle("Critical minerals") +
+p3 <- f.makePlot(key == "Critical Minerals") +
+  ggtitle("Critical Minerals") +
   coord_cartesian(ylim = c(0, 260)) +
   scale_fill_manual(values = c(stage_colors, mat_colors), breaks = names(mat_colors)[1:13], name = NULL) +
   guides(fill = guide_legend(reverse = F, ncol = 1)) +
   theme(legend.position = c(0.73, 0.78))
-p4 <- f.makePlot(key == "Fossil energy") +
-  ggtitle("Fossil energy") +
+p4 <- f.makePlot(key == "Fossil Fuels") +
+  ggtitle("Fossil Fuels") +
   scale_fill_manual(values = c(stage_colors, mat_colors), breaks = names(mat_colors)[22:26], name = NULL) +
   guides(fill = guide_legend(reverse = F, ncol = 1)) +
   theme(legend.position = c(0.25, 0.85))
