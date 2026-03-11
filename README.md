@@ -1,6 +1,6 @@
-# The energy, material and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
+# Life cycle performance and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
 
-Replication materials for Busch *et al.* (*submitted*). 
+Replication materials for Busch *et al.* [*Under Review*](https://www.researchsquare.com/article/rs-8436282/v1). 
 
 A comparative life cycle assessment (LCA) of the United States (US) projected light duty electric vehicle (EV) fleet (2025-2050) and a counter-factual scenario of an internal combustion engine vehicle (ICEV) fleet to determine environmental benefits enabled by LIBs and lithium. Metrics include are primary energy consumption, material extraction and greenhouse gas (GHG) emissions.
 
