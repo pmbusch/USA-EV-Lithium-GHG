@@ -1,4 +1,4 @@
-# Life cycle performance and carbon handprint of lithium-ion batteries in electric vehicles - A US fleet model
+# Life cycle performance and carbon handprint of lithium-ion batteries in electric vehicles
 
 Replication materials for Busch *et al.* [*Under Review*](https://www.researchsquare.com/article/rs-8436282/v1). 
 
