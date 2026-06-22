@@ -231,7 +231,11 @@ stage_text <- data_fig |>
     # (key == "Metal" & vehicle_type == "EV" & abb_lab == "Fe") |
     # (key == "Fossil energy" & vehicle_type == "EV" & abb_lab == "Oil")
   ) %>%
-  mutate(col_text = if_else(Stage == "LIB production", "special", "normal")) |>
+  arrange(Stage) |>
+  mutate(
+    y_pos = cumsum(value) - value / 2, # midpoint of each segment,
+    col_text = if_else(Stage == "Vehicle production", "special", "normal")
+  ) |>
   arrange(Stage)
 
 # Save Figure Data
@@ -248,10 +252,10 @@ f.makePlot <- function(filter_cond, special = F) {
       geom_col(data = data_fig_plot,aes(fill = Stage, group = lvl),
         position = position_stack(),col = "black",
         linewidth = 0.1,width = 0.3,alpha = .7) +
-      geom_text(data = stage_text_plot,position = position_stack(vjust = 0.5),
+      geom_text(data = stage_text_plot,
         size = 7 * 5 / 14 * 0.8,
         angle=c(90,90,90),
-        aes(x = as.numeric(vehicle_type) - 0.2, label = Stage,col=col_text)) +
+        aes(x = as.numeric(vehicle_type) - 0.2,y=y_pos, label = Stage,col=col_text)) +
       scale_fill_manual(values = stage_colors, labels = c("Vehicle\nproduction", "LIB\nproduction", "Driving")) +
       guides(fill = guide_legend(reverse = TRUE, ncol = 1), color = "none") +
       ggnewscale::new_scale_fill() # trick to avoid a Stage fill legend
